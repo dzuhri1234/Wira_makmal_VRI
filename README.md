@@ -69,10 +69,11 @@ Guna hanya lagu yang anda ada hak untuk kongsi.
 ## Rehat, kerja lapangan & misi
 
 - **☕ Rehat:** setiap kali hari bertukar (Selasa hingga Jumaat), pemain dihantar ke pantri dan pintu makmal dikunci.
-  Rakan dalam talian nampak "sedang rehat di pantri". Tempoh asal 5 minit masa sebenar.
-  Nak ubah? Dalam `public/index.html`, cari `const BREAK_SEC=300` dan tukar nilai saat (contoh `120` = 2 minit).
+  Rakan dalam talian nampak "sedang rehat di pantri". Tempoh asal 2 minit masa sebenar.
+  Nak ubah? Dalam `public/index.html`, cari `const BREAK_SEC=120` dan tukar nilai saat (contoh `60` = 1 minit).
 - **🚐 Kerja lapangan:** setiap Rabu, Ketua Seksyen beri tugasan ke ladang. Van tak boleh pulang selagi objektif belum siap.
-- **🗣️ Suara pengumuman:** guna suara Bahasa Melayu/Indonesia dalam telefon. Boleh dimatikan di menu ⏸.
+- **🗣️ Suara pengumuman:** guna suara Bahasa Melayu/Indonesia dalam telefon. Kalau cuma dengar loceng, tekan ⏸ › 🔈 Uji suara
+  (ia tunjuk langkah pasang suara). Pelayar dalam WhatsApp/Telegram/Facebook biasanya tiada suara, jadi buka link dalam Chrome atau Safari.
 - **🎯 Misi, 📚 album & lencana:** disimpan dalam pelayar setiap pemain, sama seperti duit gaji.
 
 ## Chat & voice

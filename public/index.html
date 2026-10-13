@@ -481,7 +481,7 @@ table.res{border-collapse:collapse;width:100%;font-size:14px}
 #vcTap{bottom:calc(150px + var(--sb));background:var(--ink);color:#fff}
 @media (max-height:430px){.hud-side{grid-auto-flow:column;grid-template-rows:repeat(2,auto)}.pop:not(.mid){right:calc(118px + var(--sr))}}
 #bResumeWk{flex-direction:column;gap:3px;flex:2 1 220px}
-@media (max-height:430px){#sPause .card{grid-template-columns:1fr 1fr;width:min(560px,100%)}#sPause h2,#sPause .note,#bResume{grid-column:1/-1}}
+@media (max-height:430px){#sPause .card{grid-template-columns:1fr 1fr;width:min(560px,100%)}#sPause h2,#sPause .note,#bResume,#voiceNote{grid-column:1/-1}}
 #bResumeWk small{font:600 12px/1.2 var(--mono);letter-spacing:.02em;opacity:.9}
 /* shop */
 #sShop{background:linear-gradient(90deg,transparent 0,transparent 38%,rgba(12,38,44,.26))}
@@ -751,6 +751,8 @@ table.res{border-collapse:collapse;width:100%;font-size:14px}
     <button class="btn ghost" id="bSound"></button>
     <button class="btn ghost" id="bShadow"></button>
     <button class="btn ghost" id="bVoice"></button>
+    <button class="btn ghost" id="bVoiceTest">🔈 Uji suara pengumuman</button>
+    <p class="note" id="voiceNote" hidden></p>
     <button class="btn ghost" id="bAlbum2">📚 Album &amp; lencana</button>
     <button class="btn ghost" id="bRadio2">📻 Radio</button>
     <button class="btn ghost" id="bBook2">📖 Buku rujukan</button>
@@ -2120,9 +2122,15 @@ MINI.tunjuksebab=(j,st,done)=>openMG({job:j,title:'Surat tunjuk sebab',kicker:'K
 }});
 
 /* ============ voice announcements: PA chime + Malay speech, radio ducked while speaking ============ */
-const VOX={q:[],busy:false,v:null,last:{},tm:null,lastWarn:0,ok:typeof window.speechSynthesis!=='undefined'&&typeof window.SpeechSynthesisUtterance!=='undefined'};
-function voxVoice(){if(!VOX.ok)return null;let vs=[];try{vs=speechSynthesis.getVoices()||[];}catch(e){}const f=p=>vs.find(v=>String(v.lang||'').toLowerCase().replace('_','-').startsWith(p));return f('ms')||f('id')||null;}
+const VOX={q:[],busy:false,v:null,last:{},tm:null,lastWarn:0,started:false,fails:0,warned:false,ok:typeof window.speechSynthesis!=='undefined'&&typeof window.SpeechSynthesisUtterance!=='undefined'};
+function voxVoice(){if(!VOX.ok)return null;let vs=[];try{vs=speechSynthesis.getVoices()||[];}catch(e){}
+  const L=v=>String(v.lang||'').toLowerCase().replace('_','-'),N=v=>String(v.name||'').toLowerCase();
+  const ms=vs.filter(v=>L(v).startsWith('ms')||/malay|melayu/.test(N(v))),id=vs.filter(v=>L(v).startsWith('id')||/indonesia/.test(N(v)));
+  const best=a=>a.find(v=>v.localService)||a[0];return best(ms)||best(id)||null;}
 if(VOX.ok){try{VOX.v=voxVoice();speechSynthesis.addEventListener('voiceschanged',()=>{VOX.v=voxVoice();});}catch(e){}}
+/* iPhone/iPad only allow speech after a spoken utterance inside a tap, so every tap quietly "unlocks" speech until one announcement has really played */
+function voxUnlock(){if(!VOX.ok||VOX.started||VOX.busy)return;try{if(speechSynthesis.speaking||speechSynthesis.pending)return;const u=new SpeechSynthesisUtterance(' ');u.volume=0;u.rate=2;speechSynthesis.resume();speechSynthesis.speak(u);if(!VOX.v)VOX.v=voxVoice();}catch(e){}}
+for(const ev of ['click','touchend','keydown'])document.addEventListener(ev,voxUnlock,true);
 const spk=t=>String(t).replace(/<[^>]+>/g,'').replace(/RT-PCR|qPCR/g,'PCR').replace(/&/g,' dan ').replace(/[⚡★]/g,'').replace(/\s+/g,' ').trim();
 function chime(){tone(659,.6,'sine',.085);tone(523,.95,'sine',.085,.45);}
 function duck(on){try{const base=clamp(Math.pow(R.vol/100,1.3),0,1);if(PL.el)PL.el.volume=on?base*.18:base;if(R.bus&&AC&&R.on&&!STNS[R.st].pl)R.bus.gain.setTargetAtTime(on?rLevel()*.18:rLevel(),AC.currentTime,.12);}catch(e){}}
@@ -2131,19 +2139,34 @@ function announce(text,o={}){
   if(VOX.last[k]&&now-VOX.last[k]<(o.gap||20000))return;
   if(o.warn){if(now-VOX.lastWarn<9000)return;VOX.lastWarn=now;}
   VOX.last[k]=now;VOX.q.push(spk(text));if(VOX.q.length>3)VOX.q.splice(0,VOX.q.length-3);voxNext();}
+function voxFail(){VOX.fails++;if(VOX.warned||VOX.started)return;VOX.warned=true;setTimeout(()=>toast(VOX.ok?'🔇 Suara pengumuman tak keluar. Tekan ⏸ › 🔈 Uji suara':'🔇 Pelayar ini tiada suara pengumuman. Buka link dalam Chrome atau Safari','bad'),400);}
+/* speak one line; calls done(true) when it finished speaking, done(false) when nothing came out */
+function voxSay(text,done,gesture){
+  if(!VOX.ok){done(false);return;}let started=false,ended=false;const end=ok=>{if(ended)return;ended=true;done(ok);};
+  try{const u=new SpeechSynthesisUtterance(text);const v=VOX.v||(VOX.v=voxVoice());if(v){u.voice=v;u.lang=v.lang;}else u.lang='ms-MY';u.rate=1;u.volume=1;
+    u.onstart=()=>{started=true;VOX.started=true;VOX.fails=0;};u.onend=()=>end(started||!gesture);u.onerror=e=>{const er=e&&e.error;end(er==='interrupted'||er==='canceled'?started:false);};
+    speechSynthesis.resume();
+    if(!gesture&&(speechSynthesis.speaking||speechSynthesis.pending)){speechSynthesis.cancel();setTimeout(()=>{try{speechSynthesis.speak(u);}catch(e){end(false);}},180);}
+    else{if(speechSynthesis.speaking)speechSynthesis.cancel();speechSynthesis.speak(u);}
+    setTimeout(()=>{if(!started)end(false);},4000);}catch(e){end(false);}}
 function voxNext(){if(VOX.busy||!VOX.q.length)return;const text=VOX.q.shift();VOX.busy=true;audio();duck(true);chime();$('#bPause').classList.add('pa');
   const fin=()=>{if(!VOX.busy)return;VOX.busy=false;clearTimeout(VOX.tm);duck(false);$('#bPause').classList.remove('pa');setTimeout(voxNext,400);};
-  VOX.tm=setTimeout(fin,2800+text.length*90);
-  setTimeout(()=>{if(!VOX.busy)return;if(!VOX.ok){clearTimeout(VOX.tm);VOX.tm=setTimeout(fin,600);return;}
-    try{const u=new SpeechSynthesisUtterance(text);const v=VOX.v||voxVoice();if(v){u.voice=v;u.lang=v.lang;}else u.lang='ms-MY';u.rate=1.02;u.onend=fin;u.onerror=fin;speechSynthesis.cancel();speechSynthesis.speak(u);}catch(e){fin();}},1100);}
+  VOX.tm=setTimeout(fin,4500+text.length*90);
+  setTimeout(()=>{if(!VOX.busy)return;voxSay(text,ok=>{if(!ok)voxFail();fin();});},1100);}
 function voxStop(){VOX.q.length=0;try{if(VOX.ok)speechSynthesis.cancel();}catch(e){}if(VOX.busy){VOX.busy=false;clearTimeout(VOX.tm);duck(false);$('#bPause').classList.remove('pa');}}
+function voxTest(){const el=$('#voiceNote');audio();chime();
+  if(!VOX.ok){el.innerHTML='✖ Pelayar ini tiada fungsi suara (biasanya bila game dibuka dari dalam WhatsApp, Telegram atau Facebook). Salin link dan buka dalam <b>Chrome</b> (Android) atau <b>Safari</b> (iPhone).';el.hidden=false;return;}
+  const v=VOX.v||(VOX.v=voxVoice());el.hidden=false;el.textContent='🔈 Sedang menguji…';
+  voxSay('Ujian suara pengumuman. Selamat bertugas di VRI.',ok=>{
+    el.innerHTML=ok?`✔ Suara keluar${v?` · ${esc(v.name)} (${esc(v.lang)})`:' · suara lalai telefon'}.${v?'':' Pasang suara Bahasa Melayu supaya sebutan lebih jelas (langkah di bawah).'}`+(v?'':VOXHELP):'✖ Tiada bunyi.'+VOXHELP;},true);}
+const VOXHELP='<br><b>Android:</b> Tetapan › Kebolehcapaian › Output teks ke pertuturan › Enjin Google › Pasang data suara › Bahasa Melayu (atau Indonesia). Guna Chrome, bukan pelayar dalam WhatsApp/Facebook.<br><b>iPhone:</b> Tetapan › Kebolehcapaian › Kandungan Dituturkan › Suara › Melayu. Pastikan kelantangan media dikuatkan.';
 
 /* ============ fade transition ============ */
 function fadeTo(fn,msg){const f=$('#fade');$('#fadeT').textContent=msg||'';f.classList.add('on');setTimeout(()=>{try{fn();}catch(e){console.error(e);}setTimeout(()=>f.classList.remove('on'),420);},520);}
 function setArea(a){G.area=a;if(FARMG)FARMG.visible=a==='farm';if(sun){const ox=a==='farm'?55:0;sun.position.set(8+ox,20,10);sun.target.position.set(ox,0,0);sun.target.updateMatrixWorld();}cam.pos=null;cam.look=null;}
 
 /* ============ day change: 15-minute (story time) break at the pantry ============ */
-const BREAK_SEC=300; // tempoh rehat dalam saat masa sebenar (5 minit). Dalam cerita: rehat 15 minit.
+const BREAK_SEC=120; // tempoh rehat dalam saat masa sebenar (2 minit). Dalam cerita: rehat 15 minit.
 function dayStart(di){newMissions(di);if(di>=1)G.brkPend=di;else morning(di);}
 function morning(di){toast(`🌅 Selamat pagi, hari ${DAYS[di].toLowerCase()}`,'gold');spawnJob();if(di===2&&!G.tripDone)assignTrip();}
 function startBreak(){
@@ -3017,7 +3040,7 @@ function coach(stage){G.tut=stage;const el=$('#coach');if(stage<0||stage>3){el.h
   $('#coachT').textContent=T[stage];el.hidden=false;}
 $('#coachX').onclick=()=>{SAVE.tutDone=true;persist();coach(-1);};
 let quitArm=false;
-function pause(){if(G.mode!=='play'||G.paused)return;G.paused=true;saveWeek();setAct(null);quitArm=false;$('#bQuit').textContent='🗑️ Batal minggu ini';syncSettings();show('sPause');}
+function pause(){if(G.mode!=='play'||G.paused)return;G.paused=true;$('#voiceNote').hidden=true;saveWeek();setAct(null);quitArm=false;$('#bQuit').textContent='🗑️ Batal minggu ini';syncSettings();show('sPause');}
 function resume(){G.paused=false;show(null);updateProximity(true);if(G.pop.length&&!MG.open){const f=G.pop.shift();f();}}
 $('#bPause').onclick=()=>{audio();if(MG.open)return;pause();};
 $('#bResume').onclick=resume;
@@ -3025,6 +3048,7 @@ $('#bQuit').onclick=()=>{if(!quitArm){quitArm=true;$('#bQuit').textContent='Teka
 $('#bSaveQuit').onclick=()=>{saveWeek();toMenu();toast('💾 Minggu disimpan. Tekan Sambung minggu bila nak main semula.','good');};
 function syncSettings(){$('#bVoice').textContent=(SAVE.settings.voice?'🗣️ Suara pengumuman: hidup':'🤐 Suara pengumuman: senyap')+(VOX.ok?'':' (tiada sokongan)');$('#bSound').textContent=SAVE.settings.sound?'🔊 Bunyi: hidup':'🔇 Bunyi: senyap';$('#bShadow').textContent=SAVE.settings.shadows?'🌗 Bayang: hidup':'⚪ Bayang: tutup (lebih laju)';}
 $('#bSound').onclick=()=>{SAVE.settings.sound=!SAVE.settings.sound;persist();syncSettings();audio();SFX.tap();};
+$('#bVoiceTest').onclick=()=>{SFX.tap();voxTest();};
 $('#bVoice').onclick=()=>{SAVE.settings.voice=!SAVE.settings.voice;persist();syncSettings();SFX.tap();if(!SAVE.settings.voice)voxStop();else{const m=G.mode;G.mode='play';announce('Suara pengumuman dihidupkan.',{key:'vtest',gap:1500});G.mode=m;}};
 $('#bShadow').onclick=()=>{SAVE.settings.shadows=!SAVE.settings.shadows;persist();syncSettings();if(renderer){renderer.shadowMap.enabled=SAVE.settings.shadows;sun.castShadow=SAVE.settings.shadows;scene.traverse(o=>{if(o.material){(Array.isArray(o.material)?o.material:[o.material]).forEach(m=>m.needsUpdate=true);}});}};
 function toMenu(){if(MG.open)closeMG();voxStop();G.brk=null;G.brkPend=null;setLabLock(false);if(G.area==='farm'){setArea('lab');P.x=-4.5;P.z=.4;}$('#brkNote').hidden=true;G.shop=false;G.mode='menu';G.paused=false;G.tray=[];G.queue=[];G.focus=null;$('#hud').hidden=true;setAct(null,true);refreshMarkers();updateCoolers();if(renderer)placeSpill(false);cam.pos=null;renderCareer();show('sMenu');}
