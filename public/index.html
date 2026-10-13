@@ -542,6 +542,95 @@ table.res{border-collapse:collapse;width:100%;font-size:14px}
   .fld{grid-template-columns:1fr;gap:6px}
   .titr,.pip,.pcvwrap{gap:10px}
 }
+/* break, pantry, field trip, progression */
+#brkNote{position:absolute;left:50%;transform:translateX(-50%);bottom:calc(152px + var(--sb));width:min(460px,calc(100% - 32px));background:#5a3a1e;color:#fff;border-radius:14px;padding:9px 12px;display:grid;gap:2px;font-size:13px;line-height:1.3;box-shadow:0 8px 24px rgba(0,0,0,.25);pointer-events:none}
+#brkNote b{font:400 16px var(--display);letter-spacing:.02em}
+#fade{position:fixed;inset:0;z-index:64;background:#0e2a31;opacity:0;pointer-events:none;transition:opacity .45s;display:grid;place-items:center}
+#fade.on{opacity:1;pointer-events:auto}
+#fade b{color:#fff;font:400 26px var(--display);letter-spacing:.02em;text-align:center;padding:0 20px}
+#bPause.pa{box-shadow:0 0 0 4px rgba(229,180,42,.55),0 2px 10px rgba(10,40,45,.18)}
+#bMiss.on{background:#e3f4ea}
+.job.lap{background:#f0f8e8}
+.tag-l{display:inline-block;font:600 9px/1 var(--mono);letter-spacing:.06em;background:#5b8f2a;color:#fff;border-radius:5px;padding:3px 5px;vertical-align:2px}
+.tarik{display:flex;gap:22px;justify-content:center;align-items:flex-end;padding:6px 0}
+.tk-bar{position:relative;width:26px;height:170px;border-radius:13px;background:var(--wash);box-shadow:inset 0 0 0 1.5px var(--line)}
+.tk-zone{position:absolute;left:0;right:0;bottom:78%;height:18%;background:rgba(229,180,42,.6);border-radius:6px}
+.tk-mark{position:absolute;left:-6px;right:-6px;height:6px;border-radius:3px;background:var(--ink);bottom:0}
+.tk-cup{position:relative;width:96px;height:130px;border-radius:6px 6px 24px 24px;background:rgba(255,255,255,.8);box-shadow:inset 0 0 0 3px #b9c4c8;overflow:hidden}
+.tk-liq{position:absolute;left:0;right:0;bottom:0;height:0;background:#c98b4e;transition:height .4s}
+.tk-foam{position:absolute;left:0;right:0;bottom:0;height:0;background:#f6ead7;transition:all .4s}
+.vein{display:grid;gap:10px;justify-items:center;padding:4px 0}
+.vn-an{font-size:64px;line-height:1}
+.vn-an.jig{animation:jig .4s}
+@keyframes jig{25%{transform:translateX(-8px) rotate(-6deg)}75%{transform:translateX(8px) rotate(6deg)}}
+.vn-bar{position:relative;width:min(320px,100%);height:26px;border-radius:13px;background:linear-gradient(90deg,#f1c9a5,#e8b48c);box-shadow:inset 0 0 0 1.5px var(--line)}
+.vn-zone{position:absolute;top:3px;bottom:3px;border-radius:10px;background:rgba(43,138,87,.55)}
+.vn-mark{position:absolute;top:-6px;bottom:-6px;width:4px;margin-left:-2px;background:var(--ink);border-radius:2px}
+.pen svg{display:block;width:100%;max-height:44vh;border-radius:14px;touch-action:none;cursor:pointer}
+.cool{display:flex;gap:18px;align-items:center;justify-content:center}
+.thermo{position:relative;width:30px;height:190px;border-radius:15px;background:#fff;box-shadow:inset 0 0 0 2px var(--line)}
+.th-zone{position:absolute;left:3px;right:3px;border-radius:6px;background:rgba(43,138,87,.22);box-shadow:inset 0 0 0 2px #2b8a57;z-index:1}
+.th-liq{position:absolute;left:8px;right:8px;bottom:6px;border-radius:7px;background:#d64045;transition:height .4s;height:0}
+.alq{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:10px}
+.alq h5{margin:0 0 4px;font:600 11px var(--mono);letter-spacing:.08em;color:var(--ink2)}
+.alq .col{display:grid;gap:6px;align-content:start}
+.vgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.vb{border:1.5px solid var(--line);background:#fff;border-radius:12px;padding:7px;font:600 12px/1.2 var(--mono);text-align:left;display:flex;gap:6px;align-items:center;min-width:0;overflow-wrap:anywhere}
+.vb small{font:500 11px var(--body);color:var(--ink2)}
+.vb i{width:12px;height:24px;border-radius:4px 4px 6px 6px;background:var(--c,#e9eef0);box-shadow:inset 0 0 0 1.5px rgba(0,0,0,.15);flex:none}
+.vb[aria-pressed="true"]{border-color:var(--ink);background:#eaf0ef}
+.vb.done{border-color:var(--ok);background:#e3f4ea}
+.vb.miss,.cbox button.miss,.pick.miss{animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.cbox{display:grid;grid-template-columns:22px repeat(6,minmax(0,1fr));gap:4px;align-items:center;max-width:360px;margin:0 auto;width:100%}
+.cbox b{font:600 12px var(--mono);text-align:center;color:var(--ink2)}
+.cbox button{height:38px;border-radius:50%;border:1.5px solid var(--line);background:#fff}
+.cbox button.occ{background:#c9d3d6;border-color:#b2bec2}
+.cbox button.on{background:var(--accent);border-color:var(--accent)}
+.pack{display:flex;gap:4px;min-height:40px;align-items:center;justify-content:center;padding:6px;border-radius:12px;background:var(--wash);font-size:26px}
+.pack span{animation:pop .25s ease-out}
+.shelf{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:6px}
+.rg{display:grid;gap:3px;text-align:left;padding:9px 10px;border-radius:12px;border:1.5px solid var(--line);background:#fff;font-size:13px}
+.rg .mono{font-size:12px;color:var(--ink2)}
+.rg[aria-pressed="true"]{border-color:var(--ink);background:#eaf0ef}
+.rg.exp{box-shadow:0 0 0 3px var(--bad)}
+.rg.extra{opacity:.6}
+.scope.plate{box-shadow:0 0 0 6px #cfd8db,0 0 0 9px #9aa7ab}
+.seg2.row{grid-template-columns:repeat(4,minmax(0,1fr))}
+.seg2.row button{text-align:center;padding:7px 4px}
+.seg2.row small{display:block;font-size:11px;font-weight:600}
+.slider{display:grid;gap:4px}
+.slider input{width:100%;accent-color:var(--accent);height:30px}
+.gelwrap{display:grid;justify-items:center}
+.gel{width:min(330px,100%);height:auto;display:block}
+.chipsel.kit .chip{font:700 13px var(--body);border-radius:12px;text-align:left}
+.tg,.dx{cursor:pointer}
+.tg.hit>circle:first-child{stroke:var(--ok);stroke-width:3}
+.tg.missed>circle:first-child{stroke:var(--bad);stroke-width:3}
+.dx.miss>circle:first-child{stroke:var(--bad);stroke-width:3}
+.lvl{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:10px;align-items:center;padding:8px 10px;border-radius:12px;background:var(--wash)}
+.lvl b{font:400 18px var(--display);white-space:nowrap}
+.lvl .mono{font-size:12px;color:var(--ink2);white-space:nowrap}
+.lvl .meter,.mlist .meter{background:#fff}
+.mlist{list-style:none;margin:0;padding:0;display:grid;gap:6px;max-height:min(300px,46vh);overflow:auto}
+.mlist li{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:8px;align-items:center;padding:8px 10px;border-radius:12px;background:var(--wash);font-size:13px}
+.mlist li b{font-size:13px;display:block;margin-bottom:4px}
+.mlist li.done{background:#e3f4ea}
+.mlist .meter{height:6px}
+.album .aset{display:grid;gap:8px;padding:12px;border-radius:14px;border:1.5px solid var(--line);background:#fff}
+.aset header{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(88px,1fr));gap:6px}
+.cardk{display:grid;justify-items:center;align-content:start;gap:3px;padding:8px 4px;border-radius:12px;background:#eef1f0;text-align:center;font-size:12px;line-height:1.2;color:var(--ink2)}
+.cardk i{font-style:normal;font-size:26px;line-height:1.1;filter:grayscale(1);opacity:.45}
+.cardk.on{background:#fff6dc;color:var(--ink);box-shadow:inset 0 0 0 1.5px #e4c56d}
+.cardk.on i{filter:none;opacity:1}
+.cards.bd{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}
+.cards.bd .cardk{grid-template-columns:auto minmax(0,1fr);justify-items:start;text-align:left;align-items:center;gap:8px;padding:9px}
+.cards.bd small{color:var(--ink2)}
+.csw{display:inline-block;width:14px;height:14px;border-radius:4px;background:var(--c);vertical-align:-2px;box-shadow:inset 0 0 0 1.5px rgba(0,0,0,.15)}
+.csw.trim{box-shadow:inset 0 0 0 3px var(--gold)}
+.verdict.prog{background:#eef6ff;color:var(--ink)}
+@media (max-height:430px){#brkNote{bottom:calc(12px + var(--sb));width:min(380px,calc(100% - 330px));min-width:220px}}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
 }
@@ -558,13 +647,15 @@ table.res{border-collapse:collapse;width:100%;font-size:14px}
     <button class="pill ibtn" id="bQueue" aria-label="Sampel masuk"><span>📥</span><b id="hQueue">0</b></button>
     <button class="pill ibtn" id="bPause" aria-label="Rehat dan menu">⏸</button>
   </div>
-  <div class="hud-side"><button class="pill ibtn" id="bRadio" aria-label="Radio">📻</button><button class="pill ibtn" id="bSocial" aria-label="Rakan dalam talian" hidden>👥<small id="hOnline">1</small></button><button class="pill ibtn" id="bChat" aria-label="Chat" hidden>💬<small class="badge" id="hChat" hidden>0</small></button><button class="pill ibtn" id="bMic" aria-label="Mikrofon" aria-pressed="false" hidden>🎙️</button></div>
+  <div class="hud-side"><button class="pill ibtn" id="bMiss" aria-label="Misi harian">🎯<small id="hMiss"></small></button><button class="pill ibtn" id="bRadio" aria-label="Radio">📻</button><button class="pill ibtn" id="bSocial" aria-label="Rakan dalam talian" hidden>👥<small id="hOnline">1</small></button><button class="pill ibtn" id="bChat" aria-label="Chat" hidden>💬<small class="badge" id="hChat" hidden>0</small></button><button class="pill ibtn" id="bMic" aria-label="Mikrofon" aria-pressed="false" hidden>🎙️</button></div>
   <div id="tray"></div>
   <div id="joy" aria-label="Joystick"><div id="knob"></div></div>
   <div class="zoom"><button id="zIn" aria-label="Zum masuk">＋</button><button id="zOut" aria-label="Zum keluar">－</button></div>
   <button id="act" hidden></button>
   <div id="coach" hidden><span id="coachT"></span><button id="coachX">Langkau tutorial</button></div>
+  <div id="brkNote" hidden></div>
 </div>
+<div id="fade"><b id="fadeT"></b></div>
 <div id="toasts" aria-live="polite"></div>
 
 <div id="radioPop" class="pop" role="dialog" aria-label="Radio makmal" hidden>
@@ -587,6 +678,12 @@ table.res{border-collapse:collapse;width:100%;font-size:14px}
   <form class="chin" id="chForm" autocomplete="off"><input id="chIn" maxlength="140" placeholder="Tulis mesej…" enterkeyhint="send" aria-label="Mesej chat"><button class="btn sm" type="submit">Hantar</button></form>
   <p class="note">Mesej dilihat semua pemain dalam talian. Jaga adab ya 🙂</p>
 </div>
+<div id="missPop" class="pop" role="dialog" aria-label="Misi harian" hidden>
+  <div class="pop-h"><b>🎯 Misi hari ini</b><button class="pop-x" id="miX" aria-label="Tutup">✕</button></div>
+  <div id="miLvl"></div>
+  <ul class="mlist" id="miList"></ul>
+  <button class="btn sm ghost" id="miAlbum">📚 Album &amp; lencana</button>
+</div>
 <button id="micLive" hidden>🔴 Mikrofon hidup · tekan untuk tutup</button>
 <button id="vcTap" hidden>🔊 Ketik untuk dengar suara rakan</button>
 
@@ -605,7 +702,7 @@ table.res{border-collapse:collapse;width:100%;font-size:14px}
     <p class="tag">Seminggu di VRI. Terima sampel ikut garis panduan penghantaran, uji di sembilan seksyen, siapkan dalam TAT, jawab aduan SISPAA, dan jaga integriti supaya rekod tatatertib kekal bersih.</p>
     <div class="career" id="career"></div>
     <div class="menu-btns"><button class="btn big" id="bResumeWk" hidden></button><button class="btn big" id="bPlay" disabled>▶ Mula minggu</button><button class="btn ghost" id="bBook1">📖 Buku rujukan</button></div>
-    <div class="menu-btns sub"><button class="btn ghost" id="bShop1">🛍️ Kedai &amp; avatar</button><button class="btn ghost" id="bRadio1">📻 Radio</button><button class="btn ghost" id="bLb1" hidden>🏆 Papan markah</button></div>
+    <div class="menu-btns sub"><button class="btn ghost" id="bShop1">🛍️ Kedai &amp; avatar</button><button class="btn ghost" id="bRadio1">📻 Radio</button><button class="btn ghost" id="bAlbum1">📚 Album</button><button class="btn ghost" id="bLb1" hidden>🏆 Papan markah</button></div>
     <div class="online" id="mOnline" hidden></div>
     <div class="barcode" aria-hidden="true"></div>
     <div class="foot"><span id="loadNote">Memuatkan VRI 3D…</span><span>Garis panduan isu 3 · 27.01.2026</span></div>
@@ -653,6 +750,8 @@ table.res{border-collapse:collapse;width:100%;font-size:14px}
     <button class="btn big" id="bResume">▶ Sambung</button>
     <button class="btn ghost" id="bSound"></button>
     <button class="btn ghost" id="bShadow"></button>
+    <button class="btn ghost" id="bVoice"></button>
+    <button class="btn ghost" id="bAlbum2">📚 Album &amp; lencana</button>
     <button class="btn ghost" id="bRadio2">📻 Radio</button>
     <button class="btn ghost" id="bBook2">📖 Buku rujukan</button>
     <button class="btn ghost" id="bSaveQuit">💾 Simpan &amp; keluar</button>
@@ -689,7 +788,7 @@ table.res{border-collapse:collapse;width:100%;font-size:14px}
     </tbody></table></div></section>
     <section><h4>Carta hemolisis (serum)</h4><div class="haemo" id="bookHaemo" style="padding:0"></div><p class="note">100 mg/dL dan ke atas: kualiti sampel tidak membenarkan ujian.</p></section>
     <section><h4>Jadual A · emparan segera (VETTEST 8008)</h4><p>Wajib diemparkan segera: AST, glukosa, LDH, ammonia, fosfat, bilirubin, protein jumlah. Hemolisis sedikit pun boleh meningkatkan AST, CK dan LDH dengan ketara. Glukosa dalam tiub heparin boleh turun sehingga 10% sejam pada 20°C.</p></section>
-    <section><h4>Formula</h4><div class="formula">EPG (McMaster, dua ruang) = bilangan telur × 50<br>ELISA: S/P = (OD sampel − OD KN) ÷ (OD KP − OD KN)<br>%PK = %N × 6.25 · %BK = W₁ ÷ W₀ × 100<br>Parasitemia (%) = sel dijangkiti ÷ jumlah sel × 100</div></section>
+    <section><h4>Formula</h4><div class="formula">EPG (McMaster, dua ruang) = bilangan telur × 50<br>ELISA: S/P = (OD sampel − OD KN) ÷ (OD KP − OD KN)<br>%PK = %N × 6.25 · %BK = W₁ ÷ W₀ × 100<br>Parasitemia (%) = sel dijangkiti ÷ jumlah sel × 100<br>WBC hemositometer (4 petak besar, 1:20) = N × 50 sel/µL<br>TPC (CFU/ml) = koloni × faktor pencairan<br>Berat serbuk media (g) = g/L × ml ÷ 1000</div></section>
     <section><h4>SISPAA</h4><p>Sistem Pengurusan Aduan Awam. Dalam permainan, aduan masuk apabila TAT dilanggar, sampel baik ditolak, sampel luput dalam simpanan makmal atau maklumat salah diberi. Jawab di Meja Aduan SISPAA sebelum tarikh akhir: akui aduan, terangkan punca dengan jujur, nyatakan tindakan pembetulan.</p></section>
     <section><h4>Tindakan tatatertib (permainan)</h4><p>Salah laku mencetuskan surat tunjuk sebab. Pada akhir minggu, Lembaga Tatatertib memutuskan hukuman ikut tahap kesalahan:</p><div class="ladder"><span>Amaran</span><span>Denda RM200</span><span>Lucut hak emolumen (½ gaji pokok)</span><span>Tangguh pergerakan gaji</span><span>Turun gaji 15%</span><span>Turun pangkat</span><span>Buang kerja</span></div><p class="note">Sepanjang tempoh hukuman, anda tidak layak Anugerah Perkhidmatan Cemerlang, kenaikan gaji tahunan dan kenaikan pangkat.</p></section>
     <section><h4>Gaji (permainan)</h4><p>Gaji dibayar setiap hujung minggu: gaji pokok (Pembantu Makmal RM520, PPS RM720 seminggu), elaun prestasi 20 sen bagi setiap mata, dan bonus RM1,000 bagi setiap APC. Empat minggu berturut-turut tanpa hukuman memberi kenaikan gaji tahunan 3%. Belanjakan simpanan di Kedai untuk baju, aksesori dan naik taraf makmal.</p><p class="note">Angka gaji ialah rekaan untuk permainan, bukan jadual gaji sebenar.</p></section>
@@ -708,6 +807,15 @@ table.res{border-collapse:collapse;width:100%;font-size:14px}
     <div class="rank"><div id="rRank"></div><div class="meter"><i id="rMeter"></i></div></div>
     <div class="row2"><button class="btn" id="bAgain">Minggu seterusnya</button><button class="btn ghost" id="bShop2">🛍️ Belanja gaji</button><button class="btn ghost" id="bCopy">📋 Salin keputusan</button><button class="btn ghost" id="bMenu">☰ Menu</button></div>
     <textarea id="copyBox" readonly hidden></textarea>
+  </div>
+</section>
+
+<section id="sAlbum" class="screen" hidden>
+  <div class="card album">
+    <div class="card-h"><button class="btn ghost sm" id="bAlbumX">← Kembali</button><h2>Album &amp; Lencana</h2></div>
+    <div id="alLvl"></div>
+    <div class="tabs" id="alTabs"><button data-t="album" aria-pressed="true">🃏 Album kad</button><button data-t="badge" aria-pressed="false">🏅 Lencana</button></div>
+    <div id="alBody" style="display:grid;gap:10px"></div>
   </div>
 </section>
 
@@ -748,8 +856,9 @@ const fmtAge=gm=>{const h=gm/60;if(h>=24){const d=Math.floor(h/24),r=Math.floor(
 
 /* ============ save ============ */
 const SKEY='wiraMakmalVRI.v1';
-function defSave(){return {v:1,profile:{name:'',gender:'p',skin:1,glasses:false,role:'pm',dur:10,diff:'biasa'},stats:{weeks:0,stars:0,samples:0,best:{pm:0,pps:0},apcProg:0,apc:0,integ:0,incr:0,clean:0},tt:{level:-1,weeks:0},settings:{sound:true,shadows:true,vcls:true},tutDone:false,wallet:0,earned:0,owned:['kot_putih','hc_asal'],equip:{coat:'kot_putih',hc:'hc_asal',acc:[]},radio:{st:0,st2:0,tr:0,vol:60}};}
-function loadSave(){try{const s=JSON.parse(localStorage.getItem(SKEY)||'null');if(s&&s.v===1){const d=defSave();const r=Object.assign(d,s,{profile:Object.assign(d.profile,s.profile),stats:Object.assign(d.stats,s.stats),tt:Object.assign(d.tt,s.tt),settings:Object.assign(d.settings,s.settings),equip:Object.assign(d.equip,s.equip),radio:Object.assign(d.radio,s.radio)});
+function defSave(){return {v:1,profile:{name:'',gender:'p',skin:1,glasses:false,role:'pm',dur:10,diff:'biasa'},stats:{weeks:0,stars:0,samples:0,best:{pm:0,pps:0},apcProg:0,apc:0,integ:0,incr:0,clean:0},tt:{level:-1,weeks:0},settings:{sound:true,shadows:true,vcls:true,voice:true},tutDone:false,prog:{xp:0,cards:{},badges:{},sets:{},c:{}},wallet:0,earned:0,owned:['kot_putih','hc_asal'],equip:{coat:'kot_putih',hc:'hc_asal',acc:[]},radio:{st:0,st2:0,tr:0,vol:60}};}
+function loadSave(){try{const s=JSON.parse(localStorage.getItem(SKEY)||'null');if(s&&s.v===1){const d=defSave();const r=Object.assign(d,s,{profile:Object.assign(d.profile,s.profile),stats:Object.assign(d.stats,s.stats),tt:Object.assign(d.tt,s.tt),settings:Object.assign(d.settings,s.settings),equip:Object.assign(d.equip,s.equip),radio:Object.assign(d.radio,s.radio),prog:Object.assign(d.prog,s.prog)});
+  ['cards','badges','sets','c'].forEach(k=>{if(!r.prog[k]||typeof r.prog[k]!=='object'||Array.isArray(r.prog[k]))r.prog[k]={};});r.prog.xp=Math.max(0,Math.round(+r.prog.xp||0));
   if(!Array.isArray(r.owned))r.owned=defSave().owned;['kot_putih','hc_asal'].forEach(k=>{if(!r.owned.includes(k))r.owned.push(k);});if(!Array.isArray(r.equip.acc))r.equip.acc=[];r.wallet=Math.max(0,Math.round(+r.wallet||0));return r;}}catch(e){}return defSave();}
 function persist(){try{localStorage.setItem(SKEY,JSON.stringify(SAVE));}catch(e){}}
 const SAVE=loadSave();
@@ -800,6 +909,17 @@ const STATIONS={
   autoclave:{name:'Autoklaf',icon:'♨️',pos:[17.25,9.05],use:[15.85,9.05],ly:1.9},
   waste:{name:'Tong Sisa Klinikal',icon:'🗑️',pos:[11.1,10.35],use:[11.1,9.25],ly:1.55},
   spill:{name:'Tumpahan',icon:'⚠️',pos:[0,0],use:[0,0],ly:1.3,dynamic:true},
+  freezer:{name:'Peti Beku -20°C',icon:'🧊',pos:[14.2,10.35],use:[14.2,9.25],ly:2.3},
+  stor:{name:'Stor Reagen',icon:'📦',pos:[-8.1,10.45],use:[-8.1,9.35],ly:2.25},
+  van:{name:'Van Jabatan',icon:'🚐',pos:[-14.5,12.9],use:[-14.6,10.3],ly:2.6},
+  pantri:{name:'Kaunter Pantri',icon:'☕',pos:[24.35,-1.2],use:[23.25,-1.2],ly:1.95},
+  papan:{name:'Papan Kenyataan',icon:'📌',pos:[21.2,-4.3],use:[21.2,-3.25],ly:2.35},
+  van_farm:{name:'Van Jabatan',icon:'🚐',pos:[43.8,7.6],use:[44.0,9.15],ly:2.6,farm:true},
+  coolbox:{name:'Kotak Sejuk',icon:'🧊',pos:[47.6,9.6],use:[47.6,8.5],ly:1.75,farm:true},
+  kandang:{name:'Kandang Lembu & Kambing',icon:'🐄',pos:[51.5,-5.3],use:[51.5,-4.1],ly:2.0,farm:true},
+  reban:{name:'Reban Ayam',icon:'🐔',pos:[63.0,-5.7],use:[63.0,-4.5],ly:2.0,farm:true},
+  kolam:{name:'Kolam & Takungan Air',icon:'💧',pos:[61.3,6.5],use:[60.1,6.5],ly:1.6,farm:true},
+  penternak:{name:'Penternak',icon:'👨‍🌾',pos:[53.0,6.0],use:[53.0,7.2],ly:2.3,farm:true},
 };
 const ROOMS=[[-18,-9,-11,-1,'#d9e6e2','PATOLOGI'],[-9,0,-11,-1,'#dde7da','BAKTERIOLOGI'],[0,9,-11,-1,'#d6e3e8','SEROLOGI & IMUNOASAI'],[9,18,-11,-1,'#e3dfec','VIROLOGI & ZOONOTIK'],[-18,18,-1,2,'#cfd8d6','KORIDOR'],[-18,-9,2,11,'#ebe5d8','PENERIMAAN SAMPEL'],[-9,0,2,11,'#e2cfb0','PEJABAT · LIMS · SISPAA'],[0,9,2,11,'#e8e0e6','PARASITOLOGI & HEMATOLOGI'],[9,18,2,11,'#d8e5df','BIOKIMIA']];
 const REJ={borang:'Borang permohonan salah',id:'Label tidak sepadan dengan borang',bekas:'Bekas / tiub / media pengangkutan salah',kuantiti:'Kuantiti tidak mencukupi',suhu:'Suhu penghantaran salah',lama:'Melebihi tempoh kesahan sampel',hemolisis:'Serum hemolisis (≥ 100 mg/dL)',rosak:'Sampel rosak (autolisis / beku / basi / berkulat)',bungkus:'Pembungkusan rosak / bocor / tidak sesuai',asal:'Di luar kawasan liputan ujian'};
@@ -828,7 +948,10 @@ const CAT={
   prox:{sec:'bio',dis:'Analisis makanan',test:'Analisis proksimat',short:'Proksimat',icon:'🌾',spp:['—'],kind:'feed',need:500,sample:'Pelet / PKC / makanan formulasi dalam beg plastik',min:'500 g (daun segar & rumput 1 kg)',temp:'Suhu bilik',store:'room',valid:'Tiada had masa',vh:Infinity,tat:'14 hari',td:14,form:'MAKVET 04',st:'proximate',pw:1.2,mw:1,pps:[]},
   water:{sec:'bio',dis:'Kualiti air',test:'Ammonia, nitrat, pH dan lain-lain',short:'Kualiti air',icon:'💧',spp:['—'],kind:'water',need:200,sample:'Air minuman haiwan dalam botol plastik bebas parameter',min:'> 200 ml',temp:'4–8°C',store:'chill',valid:'< 2 hari',vh:48,tat:'4 hari',td:4,form:null,st:'vettest',mw:.7},
   milk:{sec:'bio',dis:'Kualiti susu',test:'Pepejal jumlah, lemak, protein',short:'Kualiti susu',icon:'🥛',spp:['Lembu','Kambing','Kerbau'],kind:'milk',need:100,sample:'Susu segar dalam Whirl-Pak® / botol plastik',min:'100 ml',temp:'4–8°C',store:'chill',valid:'< 48 jam',vh:48,tat:'4 hari',td:4,form:null,st:'vettest',mw:.6},
-  tpc:{sec:'bak',dis:'Kesihatan awam veterinar',test:'TPC Petrifilm susu mentah',short:'TPC susu',icon:'🍼',spp:['Lembu','Kambing'],kind:'tpc',need:1,sample:'Susu mentah',min:'1–5 ml',temp:'Segar / 2–8°C',store:'chill',valid:'1–2 jam',vh:2,tat:'3–8 hari',td:8,form:'MAKVET 10',st:'bac',mw:.5},
+  tpc:{sec:'bak',dis:'Kesihatan awam veterinar',test:'TPC Petrifilm susu mentah',short:'TPC susu',icon:'🍼',spp:['Lembu','Kambing'],kind:'tpc',need:1,sample:'Susu mentah',min:'1–5 ml',temp:'Segar / 2–8°C',store:'chill',valid:'1–2 jam',vh:2,tat:'3–8 hari',td:8,form:'MAKVET 10',st:'bac',mw:.5,pw:.8,pps:[['sfridge','ambil','Ambil Petrifilm dari inkubator'],['bac','tpc_kira','Kira koloni Petrifilm'],['lims','kira_tpc','Kira CFU/ml & sahkan']]},
+  ast:{sec:'bak',dis:'Kerentanan antimikrob',test:'Kirby-Bauer (resapan cakera)',short:'AST Kirby-Bauer',icon:'💊',spp:['Ayam','Lembu','Babi'],kind:'amies',sample:'Isolat bakteria tulen / swab dalam media pengangkutan Amies',min:'1 isolat atau 1 swab',temp:'2–8°C',store:'chill',valid:'24 jam',vh:24,tat:'3–8 hari',td:8,form:'MAKVET 01',st:'bac',pw:.9,mw:.35,pps:[['sfridge','ambil','Ambil isolat di peti sejuk'],['bac','ast','Kirby-Bauer: ukur zon perencatan'],['lims','lims_ast','Tafsir S/I/R & laporan']]},
+  gel:{sec:'avi',dis:'Mikoplasmosis avian',test:'PCR konvensional & elektroforesis gel',short:'MG PCR gel',icon:'🧬',spp:['Ayam'],kind:'vtm',need:5,sample:'Swab trakea dalam VTM',min:'5–10 swab dalam 5–10 ml VTM',temp:'2–8°C',store:'chill',valid:'48 jam',vh:48,tat:'5 hari',td:5,form:'MAKVET 01',st:'pcr',pw:.9,mw:.35,pps:[['sfridge','ambil','Ambil sampel di peti sejuk'],['pcr','gel','Elektroforesis gel & bacaan jalur'],['lims','lims_rel','Sahkan & keluarkan laporan']]},
+  hemo:{sec:'par',dis:'Kiraan sel darah putih',test:'Hemositometer (kebuk Neubauer)',short:'WBC hemositometer',icon:'🔬',spp:['Lembu','Kambing'],kind:'edta',need:1,sample:'Darah dalam tiub EDTA',min:'> 1 ml',temp:'4–8°C',store:'chill',valid:'24 jam',vh:24,tat:'2 hari',td:2,form:null,st:'microscope',pw:1,mw:.35,pps:[['sfridge','ambil','Ambil sampel di peti sejuk'],['microscope','hemo','Kira sel dalam petak besar'],['lims','kira_hemo','Kira sel/µL & sahkan']]},
 };
 const PANELS={hati:{name:'Fungsi hati',tests:['AST','GGT'],vh:3,vt:'AST < 3 jam'},glukosa:{name:'Glukosa darah',tests:['Glukosa'],vh:4,vt:'Glukosa < 4 jam'},ginjal:{name:'Fungsi buah pinggang',tests:['Urea','Kreatinin'],vh:72,vt:'Urea < 3 hari'},protein:{name:'Protein serum',tests:['TP','Albumin'],vh:144,vt:'TP < 6 hari'}};
 const ALL_TESTS=['AST','ALT','GGT','Urea','Kreatinin','Glukosa','TP','Albumin'];
@@ -864,6 +987,12 @@ const SHOP={
     {id:'kot_ungu',n:'Kot ungu',p:150,c:'#8a6cc4',d:'Warna kegemaran seksyen virologi.'},
     {id:'kot_hitam',n:'Kot hitam',p:220,c:'#2b3236',d:'Untuk saintis misteri.'},
     {id:'kot_emas',n:'Kot sulam emas',p:400,c:'#fbfcfb',trim:'#e5b42a',d:'Kot putih bersulam emas. Gah!'},
+    {id:'kot_wira',n:'Kot Wira VRI',p:0,c:'#0d6d7a',trim:'#e5b42a',lock:{lvl:5},d:'Eksklusif: capai tahap 5.'},
+    {id:'kot_lapor',n:'Kot Wira Lapor',p:0,c:'#c43c3c',trim:'#fbfcfb',lock:{set:'lapor'},d:'Eksklusif: lengkapkan set album Penyakit wajib lapor.'},
+    {id:'kot_mikrob',n:'Kot Mikrob',p:0,c:'#d97aa0',trim:'#fbfcfb',lock:{set:'mikrob'},d:'Eksklusif: lengkapkan set album Mikrob & parasit.'},
+    {id:'kot_ruminan',n:'Kot Ruminan',p:0,c:'#8a5a2b',trim:'#e5b42a',lock:{set:'ruminan'},d:'Eksklusif: lengkapkan set album Diagnostik ruminan.'},
+    {id:'kot_makanan',n:'Kot Ladang',p:0,c:'#5b8f2a',trim:'#e5b42a',lock:{set:'makanan'},d:'Eksklusif: lengkapkan set album Makanan, air & susu.'},
+    {id:'kot_operasi',n:'Kot Operasi',p:0,c:'#4ea3c4',trim:'#fbfcfb',lock:{set:'operasi'},d:'Eksklusif: lengkapkan set album Operasi makmal.'},
   ]},
   aks:{n:'🥽 Aksesori',hint:'Boleh pakai beberapa aksesori serentak.',items:[
     {id:'goggle',n:'Goggle keselamatan',p:50,e:'🥽',d:'Pelindung mata di dahi.'},
@@ -910,13 +1039,13 @@ const ROLE={pm:{name:'Pembantu Makmal',short:'P. MAKMAL'},pps:{name:'Penolong Pe
 const SKINS=['#f1c9a5','#d39a6f','#93613f'];
 const DIFF={santai:{spawn:1.3,pts:.9,label:'Santai'},biasa:{spawn:1,pts:1,label:'Biasa'},sibuk:{spawn:.8,pts:1.25,label:'Sibuk'}};
 const TIPS={
-  pm:['Serum untuk HS dan Nipah mesti dalam tiub biasa tanpa gel. Tiub SST emas ditolak.','Sampel TB BOVIGAM mesti suhu bilik 22–25°C dan sampai dalam 7 jam. Jangan letak ais.','Bandingkan warna serum dengan carta hemolisis VRI. 100 mg/dL ke atas: tolak.','Najis beku ditolak. Najis untuk McMaster perlu lebih 3 g, 4–8°C, dalam 2 hari.','Sampel berkesahan pendek (⚡) seperti glukosa, AST dan TPC susu perlu disemak dulu.','Rabies guna borang MAKVET 05 (A). Proksimat guna MAKVET 04.'],
-  pps:['qPCR: semak kawalan dulu. NTC beramplifikasi bermaksud kontaminasi; ulang larian.','Penyakit wajib lapor yang positif mesti dimaklumkan kepada DIC dengan segera.','Bangkai disyaki antraks jangan dibedah. Ambil calitan darah dan maklum DIC.','RBPT positif ialah saringan. Cadangkan ujian pengesahan CFT.','Sampel ⚡ (glukosa < 4 jam, AST < 3 jam) perlu dianalisis sebelum kesahan tamat.','EPG McMaster = bilangan telur × 50.'],
+  pm:['Serum untuk HS dan Nipah mesti dalam tiub biasa tanpa gel. Tiub SST emas ditolak.','Sampel TB BOVIGAM mesti suhu bilik 22–25°C dan sampai dalam 7 jam. Jangan letak ais.','Bandingkan warna serum dengan carta hemolisis VRI. 100 mg/dL ke atas: tolak.','Najis beku ditolak. Najis untuk McMaster perlu lebih 3 g, 4–8°C, dalam 2 hari.','Sampel berkesahan pendek (⚡) seperti glukosa, AST dan TPC susu perlu disemak dulu.','Waktu rehat di pantri: bancuh teh tarik untuk bonus tenaga sepanjang hari.','Pembungkusan UN3373: bekas primer, bahan penyerap, bekas sekunder, borang, bungkusan luar.','Rabies guna borang MAKVET 05 (A). Proksimat guna MAKVET 04.'],
+  pps:['qPCR: semak kawalan dulu. NTC beramplifikasi bermaksud kontaminasi; ulang larian.','Penyakit wajib lapor yang positif mesti dimaklumkan kepada DIC dengan segera.','Bangkai disyaki antraks jangan dibedah. Ambil calitan darah dan maklum DIC.','RBPT positif ialah saringan. Cadangkan ujian pengesahan CFT.','Sampel ⚡ (glukosa < 4 jam, AST < 3 jam) perlu dianalisis sebelum kesahan tamat.','EPG McMaster = bilangan telur × 50.','Kirby-Bauer: ukur diameter zon jernih dalam mm, kemudian bandingkan dengan nilai sempadan.','Hemositometer: kira sel yang menyentuh garisan atas dan kiri sahaja.','Rabu: kerja lapangan di ladang. Bawa kotak sejuk dan kit yang betul.'],
 };
 const SPILLPTS=[[-8,.4],[4,.5],[12,.6],[-13,-3],[-3,-5],[6,-4],[14,-4],[3,7],[-3,6],[13,7],[-12,8.5]];
 
 /* ============ state ============ */
-const G={mode:'menu',role:'pm',week:1,gameMin:0,dur:10,diff:'biasa',rate:1,score:0,queue:[],tray:[],focus:null,stats:{},spawnT:0,spawnInt:26,events:[],paused:false,endPending:false,pop:[],th:[0,0,0],spillOn:false,tut:-1,tt:0,offences:[],lastDay:0,shop:false,shopFocus:null};
+const G={mode:'menu',role:'pm',week:1,gameMin:0,dur:10,diff:'biasa',rate:1,score:0,queue:[],tray:[],focus:null,stats:{},spawnT:0,spawnInt:26,events:[],paused:false,endPending:false,pop:[],th:[0,0,0],spillOn:false,tut:-1,tt:0,offences:[],lastDay:0,shop:false,shopFocus:null,area:'lab',brk:null,brkPend:null,energy:-1};
 let JOBSEQ=0;const yr=String(new Date().getFullYear()).slice(2);
 const sampleId=()=>`VRI/${yr}/${pad(rint(1,99))}${pad(rint(0,99))}`;
 const curStep=j=>j.steps[j.stepIdx];
@@ -929,7 +1058,7 @@ const formTxt=C=>C.form?[C.form,...(C.alt||[])].join(' / '):'—';
 /* ---- specimen generation (reception) ---- */
 function genSpec(j,C){
   let pool=FAULTS[C.kind].slice();if(C.form)pool.push('borang');if(!isFinite(j.validM))pool=pool.filter(x=>x!=='lama');if(!C.perak)pool=pool.filter(x=>x!=='asal');
-  const f=Math.random()<.42?[pick(pool)]:[];const has=k=>f.includes(k);
+  const f=j.forceF?j.forceF.filter(x=>pool.includes(x)):(Math.random()<.42?[pick(pool)]:[]);const has=k=>f.includes(k);
   const s={kind:C.kind,label:has('id')?mutateId(j.sid):j.sid,form:C.form?(has('borang')?wrongForm(C):pick([C.form,...(C.alt||[])])):'Borang permohonan',chips:[],haemo:-1};
   const chill=()=>`${rint(4,7)}°C (dalam ais)`,warm=()=>`${rint(26,31)}°C (tiada ais)`;
   s.leak=has('bungkus');
@@ -957,13 +1086,17 @@ function genSpec(j,C){
 function genBio(j){const P=PANELS[pick(Object.keys(PANELS))];const sp=j.spp;j.data.panel=P;j.data.panelName=P.name;j.data.tests=P.tests.slice();j.data.species=sp;j.validM=P.vh*60;j.data.validTxt=P.vt;j.data.qc=genQC();j.data.results=P.tests.map(t=>Object.assign({t},genValue(RANGES[sp.toLowerCase()][t])));j.sub=`${sp} · ${P.name}`;}
 function genValue(r){const[lo,hi,unit,dp]=r;const x=Math.random();let v,st;if(x<.5){v=rnd(lo+(hi-lo)*.12,hi-(hi-lo)*.12);st='n';}else if(x<.82){v=hi*rnd(1.18,1.9);st='h';}else{v=lo*rnd(.45,.82);st='l';}return {v:fx(v,dp),st,lo,hi,unit};}
 function genQC(){const pts=[];for(let i=0;i<9;i++)pts.push(clamp(gauss()*.8,-1.7,1.7));const r=Math.random();if(r<.25){pts.push(rnd(3.2,3.6)*(Math.random()<.5?-1:1));return {pts,ok:false,rule:'1-3s'};}if(r<.42){const s=Math.random()<.5?-1:1;pts[8]=s*rnd(2.15,2.7);pts.push(s*rnd(2.15,2.8));return {pts,ok:false,rule:'2-2s'};}pts.push(clamp(gauss()*.9,-1.85,1.85));return {pts,ok:true,rule:''};}
-function baseJob(key,kind){const C=CAT[key];const j={uid:++JOBSEQ,key,kind,title:C.short,icon:C.icon,cap:SECCAP[C.sec],sub:'',steps:[],stepIdx:0,q:[],born:G.gameMin,urgent:false,late:false,data:{},sid:sampleId(),farm:pick(FARMS),sender:pick(SENDERS),spp:pick(C.spp),validM:C.vh*60};return j;}
+function baseJob(key,kind,sp){const C=CAT[key];const j={uid:++JOBSEQ,key,kind,title:C.short,icon:C.icon,cap:SECCAP[C.sec],sub:'',steps:[],stepIdx:0,q:[],born:G.gameMin,urgent:false,late:false,data:{},sid:sampleId(),farm:pick(FARMS),sender:pick(SENDERS),spp:sp&&C.spp.includes(sp)?sp:pick(C.spp),validM:C.vh*60};return j;}
 const SECCAP={pat:'#7b5a8a',bak:'#3a9a68',ser:'#d64045',imu:'#e5b42a',vir:'#8a76cf',avi:'#c9792e',zoo:'#a3343a',par:'#7b5a3c',bio:'#0d6d7a'};
 function weightedPick(list){const tot=list.reduce((a,[k,w])=>a+w,0);let r=Math.random()*tot;for(const [k,w] of list){r-=w;if(r<=0)return k;}return list[0][0];}
-function newPmJob(force){
-  const key=force||weightedPick(Object.entries(CAT).filter(([k,c])=>c.mw).map(([k,c])=>[k,c.mw]));const C=CAT[key];const j=baseJob(key,'sampel');
+/* anti-repetition: recently spawned activity families get a much lower weight */
+function famOf(k){if(k==='kajian')return 'pipet';if(k==='prox')return 'prox';const C=CAT[k];if(!C)return k;if(G.role==='pm')return 'k_'+C.kind;const s=(C.pps||[]).find(x=>x[1]!=='ambil');return s?s[1]:k;}
+function varyPick(list){const rec=G.recent||[];return weightedPick(list.map(([k,w])=>{const f=famOf(k);let pen=1;rec.forEach((r,i)=>{if(r===f)pen*=i>=rec.length-2?.12:.45;});return [k,w*pen];}));}
+function noteRecent(k){if(!G.recent)G.recent=[];G.recent.push(famOf(k));if(G.recent.length>6)G.recent.shift();}
+function newPmJob(force,o){o=o||{};
+  const key=force||varyPick(Object.entries(CAT).filter(([k,c])=>c.mw).map(([k,c])=>[k,c.mw]));const C=CAT[key];const j=baseJob(key,'sampel',o.spp);if(o.farm)j.farm=o.farm;if(o.faults)j.forceF=o.faults;
   if(key==='bio')genBio(j);else j.sub=`${j.spp==='—'?j.farm:j.spp} · ${C.dis}`;
-  const sv=isFinite(j.validM)&&j.validM<=7*60;j.age0=isFinite(j.validM)?Math.min(j.validM*(sv?rnd(.05,.2):rnd(.05,.4)),rnd(60,1800)):rnd(120,2880);
+  const sv=isFinite(j.validM)&&j.validM<=7*60;j.age0=o.fresh?Math.min(rnd(20,90),isFinite(j.validM)?j.validM*.3:90):isFinite(j.validM)?Math.min(j.validM*(sv?rnd(.05,.2):rnd(.05,.4)),rnd(60,1800)):rnd(120,2880);
   genSpec(j,C);
   j.steps=[{st:'reception',mg:'semak',label:'Semak sampel ikut garis panduan'}];
   if(C.spin&&C.kind==='clot')j.steps.push({st:'centrifuge',mg:'emparan',label:'Emparkan untuk asingkan serum'});
@@ -972,11 +1105,11 @@ function newPmJob(force){
   j.shortValid=isFinite(j.validM)&&j.validM<=7*60;
   return j;
 }
-function newPpsJob(force){
-  const list=Object.entries(CAT).filter(([k,c])=>c.pps).map(([k,c])=>[k,c.pw]);list.push(['kajian',.6]);
-  const key=force||weightedPick(list);
+function newPpsJob(force,o){o=o||{};
+  const list=Object.entries(CAT).filter(([k,c])=>c.pps&&c.pw).map(([k,c])=>[k,c.pw]);list.push(['kajian',.6]);
+  const key=force||varyPick(list);
   if(key==='kajian')return internalJob('kajian');
-  const C=CAT[key];const j=baseJob(key,'sampel');j.sub=`${j.spp} · ${j.farm}`;
+  const C=CAT[key];const j=baseJob(key,'sampel',o.spp);j.sub=`${j.spp} · ${j.farm}`;
   j.steps=C.pps.map(s=>({st:s[0],mg:s[1],label:s[2]}));
   if(key==='bio')genBio(j);
   if(key==='prox'){const F=pick(FEEDS);j.data.feed=F.name;j.sub=`${F.name} · ${j.farm}`;if(Math.random()<.5){j.steps=[{st:'reception',mg:'ambil',label:'Ambil sampel di kaunter'},{st:'proximate',mg:'kjeldahl',label:'Kjeldahl: kaedah & titratan'},{st:'lims',mg:'kira_pk',label:'Kira % protein kasar'}];const cp=rnd(...F.cp);j.data.Ve=+(cp/6.25*500/140.07+.15).toFixed(2);j.title='Protein kasar';}else{const an=pick(['BK','Abu','LK']);const nm={BK:'Bahan kering',Abu:'Abu',LK:'Lemak kasar'}[an];const fr=an==='BK'?rnd(...F.dm):an==='Abu'?rnd(...F.ash):rnd(...F.ee);const W0=+rnd(1.98,2.02).toFixed(4);Object.assign(j.data,{an,nm,W0,W1:+(W0*fr).toFixed(4)});j.title=nm;j.steps=[{st:'reception',mg:'ambil',label:'Ambil sampel di kaunter'},{st:'proximate',mg:'kaedah',label:'Pilih kaedah & suhu'},{st:'lims',mg:'kira_prox',label:'Kira peratus'}];}}
@@ -988,7 +1121,10 @@ function newPpsJob(force){
   if(key==='pm'){j.data.case=pick(['antraks','antraks','kurus','hs']);j.spp=j.data.case==='kurus'?pick(['Kambing','Bebiri']):j.data.case==='hs'?pick(['Kerbau','Lembu']):pick(['Lembu','Kerbau']);j.sub=`${j.spp} · ${j.farm}`;}
   if(key==='smear'){j.data.org=pick(['anaplasma','babesia']);}
   if(key==='pcv'){const R=PCVR[j.spp];const x=Math.random();j.data.pcv=x<.45?rint(R[0]+3,R[1]-3):x<.85?rint(Math.max(8,R[0]-12),R[0]-3):rint(R[1]+3,R[1]+10);}
-  if(key==='rbpt'||key==='salmo'||key==='strangles'){}
+  if(key==='ast')j.data.ast=astData(j);
+  if(key==='gel')j.data.gel=gelData();
+  if(key==='hemo')j.data.hemo={c:Math.random()<.4?rint(9,16):rint(21,34)};
+  if(key==='tpc'){j.data.tpc={col:rint(15,42),dil:pick([3,4,5])};j.validM=Infinity;}
   j.anaIdx=j.steps.findIndex(s=>s.mg!=='ambil');
   j.age0=isFinite(j.validM)?Math.min(j.validM*rnd(.05,.25),rnd(60,1200)):rnd(120,2880);
   j.shortValid=isFinite(j.validM)&&j.validM<=7*60;
@@ -1002,6 +1138,10 @@ function internalJob(type){
     autoklaf:{title:'Nyahcemar sisa',icon:'♨️',cap:'#e9b824',sub:'Tiub darah & piring kultur terpakai',steps:[['waste','kutip','Kutip sisa klinikal'],['autoclave','autoklaf','Jalankan kitaran autoklaf']],tat:1,v:'sisa'},
     media:{title:'Sterilkan media',icon:'🧫',cap:'#d97aa0',sub:'Agar darah · 500 mL',steps:[['autoclave','autoklaf','Pilih kitaran media']],tat:1,v:'media'},
     kajian:{title:'Projek penyelidikan',icon:'📒',cap:'#5b8f5a',sub:'Data ulangan triplikat',steps:[['elisa','pipet','Pipet ulangan triplikat'],['lims','purata','Rekod purata dalam log']],tat:1.5},
+    alikuot:{title:'Alikuot & sejuk beku',icon:'🧊',cap:'#5aa9d6',sub:'Serum arkib · 3 sampel',steps:[['centrifuge','alikuot','Alikuot serum ke krioviál'],['freezer','simpan_beku','Simpan dalam peti beku -20°C']],tat:1},
+    bungkus:{title:'Bungkus UN3373',icon:'📦',cap:'#b7791f',sub:'Sampel rujukan ke makmal lain',steps:[['sfridge','ambil','Ambil sampel rujukan'],['reception','bungkus','Bungkus tiga lapis UN3373']],tat:1},
+    agar:{title:'Sediakan media agar',icon:'🧫',cap:'#d0587e',sub:'Timbang · autoklaf · tuang piring',steps:[['proximate','timbang_agar','Timbang serbuk media'],['autoclave','autoklaf','Sterilkan media 121°C'],['bac','tuang','Tuang agar ke piring Petri']],tat:1.2,v:'media'},
+    fifo:{title:'Stok reagen FIFO',icon:'🗃️',cap:'#6b7f3a',sub:'Semak tarikh luput & susun stok',steps:[['stor','fifo','Susun stok ikut FIFO']],tat:1},
   }[type];
   const j={uid:++JOBSEQ,key:type,kind:'dalaman',title:T.title,icon:T.icon,cap:T.cap,sub:T.sub,steps:T.steps.map(s=>({st:s[0],mg:s[1],label:s[2]})),stepIdx:0,q:[],born:G.gameMin,urgent:false,late:false,data:{v:T.v},validM:Infinity,age0:0};
   if(type==='kajian'){const P=pick([['Glukosa kambing diberi suplemen PKC','mmol/L',3.4],['Urea serum lembu tenusu','mmol/L',5.2],['Protein jumlah serum anak lembu','g/L',62]]);const dp=P[2]>20?1:2;const base=P[2]*rnd(.9,1.1);j.data={proj:P[0],unit:P[1],dp,vals:[0,1,2].map(()=>+(base*(1+rnd(-.03,.03))).toFixed(dp))};}
@@ -1011,9 +1151,10 @@ function internalJob(type){
 function spawnJob(){
   if(G.queue.length>=(UP.peti2?11:8)){if(G.role==='pm'){G.stats.left++;toast('😤 Pelanggan pulang: barisan terlalu panjang','bad');SFX.bad();raiseSispaa('left',null);}return;}
   let j;
-  if(G.role==='pm'){const intWait=G.queue.filter(x=>x.kind==='dalaman').length;j=(Math.random()<.16&&intWait<2)?internalJob(pick(['basuh','autoklaf','autoklaf','media'])):newPmJob();}
+  if(G.role==='pm'){const intWait=G.queue.filter(x=>x.kind==='dalaman').length+G.tray.filter(x=>x.kind==='dalaman').length;const rec=G.recent||[];const streak=rec.length>=3&&rec.slice(-3).every(f=>f.startsWith('k_'));
+    j=(intWait<2&&(streak||Math.random()<.3))?internalJob(varyPick([['basuh',1],['autoklaf',1],['media',.35],['alikuot',1.1],['bungkus',1.1],['agar',1],['fifo',1.1]])):newPmJob();}
   else j=newPpsJob();
-  G.queue.push(j);
+  noteRecent(j.key);G.queue.push(j);
   if(G.queue.length===1||j.shortValid||j.urgent)SFX.ding();
   if(j.shortValid&&G.role==='pm')toast(`⚡ Sampel kesahan pendek masuk: ${j.title}`,'gold');
   updateCoolers();hudTick();
@@ -1029,7 +1170,7 @@ function mistake(){G.stats.errors=(G.stats.errors||0)+1;SFX.bad();}
 /* ============ THREE world ============ */
 const canvas=$('#c');
 let renderer=null,scene,camera,sun,hemi,floorMesh,clockTex,clockCtx,lastClockMin=-1;
-const OBS=[],STG={},LABELS={},MATS={};
+const OBS=[],STG={},LABELS={},MATS={},FLOORS=[];
 const P={x:-4.5,z:.4,heading:Math.PI,path:null,walkTarget:null,phase:0,moving:false};
 let playerRig=null,customer=null,boss=null,mate=null,coolers=[],custBubble=null,bossBubble=null,bossBubbleT=0;
 let ring,arrow,otherRings=[],puddle,spillCone;
@@ -1128,11 +1269,11 @@ function bsc(x,z,w,g){box(w,1.25,.8,'#e8ecee',x,1.5,z,g);box(w-.1,.6,.03,'#cde9e
 function buildWorld(){
   scene=new THREE.Scene();scene.background=new THREE.Color('#bcd4ce');camera=new THREE.PerspectiveCamera(40,1,.1,220);
   hemi=new THREE.HemisphereLight('#ffffff','#9db5af',.6);scene.add(hemi);
-  sun=new THREE.DirectionalLight('#fff4e4',.52);sun.position.set(8,20,10);sun.castShadow=SAVE.settings.shadows;sun.shadow.mapSize.set(1024,1024);Object.assign(sun.shadow.camera,{left:-21,right:21,top:14,bottom:-14,near:1,far:60});sun.shadow.bias=-.0006;scene.add(sun);
+  sun=new THREE.DirectionalLight('#fff4e4',.52);sun.position.set(8,20,10);sun.castShadow=SAVE.settings.shadows;sun.shadow.mapSize.set(1024,1024);Object.assign(sun.shadow.camera,{left:-22,right:27,top:15,bottom:-14,near:1,far:60});scene.add(sun.target);sun.shadow.bias=-.0006;scene.add(sun);
   const ground=new THREE.Mesh(new THREE.PlaneGeometry(160,160),new THREE.MeshLambertMaterial({color:'#a9c3bc'}));ground.rotation.x=-Math.PI/2;ground.position.y=-.32;scene.add(ground);
   box(36.6,.3,22.6,'#8fa9a2',0,-.16,0);
-  floorMesh=new THREE.Mesh(new THREE.PlaneGeometry(36,22),new THREE.MeshLambertMaterial({map:floorTexture()}));floorMesh.rotation.x=-Math.PI/2;floorMesh.receiveShadow=true;scene.add(floorMesh);
-  wall(-18,-11,18,-11,2.7);wall(-18,-11,-18,11,1.3);wall(18,-11,18,11,1.3);
+  floorMesh=new THREE.Mesh(new THREE.PlaneGeometry(36,22),new THREE.MeshLambertMaterial({map:floorTexture()}));floorMesh.rotation.x=-Math.PI/2;floorMesh.receiveShadow=true;scene.add(floorMesh);FLOORS.push(floorMesh);
+  wall(-18,-11,18,-11,2.7);wall(-18,-11,-18,11,1.3);wall(18,-11,18,-1,1.3);wall(18,2,18,11,1.3);
   for(const zz of [-1,2])for(const [a,b] of [[-18,-14.7],[-12.3,-5.7],[-3.3,3.3],[5.7,12.3],[14.7,18]])wall(a,zz,b,zz,1.05);
   for(const xx of [-9,0,9]){wall(xx,-11,xx,-1,1.05);wall(xx,2,xx,11,1.05);}
   const BZ=-10.88;
@@ -1164,7 +1305,7 @@ function buildWorld(){
   {const g=stGroup('lims');bench(-8.7,-6.0,2.1,3.0,g,'#d9b98c','#c9a678');cyl(.04,.06,.2,'#3a4448',-7.35,1.0,2.4,g,8);box(.82,.52,.05,'#24343a',-7.35,1.32,2.38,g);box(.74,.44,.01,'#2c7fa0',-7.35,1.32,2.41,g,{emissive:'#2c7fa0',emissiveIntensity:.55});box(.52,.03,.17,'#dfe3e5',-7.35,.91,2.8,g);box(.5,.26,.4,'#e8ecee',-8.3,1.03,2.55,g);
     const g2=stGroup('sispaa');bench(-3.0,-.3,2.1,3.0,g2,'#d9b98c','#c9a678');box(.72,.46,.05,'#24343a',-1.65,1.28,2.4,g2);box(.64,.38,.01,'#c43c3c',-1.65,1.28,2.43,g2,{emissive:'#a3343a',emissiveIntensity:.5});box(.2,.08,.15,'#16313a',-.75,.94,2.6,g2);
     const g3=stGroup('boss');box(2.2,.06,.8,'#b88a5a',-4.5,.75,8.0,g3);box(2.1,.7,.05,'#9d7247',-4.5,.36,8.38,g3);obstacle(-5.6,-3.4,7.6,8.4);box(.42,.28,.03,'#24343a',-4.9,.95,7.8,g3);textPlane(1.0,.36,(x,w,h)=>{x.fillStyle='#fbfcfa';x.fillRect(0,0,w,h);x.fillStyle='#16313a';x.font='bold 30px "Atkinson Hyperlegible", sans-serif';x.fillText('KETUA SEKSYEN / DIC',10,58);},g3,-4.5,.95,8.42);
-    box(.6,1.3,.55,'#9aa9ad',-8.5,.65,10.4);obstacle(-8.8,-8.2,10.1,10.7);plant(-.6,10.3);}
+    const g4=stGroup('stor');box(1.6,1.8,.6,'#9aa9ad',-8.1,.9,10.45,g4);box(1.5,1.7,.02,'#cfe0e4',-8.1,.92,10.14,g4,{transparent:true,opacity:.3});for(let r=0;r<3;r++){box(1.5,.03,.55,'#7d8f94',-8.1,.35+r*.5,10.45,g4);for(let k=0;k<5;k++)box(.22,.2,.3,['#2f6db5','#e5b42a','#d64045','#3a9a68','#f2f4f5','#8a76cf'][(k+r*2)%6],-8.65+k*.27,.47+r*.5,10.4,g4);}obstacle(-8.9,-7.3,10.15,10.75);plant(-.6,10.3);}
   // G PARASITOLOGI & HEMATOLOGI
   {const g=stGroup('microscope');bench(.3,3.1,2.1,3.0,g);box(.26,.05,.32,'#2d3a40',1.7,.925,2.5,g);box(.07,.44,.08,'#e9ecee',1.7,1.16,2.32,g);box(.24,.03,.22,'#2d3a40',1.7,1.08,2.55,g);const tb=cyl(.04,.045,.26,'#e9ecee',1.7,1.38,2.45,g,10);tb.rotation.x=-.45;box(.3,.22,.02,'#24343a',.8,1.05,2.4,g);
     const g2=stGroup('haem');bench(5.9,8.7,2.1,3.0,g2);cyl(.22,.24,.18,'#e9eef0',6.7,.99,2.55,g2,18);box(.55,.4,.45,'#f4f6f7',7.9,1.1,2.55,g2);box(.28,.16,.01,'#1f5f8b',7.9,1.15,2.79,g2,{emissive:'#1d6f9e',emissiveIntensity:.55});}
@@ -1173,13 +1314,15 @@ function buildWorld(){
     const g2=stGroup('proximate');box(2.9,.84,1.1,'#d8dfe2',16.35,.42,2.65,g2);box(2.94,.06,1.14,'#b9c4c8',16.35,.87,2.65,g2);box(2.9,.32,1.1,'#d8dfe2',16.35,2.42,2.65,g2);box(.1,1.3,1.1,'#d8dfe2',14.95,1.55,2.65,g2);box(.1,1.3,1.1,'#d8dfe2',17.75,1.55,2.65,g2);box(2.7,1.3,.05,'#c6d1d4',16.35,1.55,2.12,g2);box(2.7,.75,.03,'#cde9ef',16.35,1.85,3.18,g2,{transparent:true,opacity:.32});box(2.7,.05,.06,'#e5b42a',16.35,1.47,3.18,g2);box(.7,.16,.3,'#9aa3a8',15.7,.98,2.5,g2);for(let i=0;i<5;i++)cyl(.03,.03,.4,'#e8f4f6',15.45+i*.12,1.22,2.5,g2,8);cyl(.04,.13,.22,'#3fae6a',16.6,1.01,2.85,g2,14,{transparent:true,opacity:.85});box(.5,.6,.42,'#f1f3f4',17.2,1.21,2.5,g2);obstacle(14.9,17.8,2.1,3.2);
     const g3=stGroup('sink');box(.8,.9,2.0,'#e3e8ea',17.5,.45,6.0,g3);box(.55,.05,.8,'#9fb2b8',17.45,.905,6.0,g3);cyl(.03,.03,.3,'#b7c2c6',17.75,1.05,6.0,g3,8);for(let i=0;i<3;i++)cyl(.07,.07,.22,'#cfe9f1',17.55,1.03,5.3+i*.2,g3,12,{transparent:true,opacity:.6});obstacle(17.1,17.9,5.0,7.0);
     const g4=stGroup('autoclave');box(1.3,.6,1.6,'#c8d0d3',17.25,.3,9.05,g4);const ac=cyl(.56,.56,1.2,'#c9d3d6',17.25,1.15,9.05,g4,24);ac.rotation.z=Math.PI/2;const dr=cyl(.5,.5,.06,'#aab6ba',16.63,1.15,9.05,g4,24);dr.rotation.z=Math.PI/2;obstacle(16.6,17.9,8.2,9.9);
-    const g5=stGroup('waste');for(const x of [10.7,11.5]){cyl(.28,.24,.75,'#f2c230',x,.375,10.35,g5,16);cyl(.3,.3,.06,'#2f3a3f',x,.78,10.35,g5,16);}box(.25,.3,.2,'#f2c230',12.1,.15,10.5,g5);box(.25,.05,.2,'#d64045',12.1,.32,10.5,g5);obstacle(10.2,12.3,9.9,10.8);}
+    const g5=stGroup('waste');for(const x of [10.7,11.5]){cyl(.28,.24,.75,'#f2c230',x,.375,10.35,g5,16);cyl(.3,.3,.06,'#2f3a3f',x,.78,10.35,g5,16);}box(.25,.3,.2,'#f2c230',12.1,.15,10.5,g5);box(.25,.05,.2,'#d64045',12.1,.32,10.5,g5);obstacle(10.2,12.3,9.9,10.8);
+    const g6=stGroup('freezer');box(1.2,1.8,.85,'#e9eef0',14.2,.9,10.35,g6);box(1.04,.62,.02,'#cfe9f1',14.2,1.35,9.915,g6,{transparent:true,opacity:.5});box(.36,.12,.012,'#16313a',14.2,1.72,9.915,g6);box(.22,.06,.014,'#5ad1ff',14.2,1.72,9.905,g6,{emissive:'#5ad1ff',emissiveIntensity:.8});box(.06,.5,.05,'#9aa7ab',14.72,1.0,9.9,g6);obstacle(13.55,14.85,9.9,10.8);}
+  buildExtras();
   puddle=new THREE.Mesh(new THREE.CircleGeometry(.7,28),new THREE.MeshLambertMaterial({color:'#c77a83',transparent:true,opacity:.85}));puddle.rotation.x=-Math.PI/2;puddle.position.y=.012;puddle.visible=false;scene.add(puddle);
   spillCone=new THREE.Group();cyl(.04,.2,.5,'#f2c230',0,.25,0,spillCone,12);box(.36,.03,.36,'#2f3a3f',0,.015,0,spillCone);spillCone.visible=false;scene.add(spillCone);
   ring=new THREE.Mesh(new THREE.RingGeometry(.42,.6,36),new THREE.MeshBasicMaterial({color:'#0d6d7a',transparent:true,opacity:.85,depthWrite:false}));ring.rotation.x=-Math.PI/2;ring.position.y=.025;ring.visible=false;scene.add(ring);
   arrow=new THREE.Mesh(new THREE.ConeGeometry(.2,.42,14),new THREE.MeshLambertMaterial({color:'#0d6d7a',emissive:'#0d6d7a',emissiveIntensity:.25}));arrow.rotation.x=Math.PI;arrow.visible=false;scene.add(arrow);
   for(let i=0;i<5;i++){const r=new THREE.Mesh(new THREE.RingGeometry(.48,.56,32),new THREE.MeshBasicMaterial({color:'#0d6d7a',transparent:true,opacity:.6,depthWrite:false}));r.rotation.x=-Math.PI/2;r.position.y=.022;r.visible=false;scene.add(r);otherRings.push(r);}
-  for(const id in STATIONS){const s=STATIONS[id];const sp=labelSprite(`${s.icon} ${s.name}`,{h:.4});sp.position.set(s.pos[0],s.ly,s.pos[1]);sp.visible=!s.dynamic;scene.add(sp);LABELS[id]=sp;}
+  for(const id in STATIONS){const s=STATIONS[id];const sp=labelSprite(`${s.icon} ${s.name}`,{h:.4});sp.position.set(s.pos[0],s.ly,s.pos[1]);sp.visible=!s.dynamic&&!s.farm;scene.add(sp);LABELS[id]=sp;}
   customer=makePerson({skin:'#c98e62',gender:'l',coat:'#5a7f4a',sleeve:'#5a7f4a',pants:'#3d3a33',hat:'#d8c38d'});customer.g.position.set(-16.0,0,7.35);customer.g.rotation.y=Math.PI;customer.armsLocked=true;customer.arms.forEach(a=>a.rotation.x=-1.1);box(.5,.3,.32,'#2f6db5',0,1.0,.38,customer.g);box(.52,.05,.34,'#f2f4f5',0,1.17,.38,customer.g);scene.add(customer.g);customer.g.visible=false;
   custBubble=labelSprite('❗',{h:.5,bg:'rgba(229,180,42,.95)'});custBubble.position.set(-16.0,2.25,7.35);custBubble.visible=false;scene.add(custBubble);
   boss=makePerson({skin:'#c48a5e',gender:'l',glasses:true,shirt:'#2a5d8a',songkok:true});boss.g.position.set(-4.5,0,7.15);scene.add(boss.g);
@@ -1190,9 +1333,101 @@ function buildWorld(){
 function drawClock(m){const x=clockCtx,c=256;x.clearRect(0,0,c,c);x.fillStyle='#fbfcfa';x.beginPath();x.arc(128,128,124,0,7);x.fill();x.lineWidth=10;x.strokeStyle='#16313a';x.stroke();for(let i=0;i<12;i++){const a=i/12*Math.PI*2;x.lineWidth=i%3?4:8;x.beginPath();x.moveTo(128+Math.sin(a)*96,128-Math.cos(a)*96);x.lineTo(128+Math.sin(a)*110,128-Math.cos(a)*110);x.stroke();}
   const mm=(m%DAYM),hh=(8+mm/60)%12,mi=mm%60;const hand=(a,l,w)=>{x.strokeStyle='#16313a';x.lineWidth=w;x.lineCap='round';x.beginPath();x.moveTo(128,128);x.lineTo(128+Math.sin(a)*l,128-Math.cos(a)*l);x.stroke();};hand(hh/12*Math.PI*2,62,10);hand(mi/60*Math.PI*2,92,6);x.fillStyle='#d64045';x.beginPath();x.arc(128,128,8,0,7);x.fill();clockTex.needsUpdate=true;}
 
+/* ============ extra areas: pantry, break door tapes, department van, field-trip farm ============ */
+const BRK_DOORS=[[-14.7,-12.3],[-5.7,-3.3],[3.3,5.7],[12.3,14.7]];
+const PANTRY_SPOTS=[[19.7,2.9],[20.8,3.4],[22.4,2.9],[19.6,-1.9],[22.6,-2.5],[22.2,1.9]];
+let doorGrp=null,farmer=null,farmSign=null;const FX={chick:[],cows:[]};
+function flatTex(w,h,res,draw,x,z,y=.003,clear=false){const c=document.createElement('canvas');c.width=Math.round(w*res);c.height=Math.round(h*res);draw(c.getContext('2d'),c.width,c.height,res);const t=new THREE.CanvasTexture(c);t.anisotropy=renderer.capabilities.getMaxAnisotropy();const m=new THREE.Mesh(new THREE.PlaneGeometry(w,h),new THREE.MeshLambertMaterial({map:t,transparent:clear}));m.rotation.x=-Math.PI/2;m.position.set(x,y,z);m.receiveShadow=true;scene.add(m);FLOORS.push(m);return m;}
+function buildVan(g,x,z){const v=new THREE.Group();v.position.set(x,0,z);g.add(v);
+  box(3.6,1.35,1.7,'#fbfcfa',0,1.0,0,v);box(1.1,.95,1.66,'#fbfcfa',1.75,.82,0,v);box(.04,.5,1.4,'#9fd6ea',2.31,1.02,0,v,{transparent:true,opacity:.85});box(3.62,.16,1.72,'#0d6d7a',0,.62,0,v);box(1.12,.16,1.68,'#0d6d7a',1.75,.62,0,v);
+  for(const s of [-1,1]){box(.9,.42,.02,'#9fd6ea',1.55,1.3,s*.84,v,{transparent:true,opacity:.85});for(const wx of [-1.1,1.6]){const w=cyl(.32,.32,.22,'#22292c',wx,.32,s*.8,v,16);w.rotation.x=Math.PI/2;cyl(.14,.14,.23,'#b9c4c8',wx,.32,s*.8,v,10).rotation.x=Math.PI/2;}}
+  for(const s of [-1,1])box(.06,.12,.3,'#ffd45a',2.32,.66,s*.55,v,{emissive:'#ffd45a',emissiveIntensity:.6});
+  box(.5,.18,.3,'#d64045',0,1.75,0,v,{emissive:'#d64045',emissiveIntensity:.3});
+  textPlane(2.5,.38,(c,W,H)=>{c.fillStyle='#fbfcfa';c.fillRect(0,0,W,H);c.fillStyle='#0d6d7a';c.font=`${Math.round(H*.6)}px "Lilita One", sans-serif`;c.textAlign='center';c.textBaseline='middle';c.fillText('VRI · UNIT LAPANGAN',W/2,H/2+2);},v,-.35,1.2,.86);
+  return v;}
+function buildDoors(){doorGrp=new THREE.Group();doorGrp.visible=false;scene.add(doorGrp);
+  for(const zz of [-1,2])for(const [a,b] of BRK_DOORS){const cx=(a+b)/2,w=b-a;
+    for(const px of [a+.1,b-.1])cyl(.05,.07,1.0,'#d64045',px,.5,zz,doorGrp,10);
+    for(const y of [.5,.82]){box(w-.16,.15,.05,'#e5b42a',cx,y,zz,doorGrp,{emissive:'#e5b42a',emissiveIntensity:.3});for(let k=0;k<6;k++){const st=box(.1,.16,.056,'#16313a',a+.35+k*(w-.7)/5,y,zz,doorGrp);st.rotation.z=.6;}}
+    const sp=labelSprite('🔒 REHAT',{h:.34,bg:'rgba(196,60,60,.94)',fg:'#ffffff'});sp.position.set(cx,1.42,zz);doorGrp.add(sp);}}
+function setLabLock(on){for(let i=OBS.length-1;i>=0;i--)if(OBS[i].brk)OBS.splice(i,1);if(on)for(const zz of [-1,2])for(const [a,b] of BRK_DOORS)OBS.push({x0:a,x1:b,z0:zz-.12,z1:zz+.12,brk:true});if(doorGrp)doorGrp.visible=on;if(scene)buildGrid();}
+function buildPantry(){
+  box(7.4,.3,10.4,'#8fa9a2',21.6,-.16,.5);
+  flatTex(7,10,40,(x,W,H,S)=>{x.fillStyle='#efe2cc';x.fillRect(0,0,W,H);for(let i=0;i<14;i++)for(let k=0;k<20;k++)if((i+k)%2){x.fillStyle='#e6d3b3';x.fillRect(i*S/2,k*S/2,S/2,S/2);}x.fillStyle='rgba(122,74,40,.2)';x.font=`${Math.round(S*.8)}px "Lilita One", sans-serif`;x.textAlign='center';x.textBaseline='middle';x.fillText('PANTRI',W/2,H-S*.75);},21.5,.5,.002);
+  wall(18,-4.5,25,-4.5,1.05);wall(18,5.5,25,5.5,1.05);wall(25,-4.5,25,5.5,1.05);
+  const g=stGroup('pantri');bench(23.9,24.8,-3.9,1.5,g,'#d9b98c','#b88a5a');
+  cyl(.13,.16,.28,'#c43c3c',24.35,1.04,-3.1,g,14);cyl(.03,.03,.12,'#2d3a40',24.35,1.24,-3.1,g,8);
+  box(.4,.52,.38,'#2d3a40',24.35,1.16,-2.2,g);box(.16,.06,.02,'#e5b42a',24.14,1.3,-2.2,g,{emissive:'#e5b42a',emissiveIntensity:.7});
+  for(let i=0;i<4;i++)cyl(.06,.05,.12,['#fbfcfa','#e5b42a','#3a9a68','#c46d47'][i],24.1,.96,-1.2+i*.25,g,10);
+  cyl(.12,.12,.24,'#e9d7b5',24.45,1.02,.25,g,12,{transparent:true,opacity:.85});cyl(.13,.13,.04,'#b88a5a',24.45,1.15,.25,g,12);box(.55,.04,.4,'#9aa9ad',24.3,.92,.95,g);
+  box(.9,1.9,.85,'#eef2f3',24.4,.95,3.95);box(.04,.5,.04,'#9aa7ab',23.94,1.2,3.65);obstacle(23.9,24.9,3.5,4.4);
+  box(.42,1.05,.42,'#e9eef0',18.75,.52,-3.95);cyl(.16,.16,.42,'#7cc6e0',18.75,1.26,-3.95,null,14,{transparent:true,opacity:.75});obstacle(18.5,19.0,-4.2,-3.7);
+  box(1.9,.06,1.05,'#b88a5a',21.0,.76,.6);for(const [dx,dz] of [[-.85,-.42],[.85,-.42],[-.85,.42],[.85,.42]])cyl(.04,.04,.74,'#7a5a3c',21.0+dx,.37,.6+dz,null,8);
+  for(const [sx,sz] of [[20.4,-.25],[21.6,-.25],[20.4,1.45],[21.6,1.45]]){cyl(.2,.2,.06,'#2c6d75',sx,.48,sz,null,14);cyl(.03,.03,.46,'#59666b',sx,.23,sz,null,6);}
+  for(let i=0;i<3;i++)cyl(.06,.05,.12,['#fbfcfa','#c46d47','#e5b42a'][i],20.6+i*.4,.85,.6,null,10);
+  obstacle(20.05,21.95,.08,1.12);
+  box(2.2,.42,.7,'#2c6d75',21.2,.21,5.0);box(2.2,.5,.2,'#245d64',21.2,.55,5.3);obstacle(20.1,22.3,4.6,5.45);
+  plant(18.75,4.9);plant(24.3,5.0);
+  const g2=stGroup('papan');box(1.6,1.0,.06,'#b98a52',21.2,1.55,-4.36,g2);
+  textPlane(1.46,.86,(c,W,H)=>{c.fillStyle='#e7c99a';c.fillRect(0,0,W,H);[['#fff8c8',10,10,160,96,'WAKTU REHAT','15 minit'],['#cde9ff',186,14,170,90,'KUIZ PANTRI','Menang RM!'],['#ffd6e0',24,122,178,86,'JAGA KEBERSIHAN','Basuh cawan'],['#d7f5d0',214,118,146,92,'SUKAN VRI','Sabtu ini']].forEach(([bg,x,y,w,h,t1,t2])=>{c.fillStyle=bg;c.fillRect(x,y,w,h);c.fillStyle='#d64045';c.beginPath();c.arc(x+w/2,y+7,5,0,7);c.fill();c.fillStyle='#16313a';c.font='bold 19px "Atkinson Hyperlegible", sans-serif';c.fillText(t1,x+8,y+38);c.font='18px "Atkinson Hyperlegible", sans-serif';c.fillText(t2,x+8,y+66);});},g2,21.2,1.55,-4.32);
+  flatTex(2.6,.8,64,(x,W,H)=>{x.clearRect(0,0,W,H);x.fillStyle='rgba(122,74,40,.6)';x.font=`${Math.round(H*.55)}px "Lilita One", sans-serif`;x.textAlign='center';x.textBaseline='middle';x.fillText('PANTRI  ➜',W/2,H/2);},16.1,-.45,.004,true);
+}
+function tree(x,z,s=1){cyl(.12*s,.16*s,1.2*s,'#7a5a3c',x,.6*s,z,null,8);sph(.85*s,'#3f8a4f',x,1.65*s,z);sph(.6*s,'#4c9a5a',x+.35*s,2.0*s,z-.2*s);}
+function cowMesh(p,x,z,ry,goat){const g=new THREE.Group();const c=goat?'#e9e1d2':'#f4f1ea',d=goat?'#8a6a4a':'#2b2b2b',s=goat?.62:1;
+  box(1.3*s,.62*s,.56*s,c,0,.86*s,0,g);box(.4*s,.36*s,.34*s,c,.82*s,1.06*s,0,g);box(.16*s,.14*s,.3*s,goat?'#cdb89a':'#e8b8a8',1.05*s,.97*s,0,g);sph(.03,'#1c2226',.95*s,1.12*s,.12*s,g);sph(.03,'#1c2226',.95*s,1.12*s,-.12*s,g);
+  for(const dx of [-.45,.45])for(const dz of [-.19,.19])box(.12*s,.56*s,.12*s,c,dx*s,.28*s,dz*s,g);
+  if(!goat){box(.42,.3,.02,d,-.2,.95,.285,g);box(.3,.26,.02,d,.25,.82,-.285,g);for(const dz of [-.12,.12]){const h=cyl(.02,.03,.16,'#e9e2d4',.85,1.3,dz,g,6);h.rotation.z=-.4;}}
+  else{box(.06,.12,.06,'#d9cdb8',1.0*s,.8*s,0,g);for(const dz of [-.06,.06]){const h=cyl(.015,.03,.2,'#7a6a55',.75*s,1.34*s,dz,g,6);h.rotation.z=.6;}box(.3,.2,.02,d,-.1*s,.95*s,.18,g);}
+  const tl=cyl(.025,.025,.5*s,c,-.68*s,.75*s,0,g,6);tl.rotation.z=-.3;
+  g.position.set(x,0,z);g.rotation.y=ry;p.add(g);FX.cows.push({g,ph:Math.random()*6});return g;}
+function chickMesh(p){const g=new THREE.Group();sph(.16,'#fbfaf5',0,.22,0,g);sph(.09,'#fbfaf5',.13,.38,0,g);box(.05,.07,.03,'#d64045',.13,.49,0,g);box(.07,.03,.03,'#e5a02a',.23,.37,0,g);box(.12,.1,.02,'#ece6d6',-.14,.3,0,g);for(const dz of [-.05,.05])cyl(.015,.015,.12,'#e5a02a',0,.06,dz,g,4);p.add(g);return g;}
+function drawFarmSign(name){if(!farmSign)return;const c=farmSign.userData.ctx,W=c.canvas.width,H=c.canvas.height;c.fillStyle='#2f5d3a';c.fillRect(0,0,W,H);c.strokeStyle='#e5d9b0';c.lineWidth=6;c.strokeRect(6,6,W-12,H-12);c.fillStyle='#fff8dc';c.textAlign='center';c.textBaseline='middle';c.font=`${Math.round(H*.36)}px "Lilita One", sans-serif`;c.fillText(String(name||'Ladang').toUpperCase(),W/2,H*.4);c.font=`${Math.round(H*.18)}px "Atkinson Hyperlegible", sans-serif`;c.fillText('Kawasan ternakan · Biosekuriti',W/2,H*.74);farmSign.material.map.needsUpdate=true;}
+function buildFarm(){
+  box(30.6,.3,22.6,'#7a8f5a',55,-.16,0);
+  flatTex(30,22,24,(x,W,H,S)=>{x.fillStyle='#8fbf6a';x.fillRect(0,0,W,H);for(let i=0;i<2600;i++){x.fillStyle=Math.random()<.5?'rgba(60,110,40,.16)':'rgba(200,230,150,.2)';x.fillRect(Math.random()*W,Math.random()*H,2+Math.random()*3,2+Math.random()*3);}
+    const P=(wx,wz)=>[(wx-40)*S,(wz+11)*S];x.strokeStyle='#cdb07a';x.lineCap='round';x.lineJoin='round';x.lineWidth=S*1.5;
+    for(const line of [[[44,9.2],[48,7.4],[51.5,4],[51.5,-4.2]],[[51.5,4],[56,2.6],[63,1.4],[63,-4.5]],[[56,2.6],[59.4,4.4],[60,6.5]],[[48,7.4],[53,7.3]]]){x.beginPath();line.forEach(([u,v],i)=>{const [a,b]=P(u,v);if(i)x.lineTo(a,b);else x.moveTo(a,b);});x.stroke();}},55,0,.002);
+  for(let x=40;x<=70.01;x+=2)for(const z of [-11,11])cyl(.06,.07,1.0,'#8a6a4a',x,.5,z,null,6);
+  for(let z=-11;z<=11.01;z+=2)for(const x of [40,70])cyl(.06,.07,1.0,'#8a6a4a',x,.5,z,null,6);
+  for(const y of [.45,.85]){for(const z of [-11,11])box(30,.06,.05,'#a87a4a',55,y,z);for(const x of [40,70])box(.05,.06,22,'#a87a4a',x,y,0);}
+  // kandang lembu & kambing
+  {const g=stGroup('kandang');box(9,.06,5.4,'#d8c38d',51.5,.03,-8.0,g);
+    for(const px of [47.1,51.5,55.9])for(const pz of [-10.6,-5.4])cyl(.08,.08,2.6,'#7a5a3c',px,1.3,pz,g,8);
+    const rf=box(9.6,.12,6.0,'#9c4a3a',51.5,2.66,-8.0,g);rf.rotation.x=.12;box(9,1.2,.12,'#a87a4a',51.5,.6,-10.6,g);
+    for(const [cx,w] of [[49.0,3.8],[54.0,3.8]])for(const y of [.5,.9])box(w,.08,.08,'#a87a4a',cx,y,-5.4,g);
+    box(2.2,.35,.4,'#6b7f86',49,.18,-6.0,g);box(2.1,.05,.3,'#7cc6e0',49,.36,-6.0,g);
+    cowMesh(g,48.4,-8.7,.35,false);cowMesh(g,50.2,-7.3,-.5,false);cowMesh(g,49.6,-9.7,.1,false);
+    cowMesh(g,53.0,-8.0,2.6,true);cowMesh(g,54.4,-9.3,3.4,true);cowMesh(g,54.8,-7.0,2.2,true);
+    obstacle(47.0,56.0,-10.8,-5.35);box(1.2,.7,.8,'#e2c46a',57.0,.35,-9.9);box(1.0,.6,.7,'#d9b85a',57.3,.95,-9.9);}
+  // reban ayam
+  {const g=stGroup('reban');box(7.4,.04,4.6,'#c9b98a',62.9,.02,-8.1,g);box(2.2,1.6,1.8,'#c46d47',65.6,.8,-9.4,g);const rf=box(2.5,.12,2.2,'#7a3a2a',65.6,1.7,-9.4,g);rf.rotation.x=-.18;box(.6,.8,.02,'#5a3426',65.6,.45,-8.49,g);
+    for(const [x0,x1,z0,z1] of [[59.2,66.6,-5.8,-5.8],[59.2,59.2,-10.4,-5.8],[66.6,66.6,-10.4,-5.8]]){const hz=z0===z1,len=hz?x1-x0:z1-z0;box(hz?len:.03,1.2,hz?.03:len,'#cfd8db',(x0+x1)/2,.6,(z0+z1)/2,g,{transparent:true,opacity:.28});box(hz?len:.06,.06,hz?.06:len,'#59666b',(x0+x1)/2,1.2,(z0+z1)/2,g);}
+    for(let i=0;i<7;i++){const c=chickMesh(g);const x=rnd(59.8,64.6),z=rnd(-9.8,-6.4);c.position.set(x,0,z);FX.chick.push({g:c,tx:x,tz:z,t:rnd(0,2),ph:rnd(0,6)});}
+    obstacle(59.1,66.9,-10.8,-5.75);}
+  // kolam
+  {const g=stGroup('kolam');const w=new THREE.Mesh(new THREE.CircleGeometry(2.8,36),new THREE.MeshLambertMaterial({color:'#4f9fc0',transparent:true,opacity:.92}));w.rotation.x=-Math.PI/2;w.position.set(64,.03,6.5);g.add(w);
+    const rim=new THREE.Mesh(new THREE.RingGeometry(2.8,3.15,36),new THREE.MeshLambertMaterial({color:'#9c8a6a'}));rim.rotation.x=-Math.PI/2;rim.position.set(64,.035,6.5);g.add(rim);
+    for(let i=0;i<10;i++){const a=rnd(0,Math.PI*2);cyl(.025,.03,rnd(.5,.9),'#3f7a3a',64+Math.cos(a)*3.05,.35,6.5+Math.sin(a)*3.05,g,5);}
+    box(1.0,.08,.7,'#a87a4a',61.2,.12,6.5,g);cyl(.06,.06,.9,'#7d8f94',62,.45,8.9,g,8);obstacle(61.2,66.8,3.7,9.3);}
+  // rumah penternak
+  {box(4.2,2.2,2.6,'#e8dcc0',53,1.1,9.7);for(const s of [-1,1]){const r=box(4.6,.15,1.6,'#9c4a3a',53,2.5,9.7+s*.68);r.rotation.x=s*.55;}box(.8,1.4,.03,'#7a5a3c',53,.7,8.39);box(.7,.5,.03,'#9fd6ea',51.7,1.3,8.39,null,{transparent:true,opacity:.8});obstacle(50.9,55.1,8.4,11);
+    const g=stGroup('penternak');farmer=makePerson({skin:'#b9825a',gender:'l',coat:'#4f6f8f',sleeve:'#4f6f8f',pants:'#3d3a33',hat:'#d8c38d'});farmer.g.position.set(53,0,6.0);g.add(farmer.g);obstacle(52.75,53.25,5.75,6.25);}
+  // van & kotak sejuk
+  {const g=stGroup('van_farm');buildVan(g,43.8,7.6);obstacle(41.9,46.15,6.7,8.5);
+    const g2=stGroup('coolbox');box(1.2,.05,.7,'#9aa7ab',47.6,.7,9.6,g2);for(const dx of [-.5,.5])for(const dz of [-.28,.28])cyl(.02,.02,.7,'#59666b',47.6+dx,.35,9.6+dz,g2,6);box(.7,.4,.42,'#2f6db5',47.6,.93,9.6,g2);box(.72,.06,.44,'#f2f4f5',47.6,1.15,9.6,g2);obstacle(46.95,48.25,9.25,9.95);}
+  {const sg=new THREE.Group();scene.add(sg);for(const dx of [-.9,.9])cyl(.06,.06,1.6,'#7a5a3c',41.6+dx,.8,4.2,sg,6);farmSign=textPlane(2.2,.8,()=>{},sg,41.6,1.35,4.24);farmSign.userData.ctx=farmSign.material.map.image.getContext('2d');drawFarmSign('Ladang');}
+  for(const [x,z,s] of [[41.2,-9.4,1.1],[41.4,-2.6,.9],[68.8,-1.6,1.2],[68.9,3.4,.9],[68.6,9.6,1.1],[57.6,10.1,1],[46.2,-10.0,.9],[58.4,-10.2,1],[41.0,9.8,.8],[68.7,-9.6,1]])tree(x,z,s);
+}
+let FARMG=null;
+function buildExtras(){buildPantry();buildDoors();{box(5.4,.3,3.6,'#8a9a95',-14.3,-.16,13.0);const g=stGroup('van');buildVan(g,-14.5,13.0);}
+  const before=new Set(scene.children);buildFarm();FARMG=new THREE.Group();scene.children.filter(c=>!before.has(c)).forEach(c=>FARMG.add(c));scene.add(FARMG);FARMG.visible=G.area==='farm';}
+function farmTick(dt){if(!FX.chick.length)return;for(const c of FX.chick){c.t-=dt;const g=c.g;const dx=c.tx-g.position.x,dz=c.tz-g.position.z,d=Math.hypot(dx,dz);if(c.t<=0){c.t=rnd(1,3.2);c.tx=rnd(59.8,64.6);c.tz=rnd(-9.8,-6.4);}if(d>.05){const st=Math.min(d,dt*1.1);g.position.x+=dx/d*st;g.position.z+=dz/d*st;g.rotation.y=lerpAngle(g.rotation.y,Math.atan2(dx,dz)-Math.PI/2,1-Math.exp(-dt*8));c.ph+=dt*14;g.position.y=Math.abs(Math.sin(c.ph))*.04;}else{c.ph+=dt*3;g.rotation.z=Math.sin(c.ph)*.12;}}
+  for(const c of FX.cows){c.ph+=dt;c.g.children[1].position.y=c.g.children[0].position.y*1.23+Math.sin(c.ph*.9)*.02;}}
+
 /* ============ pathfinding ============ */
-const GS=.4,GX0=-18,GZ0=-11,GW=90,GH=55,PR=.3;let GRID=null;
-function pointBlocked(x,z){if(x<-17.7||x>17.7||z<-10.75||z>10.7)return true;for(const o of OBS){if(x>o.x0-PR&&x<o.x1+PR&&z>o.z0-PR&&z<o.z1+PR)return true;}return false;}
+const GS=.4,GX0=-18,GZ0=-11,GW=225,GH=55,PR=.3;let GRID=null;
+const inLab=(x,z)=>x>=-17.7&&x<=17.7&&z>=-10.75&&z<=10.7,inPantry=(x,z)=>x>17.7&&x<=24.65&&z>=-4.15&&z<=5.15,inFarm=(x,z)=>x>=40.3&&x<=69.7&&z>=-10.7&&z<=10.7;
+function pointBlocked(x,z){if(!inLab(x,z)&&!inPantry(x,z)&&!inFarm(x,z))return true;for(const o of OBS){if(x>o.x0-PR&&x<o.x1+PR&&z>o.z0-PR&&z<o.z1+PR)return true;}return false;}
 function buildGrid(){GRID=new Uint8Array(GW*GH);for(let gz=0;gz<GH;gz++)for(let gx=0;gx<GW;gx++)GRID[gz*GW+gx]=pointBlocked(GX0+(gx+.5)*GS,GZ0+(gz+.5)*GS)?1:0;}
 const toCell=(x,z)=>[clamp(Math.floor((x-GX0)/GS),0,GW-1),clamp(Math.floor((z-GZ0)/GS),0,GH-1)];
 const cellC=i=>({x:GX0+((i%GW)+.5)*GS,z:GZ0+(((i/GW)|0)+.5)*GS});
@@ -1225,7 +1460,7 @@ function refreshMarkers(){
   let k=0;for(const j of G.tray){if(j===f)continue;const st=curStep(j);if(!st||k>=otherRings.length)continue;const s=STATIONS[st.st];const r=otherRings[k++];r.material.color.set(j.cap);r.position.set(s.use[0],.022,s.use[1]);r.visible=G.mode==='play';}
   for(;k<otherRings.length;k++)otherRings[k].visible=false;
 }
-function updateLabels(){if(!ring)return;const tg=G.mode==='play'?targetStations():null;for(const id in LABELS){const s=STATIONS[id];if(s.dynamic){LABELS[id].visible=G.spillOn;continue;}if(G.mode!=='play'){LABELS[id].visible=true;continue;}LABELS[id].visible=tg.has(id)||Math.hypot(P.x-s.pos[0],P.z-s.pos[1])<7.5;}}
+function updateLabels(){if(!ring)return;const tg=G.mode==='play'?targetStations():null;for(const id in LABELS){const s=STATIONS[id];if(s.dynamic){LABELS[id].visible=G.spillOn;continue;}if(s.farm&&G.area!=='farm'){LABELS[id].visible=false;continue;}if(G.mode!=='play'){LABELS[id].visible=true;continue;}LABELS[id].visible=tg.has(id)||Math.hypot(P.x-s.pos[0],P.z-s.pos[1])<7.5;}}
 function bossSay(e){if(!bossBubble)return;const s=labelSprite(e,{h:.55});bossBubble.material.map.dispose();bossBubble.material=s.material;bossBubble.scale.copy(s.scale);bossBubble.visible=true;bossBubbleT=1.8;}
 function placeSpill(on,at){G.spillOn=on;if(!puddle)return;puddle.visible=spillCone.visible=on;LABELS.spill.visible=on;if(on){const p=at||pick(SPILLPTS);STATIONS.spill.pos=[p[0],p[1]];STATIONS.spill.use=[p[0],p[1]+.9];puddle.position.set(p[0],.012,p[1]);spillCone.position.set(p[0]+.9,0,p[1]-.3);LABELS.spill.position.set(p[0],1.3,p[1]);}}
 
@@ -1250,17 +1485,18 @@ function handleTap(e){
   const rc=new THREE.Raycaster(),v=new THREE.Vector2((e.clientX/innerWidth)*2-1,-(e.clientY/innerHeight)*2+1);rc.setFromCamera(v,camera);
   const hits=rc.intersectObjects(Object.values(STG),true);
   if(hits.length){let o=hits[0].object;while(o&&!o.userData.station)o=o.parent;if(o){walkToStation(o.userData.station);SFX.tap();return;}}
-  const fh=rc.intersectObject(floorMesh);if(fh.length){const p=fh[0].point;walkTo(p.x,p.z,null);}
+  const fh=rc.intersectObjects(FLOORS);if(fh.length){const p=fh[0].point;if(!walkTo(p.x,p.z,null)&&G.brk&&inLab(p.x,p.z)&&!(p.z>-1&&p.z<2))lockedMsg();}
 }
 function walkTo(x,z,target){const path=findPath(P.x,P.z,x,z);if(!path||!path.length){P.path=null;return false;}P.path=path;P.walkTarget=target;return true;}
-function walkToStation(id){const s=STATIONS[id];if(Math.hypot(P.x-s.use[0],P.z-s.use[1])<.35){P.walkTarget=id;arrived();return;}walkTo(s.use[0],s.use[1],id);}
+function walkToStation(id){const s=STATIONS[id];if(Math.hypot(P.x-s.use[0],P.z-s.use[1])<.35){P.walkTarget=id;arrived();return;}if(!walkTo(s.use[0],s.use[1],id))lockedMsg(s);}
+function lockedMsg(s){if(G.brk)toast('🔒 Ruang makmal dikunci semasa waktu rehat');else if(G.area==='farm'&&s&&!s.farm)toast('🚐 Anda di ladang. Siapkan objektif dan pulang dengan van dahulu');}
 function arrived(){const id=P.walkTarget;P.walkTarget=null;if(!id)return;const s=STATIONS[id];P.heading=Math.atan2(s.pos[0]-P.x,s.pos[1]-P.z);setTimeout(()=>{if(G.mode!=='play'||MG.open||G.paused)return;updateProximity(true);if(curAct&&curAct.id===id)doAct(curAct);},140);}
 
 /* ============ movement / actions ============ */
 function movePlayer(dt){
   let vx=JOY.x,vz=JOY.y;const kx=(KEYS.d||KEYS.arrowright?1:0)-(KEYS.a||KEYS.arrowleft?1:0),kz=(KEYS.s||KEYS.arrowdown?1:0)-(KEYS.w||KEYS.arrowup?1:0);
   if(kx||kz){const l=Math.hypot(kx,kz);vx=kx/l;vz=kz/l;}
-  let mag=Math.hypot(vx,vz);const SPD=UP.troli?5.5:4.8;
+  let mag=Math.hypot(vx,vz);const SPD=(UP.troli?5.5:4.8)*(G.energy===dayIdx(G.gameMin)?1.12:1);
   if(mag>.15){P.path=null;P.walkTarget=null;if(mag>1){vx/=mag;vz/=mag;mag=1;}}
   else if(P.path&&P.path.length){const t=P.path[0],dx=t.x-P.x,dz=t.z-P.z,d=Math.hypot(dx,dz),step=SPD*dt;
     if(d<=step){P.x=t.x;P.z=t.z;P.path.shift();if(d>.001)P.heading=Math.atan2(dx,dz);if(!P.path.length){P.path=null;P.moving=false;arrived();}vx=vz=0;mag=0;P.moving=!!P.path;}
@@ -1275,11 +1511,16 @@ function updateMate(dt){
     if(d<=st){g.position.x=t.x;g.position.z=t.z;mate.path.shift();if(!mate.path.length){mate.path=null;mate.wait=rnd(3,7);}}
     else{g.position.x+=dx/d*st;g.position.z+=dz/d*st;g.rotation.y=lerpAngle(g.rotation.y,Math.atan2(dx,dz),1-Math.exp(-dt*10));}
     mate.ph+=dt*9;animPerson(mate,true,mate.ph);}
-  else{animPerson(mate,false,0);mate.wait-=dt;if(mate.wait<=0){const ids=['bac','rbpt','elisa','pcr','histo','microscope','haem','vettest','sfridge','centrifuge'];const s=STATIONS[pick(ids)];const tx=s.use[0]+rnd(-.6,.6),tz=s.use[1]+.3;if(Math.hypot(tx-P.x,tz-P.z)>1.5)mate.path=findPath(g.position.x,g.position.z,tx,tz);if(!mate.path)mate.wait=2;else mate.face=Math.atan2(s.pos[0]-tx,s.pos[1]-tz);}
+  else{animPerson(mate,false,0);mate.wait-=dt;if(mate.wait<=0&&G.brk){const sp=pick(PANTRY_SPOTS);mate.path=findPath(g.position.x,g.position.z,sp[0]+rnd(-.3,.3),sp[1]+rnd(-.3,.3));mate.face=undefined;if(!mate.path)mate.wait=2;}
+    else if(mate.wait<=0){const ids=['bac','rbpt','elisa','pcr','histo','microscope','haem','vettest','sfridge','centrifuge'];const s=STATIONS[pick(ids)];const tx=s.use[0]+rnd(-.6,.6),tz=s.use[1]+.3;if(Math.hypot(tx-P.x,tz-P.z)>1.5)mate.path=findPath(g.position.x,g.position.z,tx,tz);if(!mate.path)mate.wait=2;else mate.face=Math.atan2(s.pos[0]-tx,s.pos[1]-tz);}
     else if(mate.face!==undefined)g.rotation.y=lerpAngle(g.rotation.y,mate.face,1-Math.exp(-dt*5));}
 }
 let curAct=null,curActKey='';
 function actionFor(id){
+  const S=STATIONS[id];
+  if(S.farm){if(G.area!=='farm')return null;const fj=G.tray.find(j=>j.kind==='lapangan');return fj?{id,type:'farm',job:fj}:null;}
+  if(id==='pantri')return G.brk&&!G.brk.drink?{id,type:'pantri'}:null;
+  if(id==='papan')return G.brk&&!G.brk.quiz?{id,type:'kuiz'}:null;
   if(id==='spill'&&!G.spillOn)return null;
   const cand=G.tray.filter(j=>{const s=curStep(j);return s&&s.st===id;});
   if(cand.length){const j=cand.find(x=>x===G.focus)||cand[0];return {id,type:'step',job:j};}
@@ -1293,14 +1534,17 @@ function updateProximity(force){
     if(d<1.15&&d<bd){const a=actionFor(id);if(a){best=a;bd=d;}}}
   setAct(best,force);
 }
-function setAct(a,force){const key=a?a.id+':'+(a.job?a.job.uid+':'+a.job.stepIdx:'q'+G.queue.length):'';if(key===curActKey&&!force)return;curAct=a;curActKey=key;const b=$('#act');
+function setAct(a,force){const key=a?a.id+':'+a.type+':'+(a.type==='farm'?farmActLabel(a.id,a.job):a.job?a.job.uid+':'+a.job.stepIdx:'q'+G.queue.length):'';if(key===curActKey&&!force)return;curAct=a;curActKey=key;const b=$('#act');
   if(!a){b.hidden=true;return;}const s=STATIONS[a.id];
-  if(a.type==='step'){const st=curStep(a.job);b.innerHTML=`<i class="capdot" style="--c:${a.job.cap}"></i><span><span class="act-k">${esc(s.name)}</span>${s.icon} ${esc(st.label)}</span>`;}
+  if(a.type==='farm')b.innerHTML=`<i class="capdot" style="--c:${a.job.cap}"></i><span><span class="act-k">${esc(s.name)}</span>${esc(farmActLabel(a.id,a.job))}</span>`;
+  else if(a.type==='pantri')b.innerHTML=`<i class="capdot" style="--c:#b88a5a"></i><span><span class="act-k">${esc(s.name)}</span>☕ Bancuh minuman · bonus tenaga</span>`;
+  else if(a.type==='kuiz')b.innerHTML=`<i class="capdot" style="--c:var(--gold)"></i><span><span class="act-k">${esc(s.name)}</span>📌 Kuiz pantri · menang RM</span>`;
+  else if(a.type==='step'){const st=curStep(a.job);b.innerHTML=`<i class="capdot" style="--c:${a.job.cap}"></i><span><span class="act-k">${esc(s.name)}</span>${s.icon} ${esc(st.label)}</span>`;}
   else b.innerHTML=`<i class="capdot" style="--c:var(--gold)"></i><span><span class="act-k">${esc(s.name)}</span>📥 Lihat ${G.queue.length} sampel masuk</span>`;
   b.hidden=false;if(G.tut===1)coach(2);
 }
 $('#act').addEventListener('click',()=>{if(curAct)doAct(curAct);});
-function doAct(a){if(MG.open||G.paused||G.mode!=='play')return;audio();if(a.type==='queue'){openQueue();return;}G.focus=a.job;renderTray();refreshMarkers();const s=STATIONS[a.id];P.heading=Math.atan2(s.pos[0]-P.x,s.pos[1]-P.z);runStep(a.job);}
+function doAct(a){if(MG.open||G.paused||G.mode!=='play')return;audio();if(a.type==='queue'){openQueue();return;}if(a.type==='pantri'){openDrink();return;}if(a.type==='kuiz'){openPantryQuiz();return;}if(a.type==='farm'){const fs=STATIONS[a.id];P.heading=Math.atan2(fs.pos[0]-P.x,fs.pos[1]-P.z);farmAct(a.id,a.job);return;}G.focus=a.job;renderTray();refreshMarkers();const s=STATIONS[a.id];P.heading=Math.atan2(s.pos[0]-P.x,s.pos[1]-P.z);runStep(a.job);}
 
 /* ============ loop ============ */
 function resize(){if(!renderer)return;const w=innerWidth,h=innerHeight;renderer.setSize(w,h,false);camera.aspect=w/h;camera.fov=w<h?52:40;camera.updateProjectionMatrix();}
@@ -1311,10 +1555,14 @@ let last=performance.now(),hudT=0,tNow=0;
 function frame(now){
   requestAnimationFrame(frame);const dt=Math.min(.05,(now-last)/1000);last=now;tNow+=dt;if(!renderer)return;
   if(G.mode==='play'&&!G.paused){
-    const slow=MG.open?(UP.kopi?.2:.3):1;G.gameMin+=dt*G.rate*slow;G.spawnT-=dt*slow;
-    const di=dayIdx(G.gameMin);if(di!==G.lastDay&&G.gameMin<WEEK){G.lastDay=di;dayStart(di);}
-    if(G.spawnT<=0&&G.gameMin<WEEK-90){spawnJob();G.spawnT=G.spawnInt*rnd(.75,1.25);}
-    checkEvents();checkTimers();
+    const frozen=!!G.brk||G.brkPend!=null||G.area==='farm';
+    if(!frozen){const slow=MG.open?(UP.kopi?.2:.3):1;G.gameMin+=dt*G.rate*slow;G.spawnT-=dt*slow;
+      const di=dayIdx(G.gameMin);if(di!==G.lastDay&&G.gameMin<WEEK){G.lastDay=di;dayStart(di);}
+      if(G.spawnT<=0&&G.gameMin<WEEK-90){spawnJob();G.spawnT=G.spawnInt*rnd(.75,1.25);}
+      checkEvents();checkTimers();}
+    if(G.brkPend!=null&&!MG.open&&G.mode==='play')startBreak();
+    if(G.brk){G.brk.t-=dt;if(G.brk.t<=0&&!MG.open)endBreak();}
+    if(G.area==='farm'){G.farmT=(G.farmT||0)+dt;farmTick(dt);}
     if(G.gameMin>=WEEK){if(!MG.open)endWeek();else G.endPending=true;}
     if(!MG.open)movePlayer(dt);else P.moving=false;
     wkT-=dt;if(wkT<=0){wkT=4;saveWeek();}
@@ -1351,7 +1599,10 @@ function frame(now){
 /* ============ HUD ============ */
 function hudTick(){
   if(G.mode!=='play')return;
-  const [dn,tm]=clockOf(G.gameMin);$('#hDay').textContent=`MINGGU ${G.week} · ${ROLE[G.role].short}`;$('#hTime').innerHTML=`<small>${dn}</small>${tm}`;
+  const [dn,tm]=clockOf(G.gameMin);const en=G.energy===dayIdx(G.gameMin)?' · ⚡':'';
+  if(G.brk){const t=Math.max(0,Math.ceil(G.brk.t));$('#hDay').textContent=`☕ WAKTU REHAT`;$('#hTime').innerHTML=`<small>BAKI</small>${Math.floor(t/60)}:${pad(t%60)}`;}
+  else{$('#hDay').textContent=G.area==='farm'?'🚐 KERJA LAPANGAN':`MINGGU ${G.week} · ${ROLE[G.role].short}${en}`;$('#hTime').innerHTML=`<small>${dn}</small>${tm}`;}
+  brkNote();hudMiss();
   const di=dayIdx(G.gameMin),p=clamp((G.gameMin-di*DAYM)/DAYM*100,0,100);$$('#hBar i').forEach((b,i)=>{b.className=i<di?'done':i===di?'now':'';if(i===di)b.style.setProperty('--p',p+'%');});
   $('#hScore').textContent=G.score;$$('#hStars i').forEach((s,i)=>s.classList.toggle('on',G.score>=G.th[i]));
   const sp=G.tray.filter(j=>j.kind==='sispaa').length;$('#hSp').textContent=`📣 ${sp}`;$('#hSp').className=sp?'hot':'';$('#hTt').textContent=`⚖️ ${G.tt}`;$('#hTt').className=G.tt?'hot':'';
@@ -1361,8 +1612,8 @@ function hudTick(){
 function jobRemain(j){let f=clamp((j.deadline-G.gameMin)/Math.max(1,j.tatM||1),0,1);let txt=j.late?'LEWAT':`Baki ${fmtWork(j.deadline-G.gameMin)}`;if(isFinite(j.validM)&&j.kind==='sampel'&&(G.role==='pm'?j.stepIdx===0:j.stepIdx<=j.anaIdx)){const left=j.validM-ageNow(j);const fv=clamp(left/j.validM,0,1);if(left<j.deadline-G.gameMin||fv<f){f=Math.min(f,fv);txt=left>0?`Sah ${fmtAge(left)}`:'LUPUT';}}if(j.stepDeadline){const l=j.stepDeadline-G.gameMin;f=Math.min(f,clamp(l/120,0,1));txt=l>0?`Segera: ${fmtWork(l)}`:'LEWAT';}return {f,txt};}
 function renderTray(){
   const el=$('#tray');el.innerHTML='';
-  for(const j of G.tray){const st=curStep(j);const c=document.createElement('div');c.className='job'+(j===G.focus?' focus':'')+(j.kind==='event'?' evt':'')+(j.kind==='sispaa'?' sp':'')+(j.kind==='tt'?' tt':'');c.dataset.uid=j.uid;
-    c.innerHTML=`<i class="capdot" style="--c:${j.cap}"></i><div class="job-t">${j.urgent?'<span class="tag-u">SEGERA</span> ':''}${j.shortValid?'<span class="tag-v">⚡</span> ':''}${j.icon} ${esc(j.title)}</div><button class="job-go" aria-label="Jalan ke stesen">🚶</button><div class="job-n">${j.steps.length>1?`${j.stepIdx+1}/${j.steps.length} · `:''}${st?STATIONS[st.st].icon+' '+esc(st.label):''}</div><div class="job-bar"><i></i></div>`;
+  for(const j of G.tray){const st=curStep(j);const c=document.createElement('div');c.className='job'+(j===G.focus?' focus':'')+(j.kind==='event'?' evt':'')+(j.kind==='lapangan'?' lap':'')+(j.kind==='sispaa'?' sp':'')+(j.kind==='tt'?' tt':'');c.dataset.uid=j.uid;
+    c.innerHTML=`<i class="capdot" style="--c:${j.cap}"></i><div class="job-t">${j.lap?'<span class="tag-l">LADANG</span> ':''}${j.urgent?'<span class="tag-u">SEGERA</span> ':''}${j.shortValid?'<span class="tag-v">⚡</span> ':''}${j.icon} ${esc(j.title)}</div><button class="job-go" aria-label="Jalan ke stesen">🚶</button><div class="job-n">${j.steps.length>1?`${j.stepIdx+1}/${j.steps.length} · `:''}${st?STATIONS[st.st].icon+' '+esc(st.label):''}</div><div class="job-bar"><i></i></div>`;
     c.addEventListener('click',e=>{audio();SFX.tap();G.focus=j;if(e.target.closest('.job-go')){const s=curStep(j);if(s)walkToStation(s.st);}renderTray();refreshMarkers();updateProximity(true);});
     el.appendChild(c);}
   tickTray();
@@ -1373,7 +1624,7 @@ function openQueue(){
   openMG({title:G.role==='pm'?'Sampel di kaunter':'Sampel sedia diuji',kicker:`Dulang anda ${trayCount()}/3`,cap:'var(--gold)',render(b){
     if(!G.queue.length){b.innerHTML='<p class="empty">Tiada sampel menunggu. Siapkan kerja dalam dulang anda dulu.</p>';return;}
     const full=trayCount()>=3;const list=G.queue.slice().sort((a,c)=>jobRemain(a).f-jobRemain(c).f);
-    b.innerHTML=`<ul class="qlist">${list.map(j=>{const r=jobRemain(j);return `<li class="qi"><i class="capdot" style="--c:${j.cap}"></i><div style="min-width:0"><div class="qi-t">${j.urgent?'<span class="tag-u">SEGERA</span> ':''}${j.shortValid?'<span class="tag-v">⚡ KESAHAN PENDEK</span> ':''}${j.icon} ${esc(j.title)}</div><div class="qi-s">${esc(j.sub||'')}${j.kind==='sampel'?` · <span class="mono">${j.sid}</span>`:''}</div><div class="qi-s">${j.kind==='sampel'&&CAT[j.key]?`${SEC[CAT[j.key].sec].icon} ${SEC[CAT[j.key].sec].name} · `:''}<span class="${r.f<.25?'late':''}">${r.txt}</span>${j.kind==='dalaman'?' · tugasan dalaman':''}</div></div><button class="btn sm" data-uid="${j.uid}" ${full?'disabled':''}>Ambil</button></li>`;}).join('')}</ul>${full?'<p class="note">Dulang penuh (3 kerja). Siapkan satu kerja dulu.</p>':'<p class="note">Disusun ikut keutamaan. ⚡ = sampel berkesahan pendek; uruskan dulu.</p>'}`;
+    b.innerHTML=`<ul class="qlist">${list.map(j=>{const r=jobRemain(j);return `<li class="qi"><i class="capdot" style="--c:${j.cap}"></i><div style="min-width:0"><div class="qi-t">${j.lap?'<span class="tag-l">LADANG</span> ':''}${j.urgent?'<span class="tag-u">SEGERA</span> ':''}${j.shortValid?'<span class="tag-v">⚡ KESAHAN PENDEK</span> ':''}${j.icon} ${esc(j.title)}</div><div class="qi-s">${esc(j.sub||'')}${j.kind==='sampel'?` · <span class="mono">${j.sid}</span>`:''}</div><div class="qi-s">${j.kind==='sampel'&&CAT[j.key]?`${SEC[CAT[j.key].sec].icon} ${SEC[CAT[j.key].sec].name} · `:''}<span class="${r.f<.25?'late':''}">${r.txt}</span>${j.kind==='dalaman'?' · tugasan dalaman':''}</div></div><button class="btn sm" data-uid="${j.uid}" ${full?'disabled':''}>Ambil</button></li>`;}).join('')}</ul>${full?'<p class="note">Dulang penuh (3 kerja). Siapkan satu kerja dulu.</p>':'<p class="note">Disusun ikut keutamaan. ⚡ = sampel berkesahan pendek; uruskan dulu.</p>'}`;
     $$('[data-uid]',b).forEach(btn=>btn.onclick=()=>{claim(+btn.dataset.uid);closeMG();});
   }});
 }
@@ -1402,7 +1653,7 @@ function quizSeq(root,qs,onEnd){
     if(Q.calc){if(Q.calcF)Q.calc.setF(Q.calcF);bx.insertBefore(Q.calc,$('.q',bx));}
     $$('.opt',bx).forEach(btn=>btn.onclick=()=>{const o=opts[+btn.dataset.k];$$('.opt',bx).forEach(x=>x.disabled=true);const fb=$('.fb',bx);
       if(Q.onPick)Q.onPick(o);
-      if(o.ok){sc++;btn.classList.add('right');SFX.ok();fb.className='fb good';fb.innerHTML='✔ Betul!'+(Q.okNote?' '+Q.okNote:'');setTimeout(next,Q.okNote?1500:700);}
+      if(o.ok){sc++;if(Q.calc)mev('calcOk');btn.classList.add('right');SFX.ok();fb.className='fb good';fb.innerHTML='✔ Betul!'+(Q.okNote?' '+Q.okNote:'');setTimeout(next,Q.okNote?1500:700);}
       else{mistake();if(o.off)offence(o.off);btn.classList.add('wrong');$$('.opt',bx).forEach((x,k)=>{if(opts[k].ok)x.classList.add('right');});fb.className='fb bad';fb.innerHTML=`<div>✖ ${o.why||Q.why||'Jawapan kurang tepat.'}</div><div class="row2"><button class="btn" data-next>Teruskan ›</button></div>`;$('[data-next]',fb).onclick=next;requestAnimationFrame(()=>{try{fb.scrollIntoView({block:'nearest',behavior:'smooth'});}catch(e){}});}});}
   show();
 }
@@ -1419,6 +1670,7 @@ const contBtn=(fb,label,fn)=>{const d=document.createElement('div');d.className=
 /* ============ steps & consequences ============ */
 function runStep(job){
   const st=curStep(job);if(!st)return;
+  if(st.mg==='pergi'){goFarm(job);return;}
   if(st.mg==='ambil'||st.mg==='hantar'){SFX.ok();stepDone(job,1,st.mg==='ambil'?`✔ Sampel ${job.sid||''} diambil`:`✔ Diterima ${CAT[job.key]?SEC[CAT[job.key].sec].name:''}`);return;}
   const done=q=>{if(!MG.open)return;closeMG();stepDone(job,q);};
   MG.job=job;MINI[st.mg](job,st,done);MG.job=job;
@@ -1427,7 +1679,7 @@ function stepDone(job,q,msg){
   if(!G.tray.includes(job))return;
   job.q.push(clamp(q,0,1));if(job.stepDeadline&&curStep(job)&&curStep(job).mg==='lapor')job.stepDeadline=null;job.stepIdx++;
   if(job.stepIdx>=job.steps.length){completeJob(job);return;}
-  const n=curStep(job);if(n.mg==='lapor'&&!job.stepDeadline)job.stepDeadline=G.gameMin+120;
+  const n=curStep(job);if(n.mg==='lapor'&&!job.stepDeadline){job.stepDeadline=G.gameMin+120;announce(`Perhatian. Penyakit wajib lapor dikesan pada sampel ${CAT[job.key]?CAT[job.key].short:''}. Maklumkan Ketua Seksyen dengan segera.`,{key:'lapor'+job.uid});}
   toast(`${msg?msg+' · ':''}Seterusnya: ${STATIONS[n.st].icon} ${esc(n.label)}`);
   G.focus=job;renderTray();refreshMarkers();updateProximity(true);
 }
@@ -1436,16 +1688,18 @@ function completeJob(job){
   let pts;
   if(job.kind==='sispaa'){pts=Math.round((10+25*qa)*DIFF[G.diff].pts);G.stats.sispaaOk++;}
   else if(job.kind==='tt'){pts=0;}
+  else if(job.kind==='lapangan'){pts=Math.round(150*(.4+.6*qa)*DIFF[G.diff].pts);}
   else{pts=(job.kind==='event'?30:25+15*job.steps.length)*(.4+.6*qa);if(job.urgent)pts*=1.5;if(job.late)pts*=.45;pts=Math.round(pts*DIFF[G.diff].pts);}
-  G.score+=pts;removeJob(job);
+  if(pts&&G.energy===dayIdx(G.gameMin))pts=Math.round(pts*1.1);
+  G.score+=pts;removeJob(job);const xp=progJob(job,qa,pts);
   if(job.kind==='event')G.stats.events++;else if(job.kind==='dalaman')G.stats.tasks++;else if(job.kind==='sampel')G.stats.done++;
   if(job.key==='spill')placeSpill(false);
-  if(job.kind!=='tt'){SFX.done();toast(`✔ ${esc(job.title)} selesai${pts?` · +${pts}`:''}`,'good');bossSay(qa>=.8?'👍':qa>=.5?'🙂':'😬');}
+  if(job.kind!=='tt'){SFX.done();toast(`✔ ${esc(job.title)} selesai${pts?` · +${pts}`:''}${xp?` · +${xp} XP`:''}`,'good');bossSay(qa>=.8?'👍':qa>=.5?'🙂':'😬');}
   if(G.tut>=1&&G.tut<4){coach(-1);SAVE.tutDone=true;persist();}
   hudTick();
 }
 function rejectJob(job,correct,frac=1,why){
-  if(correct){const pts=Math.round(35*frac*DIFF[G.diff].pts);G.score+=pts;G.stats.rejected++;toast(`📤 Sampel ditolak dengan betul · +${pts}`,'good');bossSay('👍');if(why==='labdelay')raiseSispaa('labdelay',job);}
+  if(correct){const pts=Math.round(35*frac*DIFF[G.diff].pts);G.score+=pts;G.stats.rejected++;cnt('rejectOk');mev('rejectOk');addXP(Math.round(pts/4));toast(`📤 Sampel ditolak dengan betul · +${pts}`,'good');bossSay('👍');if(why==='labdelay')raiseSispaa('labdelay',job);}
   else{toast('😟 Sampel baik ditolak · pelanggan akan buat aduan','bad');bossSay('😬');raiseSispaa('wrongreject',job);}
   removeJob(job);hudTick();
 }
@@ -1457,8 +1711,11 @@ function checkTimers(){
       if(j.kind==='sampel'){G.stats.late++;toast(`⏰ Lewat: ${esc(j.title)}`,'bad');SFX.bad();raiseSispaa(G.role==='pm'?'counter':'late',j);}
       else if(j.kind==='sispaa'){toast('⏰ Aduan SISPAA tertunggak','bad');offence('sispaa_lewat');removeJob(j);G.stats.sispaaLate++;}
       else if(j.kind==='tt'){toast('⏰ Tiada representasi. Kes dibawa ke Lembaga Tatatertib.','bad');G.tt+=1;removeJob(j);}
-      else if(j.kind==='event'||j.kind==='dalaman'){toast(`⏰ Lewat: ${esc(j.title)}`,'bad');G.stats.late++;}
+      else if(j.kind==='event'||j.kind==='dalaman'||j.kind==='lapangan'){toast(`⏰ Lewat: ${esc(j.title)}`,'bad');G.stats.late++;}
     }
+    if(!j.warnV&&j.kind==='sampel'&&isFinite(j.validM)&&(G.role==='pm'?j.stepIdx===0:j.stepIdx<=j.anaIdx)){const left=j.validM-ageNow(j);if(left>0&&left<Math.max(45,j.validM*.25)){j.warnV=1;toast(`⏳ ${esc(j.title)} hampir tamat kesahan`,'bad');announce(`Amaran. Sampel ${j.title} hampir tamat tempoh kesahan. Sila uruskan segera.`,{key:'v'+j.uid,warn:true});}}
+    if(!j.warnT&&!j.late&&(j.kind==='sampel'||j.kind==='dalaman'||j.kind==='lapangan')){const left=j.deadline-G.gameMin;if(left>0&&left<Math.max(40,(j.tatM||DAYM)*.2)){j.warnT=1;if(j.kind!=='dalaman')announce(`Amaran. ${j.kind==='sampel'?'Sampel '+j.title:j.title} hampir melepasi ${G.role==='pm'&&j.kind==='sampel'?'sasaran kaunter':'tempoh TAT'}.`,{key:'t'+j.uid,warn:true});}}
+    if(!j.warnT&&!j.late&&(j.kind==='sispaa'||j.kind==='tt')){const left=j.deadline-G.gameMin;if(left>0&&left<j.tatM*.3){j.warnT=1;toast(j.kind==='sispaa'?'⏳ Aduan SISPAA hampir tamat tempoh':'⏳ Surat tunjuk sebab belum dijawab','bad');announce(j.kind==='sispaa'?'Peringatan. Aduan SISPAA hampir tamat tempoh jawapan. Sila jawab di meja aduan.':'Peringatan. Surat tunjuk sebab perlu dijawab segera di meja Ketua Seksyen.',{key:'t'+j.uid,warn:true});}}
     if(j.stepDeadline&&G.gameMin>j.stepDeadline&&!j.stepLate){j.stepLate=true;toast('⏰ Penyakit wajib lapor belum dimaklumkan!','bad');offence('tidak_lapor');}
     if(G.role==='pps'&&j.kind==='sampel'&&isFinite(j.validM)&&j.stepIdx<=j.anaIdx&&ageNow(j)>j.validM){G.stats.expired++;toast(`🧊 Sampel ${esc(j.title)} luput kesahan sebelum dianalisis`,'bad');SFX.bad();removeJob(j);raiseSispaa('expired',j);}
   }
@@ -1477,16 +1734,17 @@ function raiseSispaa(reason,job){
   const j={uid:++JOBSEQ,key:'sispaa',kind:'sispaa',title:'Aduan SISPAA',icon:'📣',cap:'#c43c3c',sub:R[0],steps:[{st:'sispaa',mg:'sispaa',label:'Jawab aduan SISPAA'}],stepIdx:0,q:[],born:G.gameMin,tatM:DAYM*(UP.esispaa?1.5:1),deadline:G.gameMin+DAYM*(UP.esispaa?1.5:1),late:false,validM:Infinity,age0:0,data:{cat:R[0],text:R[1],who:job?(job.sender==='Pengusaha ladang'?job.farm:job.sender):pick(FARMS),no:`SISPAA-20${yr}-${++SPSEQ}`}};
   G.tray.push(j);if(!G.focus)G.focus=j;renderTray();refreshMarkers();
   setTimeout(()=>{if(G.mode!=='play')return;toast(`📣 Aduan SISPAA baharu: ${R[0]}`,'bad');SFX.alarm();},300);
+  announce(`Perhatian. Aduan SISPAA baharu diterima: ${R[0]}. Sila jawab di meja aduan sebelum tarikh akhir.`,{key:'sp'+R[0],gap:6000});
 }
 function offence(code){
   const o=OFF[code];G.tt+=o.sev;G.offences.push(code);SFX.gavel();
   const j={uid:++JOBSEQ,key:'tt',kind:'tt',title:'Surat tunjuk sebab',icon:'⚖️',cap:'#3a2f63',sub:o.name,steps:[{st:'boss',mg:'tunjuksebab',label:'Jawab surat tunjuk sebab'}],stepIdx:0,q:[],born:G.gameMin,tatM:DAYM,deadline:G.gameMin+DAYM,late:false,validM:Infinity,age0:0,data:{code}};
   G.tray.push(j);renderTray();refreshMarkers();
   setTimeout(()=>{if(G.mode==='play')toast(`⚖️ Salah laku direkod: ${o.name}`,'bad');},200);hudTick();
+  announce(`Amaran tatatertib. ${o.name}. Surat tunjuk sebab telah dikeluarkan.`,{key:'tt'+code,gap:6000});
 }
 
 /* ============ events ============ */
-function dayStart(di){toast(`🌅 Selamat pagi, hari ${DAYS[di].toLowerCase()}`,'gold');spawnJob();}
 function checkEvents(){for(const ev of G.events){if(ev.fired||G.gameMin<ev.at)continue;ev.fired=true;if(G.gameMin<WEEK-60)fireEvent(ev.type);}}
 function eventJob(key,title,icon,cap,st,mg,label,tat){const j={uid:++JOBSEQ,key,kind:'event',title,icon,cap,sub:'',steps:[{st,mg,label}],stepIdx:0,q:[],born:G.gameMin,tatM:tat,deadline:G.gameMin+tat,urgent:false,late:false,data:{},validM:Infinity,age0:0};G.tray.push(j);if(!G.focus)G.focus=j;renderTray();refreshMarkers();return j;}
 function fireEvent(t){
@@ -1521,7 +1779,7 @@ const INTEG=[
 function openInteg(){
   if(G.mode!=='play')return;const V=pick(INTEG);SFX.ding();
   openMG({title:'Ujian integriti',kicker:`${V.ico} ${V.who}`,cap:'#3a2f63',closable:false,render(b){
-    quizSeq(b,[{q:V.q+'<br><span style="font-weight:400">Apa tindakan anda?</span>',opts:V.opts}],sc=>{closeMG();if(sc){const pts=Math.round(25*DIFF[G.diff].pts);G.score+=pts;G.stats.integ++;toast(`🛡️ Integriti terpelihara · +${pts}`,'good');bossSay('👍');}hudTick();});
+    quizSeq(b,[{q:V.q+'<br><span style="font-weight:400">Apa tindakan anda?</span>',opts:V.opts}],sc=>{closeMG();if(sc){const pts=Math.round(25*DIFF[G.diff].pts);G.score+=pts;G.stats.integ++;cnt('integ');addXP(8);toast(`🛡️ Integriti terpelihara · +${pts}`,'good');bossSay('👍');}hudTick();});
   }});
 }
 
@@ -1566,7 +1824,7 @@ MINI.semak=(j,st,done)=>openMG({job:j,title:'Semak sampel',kicker:'Unit penerima
       {q:'Daftar dalam LIMS dan agih ke seksyen:',opts:[C.sec,...others].map(k=>({t:`${SEC[k].icon} ${SEC[k].name}`,ok:k===C.sec,why:`${C.dis} (${C.test}) diuji oleh Seksyen ${SEC[C.sec].name}.`}))},
       {q:'Simpan sementara sebelum dihantar ke seksyen:',keep:true,opts:stOpt.map(([k,t])=>({t,ok:k===C.store,why:`Keadaan optimum untuk sampel ini: ${C.temp}.`}))}
     ],sc=>done(.5*semakQ+.5*sc));};
-  $('#sOk',b).onclick=()=>{if(!faults.length){SFX.ok();G.stats.accepted++;finish('✔ Sampel lengkap dan mematuhi garis panduan.','good',route);}else{mistake();semakQ=.15;finish(`✖ Sampel ini patut ditolak: <b>${faults.map(f=>REJ[f]).join('; ')}</b>. Keputusannya nanti tidak boleh dipercayai.`,'bad',route);}};
+  $('#sOk',b).onclick=()=>{if(!faults.length){SFX.ok();G.stats.accepted++;mev('accept');finish('✔ Sampel lengkap dan mematuhi garis panduan.','good',route);}else{mistake();semakQ=.15;finish(`✖ Sampel ini patut ditolak: <b>${faults.map(f=>REJ[f]).join('; ')}</b>. Keputusannya nanti tidak boleh dipercayai.`,'bad',route);}};
   $('#sNo',b).onclick=()=>{SFX.tap();$('#sBtns',b).hidden=true;$('#sWhy',b).hidden=false;let reasons=FAULTS[C.kind].slice();if(C.form)reasons.push('borang');if(!isFinite(j.validM))reasons=reasons.filter(x=>x!=='lama');if(C.perak&&!reasons.includes('asal'))reasons.push('asal');
     $('#sOpts',b).innerHTML=shuffle(reasons).map(r=>`<button class="opt" data-r="${r}">${REJ[r]}</button>`).join('');
     $$('#sOpts .opt',b).forEach(o=>o.onclick=()=>{const r=o.dataset.r;
@@ -1589,7 +1847,7 @@ MINI.emparan=(j,st,done)=>openMG({job:j,title:'Emparkan untuk serum',kicker:'Mes
     let sx=0,sy=0;slots.forEach((v,i)=>{if(v){const a=i/6*Math.PI*2;sx+=Math.cos(a);sy+=Math.sin(a);}});const rg=$('#rg',b);
     if(Math.hypot(sx,sy)>1e-6){tries++;mistake();rg.classList.remove('wob');void rg.getBBox();rg.classList.add('wob');fb.className='fb bad';fb.innerHTML='✖ Rotor tidak seimbang! Mesin bergegar dan berhenti. Tiub mesti bertentang atau berselang sama rata.';return;}
     busy=true;SFX.hum();rg.classList.remove('wob');rg.classList.add('spin');fb.className='fb';fb.innerHTML='';
-    setTimeout(()=>{if(!live())return;const ser=j.data.spec&&j.data.spec.haemo>=0?HEMO[j.data.spec.haemo][0]:'#e7c45f';fb.className='fb good';fb.innerHTML=`<div style="display:flex;gap:14px;align-items:center"><div class="tube" style="--cap:${j.cap};--lvl:68%;--ser:${ser}"><i class="t-cap"></i><i class="t-glass"><i class="t-liq split"></i></i></div><div>✔ Serum terpisah. Pindahkan serum ke mikrotiub berlabel.${tries?'<br>Lain kali susun seimbang pada percubaan pertama.':''}</div></div>`;contBtn(fb,'Teruskan ›',()=>done(tries?.5:1));},1700);};
+    setTimeout(()=>{if(!live())return;const ser=j.data.spec&&j.data.spec.haemo>=0?HEMO[j.data.spec.haemo][0]:'#e7c45f';fb.className='fb good';fb.innerHTML=`<div style="display:flex;gap:14px;align-items:center"><div class="tube" style="--cap:${j.cap};--lvl:68%;--ser:${ser}"><i class="t-cap"></i><i class="t-glass"><i class="t-liq split"></i></i></div><div>✔ Serum terpisah. Pindahkan serum ke mikrotiub berlabel.${tries?'<br>Lain kali susun seimbang pada percubaan pertama.':''}</div></div>`;if(!tries)mev('spinOk');contBtn(fb,'Teruskan ›',()=>done(tries?.5:1));},1700);};
   draw();
 }});
 
@@ -1861,16 +2119,459 @@ MINI.tunjuksebab=(j,st,done)=>openMG({job:j,title:'Surat tunjuk sebab',kicker:'K
   quizSeq($('#tsQ',b),[{q:'Representasi anda:',opts:[{t:'Akui fakta dengan jujur, jelaskan keadaan dan nyatakan langkah pembetulan',ok:true},{t:'Nafikan dan salahkan rakan sekerja',why:'Representasi yang tidak jujur memburukkan kes.'},{t:'Abaikan surat ini',why:'Tanpa representasi, Lembaga membuat keputusan tanpa penjelasan anda.'}]}],sc=>{if(sc){G.tt=Math.max(0,G.tt-1);toast('📝 Representasi direkod untuk pertimbangan Lembaga','gold');}else G.tt+=1;done(sc);});
 }});
 
+/* ============ voice announcements: PA chime + Malay speech, radio ducked while speaking ============ */
+const VOX={q:[],busy:false,v:null,last:{},tm:null,lastWarn:0,ok:typeof window.speechSynthesis!=='undefined'&&typeof window.SpeechSynthesisUtterance!=='undefined'};
+function voxVoice(){if(!VOX.ok)return null;let vs=[];try{vs=speechSynthesis.getVoices()||[];}catch(e){}const f=p=>vs.find(v=>String(v.lang||'').toLowerCase().replace('_','-').startsWith(p));return f('ms')||f('id')||null;}
+if(VOX.ok){try{VOX.v=voxVoice();speechSynthesis.addEventListener('voiceschanged',()=>{VOX.v=voxVoice();});}catch(e){}}
+const spk=t=>String(t).replace(/<[^>]+>/g,'').replace(/RT-PCR|qPCR/g,'PCR').replace(/&/g,' dan ').replace(/[⚡★]/g,'').replace(/\s+/g,' ').trim();
+function chime(){tone(659,.6,'sine',.085);tone(523,.95,'sine',.085,.45);}
+function duck(on){try{const base=clamp(Math.pow(R.vol/100,1.3),0,1);if(PL.el)PL.el.volume=on?base*.18:base;if(R.bus&&AC&&R.on&&!STNS[R.st].pl)R.bus.gain.setTargetAtTime(on?rLevel()*.18:rLevel(),AC.currentTime,.12);}catch(e){}}
+function announce(text,o={}){
+  if(!SAVE.settings.voice||G.mode==='menu')return;const now=performance.now(),k=o.key||text;
+  if(VOX.last[k]&&now-VOX.last[k]<(o.gap||20000))return;
+  if(o.warn){if(now-VOX.lastWarn<9000)return;VOX.lastWarn=now;}
+  VOX.last[k]=now;VOX.q.push(spk(text));if(VOX.q.length>3)VOX.q.splice(0,VOX.q.length-3);voxNext();}
+function voxNext(){if(VOX.busy||!VOX.q.length)return;const text=VOX.q.shift();VOX.busy=true;audio();duck(true);chime();$('#bPause').classList.add('pa');
+  const fin=()=>{if(!VOX.busy)return;VOX.busy=false;clearTimeout(VOX.tm);duck(false);$('#bPause').classList.remove('pa');setTimeout(voxNext,400);};
+  VOX.tm=setTimeout(fin,2800+text.length*90);
+  setTimeout(()=>{if(!VOX.busy)return;if(!VOX.ok){clearTimeout(VOX.tm);VOX.tm=setTimeout(fin,600);return;}
+    try{const u=new SpeechSynthesisUtterance(text);const v=VOX.v||voxVoice();if(v){u.voice=v;u.lang=v.lang;}else u.lang='ms-MY';u.rate=1.02;u.onend=fin;u.onerror=fin;speechSynthesis.cancel();speechSynthesis.speak(u);}catch(e){fin();}},1100);}
+function voxStop(){VOX.q.length=0;try{if(VOX.ok)speechSynthesis.cancel();}catch(e){}if(VOX.busy){VOX.busy=false;clearTimeout(VOX.tm);duck(false);$('#bPause').classList.remove('pa');}}
+
+/* ============ fade transition ============ */
+function fadeTo(fn,msg){const f=$('#fade');$('#fadeT').textContent=msg||'';f.classList.add('on');setTimeout(()=>{try{fn();}catch(e){console.error(e);}setTimeout(()=>f.classList.remove('on'),420);},520);}
+function setArea(a){G.area=a;if(FARMG)FARMG.visible=a==='farm';if(sun){const ox=a==='farm'?55:0;sun.position.set(8+ox,20,10);sun.target.position.set(ox,0,0);sun.target.updateMatrixWorld();}cam.pos=null;cam.look=null;}
+
+/* ============ day change: 15-minute (story time) break at the pantry ============ */
+const BREAK_SEC=300; // tempoh rehat dalam saat masa sebenar (5 minit). Dalam cerita: rehat 15 minit.
+function dayStart(di){newMissions(di);if(di>=1)G.brkPend=di;else morning(di);}
+function morning(di){toast(`🌅 Selamat pagi, hari ${DAYS[di].toLowerCase()}`,'gold');spawnJob();if(di===2&&!G.tripDone)assignTrip();}
+function startBreak(){
+  const di=G.brkPend;G.brkPend=null;G.brk={t:BREAK_SEC,di,drink:0,quiz:0};closePops();setAct(null,true);SFX.ding();
+  toast(`☕ Tamat hari ${DAYS[Math.max(0,di-1)].toLowerCase()} · waktu rehat 15 minit di pantri`,'gold');
+  announce('Perhatian semua warga makmal. Waktu rehat lima belas minit bermula sekarang. Sila ke pantri. Ruang kerja makmal ditutup sementara.',{key:'brk'+di,gap:2000});
+  fadeTo(()=>{if(G.mode!=='play')return;const sp=pick(PANTRY_SPOTS);P.x=sp[0];P.z=sp[1];P.heading=Math.PI;P.path=null;P.walkTarget=null;P.moving=false;cam.pos=null;cam.look=null;setLabLock(true);
+    if(mate){mate.g.position.set(22.6,0,-2.7);mate.path=null;mate.wait=3;}hudTick();updateProximity(true);netSend(true);saveWeek();},'☕ Waktu rehat');}
+function endBreak(){
+  const di=G.brk.di;G.brk=null;setLabLock(false);SFX.done();$('#brkNote').hidden=true;
+  toast('🔔 Rehat tamat · pintu makmal dibuka. Selamat bertugas!','good');
+  announce('Waktu rehat telah tamat. Pintu makmal dibuka. Sila kembali bertugas.',{key:'brkEnd'+di,gap:2000});
+  morning(di);hudTick();updateProximity(true);netSend(true);saveWeek();}
+function brkNote(){const el=$('#brkNote');if(!G.brk||G.mode!=='play'){el.hidden=true;return;}const b=G.brk;
+  const todo=[!b.drink?'☕ bancuh air di kaunter pantri (bonus tenaga)':'',!b.quiz?'📌 jawab kuiz di papan kenyataan (RM)':''].filter(Boolean);
+  el.innerHTML=`<b>☕ Waktu rehat</b><span>Pintu makmal dikunci.${todo.length?' Sementara rehat: '+todo.join(' · ')+'.':' Rehatlah, sembang dengan rakan dalam talian 💬'}</span>`;el.hidden=false;}
+const DRINKS=[['teh','🍵 Teh tarik','#c98b4e','tarik tinggi, buih tebal'],['kopi','☕ Kopi O','#4a2c1d','pekat dan panas'],['milo','🥤 Milo ais','#7a4a2a','kacau rata']];
+function openDrink(){if(MG.open||!G.brk)return;
+  openMG({title:'Bancuh minuman',kicker:'☕ Kaunter pantri',cap:'#b88a5a',render(b){
+    const live=liveFn();let dk=DRINKS[0],pulls=0,foam=0,pos=0,dir=1,ended=false;
+    b.innerHTML=`<p class="lead">Pilih minuman. Tekan <b>Tarik!</b> bila penanda dalam zon emas. Tiga kali tarikan untuk minuman sempurna.</p><div class="seg2" id="dkPick">${DRINKS.map((d,i)=>`<button data-i="${i}" aria-pressed="${i===0}">${d[1]} <small style="font-weight:400;color:var(--ink2)">· ${d[3]}</small></button>`).join('')}</div>
+    <div class="tarik"><div class="tk-bar"><i class="tk-zone"></i><i class="tk-mark" id="tkM"></i></div><div class="tk-cup"><i class="tk-liq" id="tkL"></i><i class="tk-foam" id="tkF"></i></div></div>
+    <div class="row2"><button class="btn big" id="tkGo">🫗 Tarik!</button></div><div class="fb" id="tkFb"></div>`;
+    $$('#dkPick button',b).forEach(x=>x.onclick=()=>{if(pulls)return;dk=DRINKS[+x.dataset.i];$$('#dkPick button',b).forEach(y=>y.setAttribute('aria-pressed',y===x));SFX.tap();});
+    const m=$('#tkM',b),L=$('#tkL',b),F=$('#tkF',b),fb=$('#tkFb',b);
+    let raf,prev=performance.now();const loop=now=>{if(!live())return;const dt=Math.min(.05,(now-prev)/1000);prev=now;if(!ended){pos+=dir*dt*(.85+pulls*.35);if(pos>1){pos=1;dir=-1;}if(pos<0){pos=0;dir=1;}m.style.bottom=`calc(${pos*100}% - 3px)`;}raf=requestAnimationFrame(loop);};raf=requestAnimationFrame(loop);addCleanup(()=>cancelAnimationFrame(raf));
+    $('#tkGo',b).onclick=()=>{if(ended)return;const g=pos>=.78&&pos<=.96?1:pos>=.64?.5:0;foam+=g;pulls++;if(g===1)SFX.ok();else if(g)SFX.tap();else SFX.bad();
+      L.style.background=dk[2];L.style.height=(22+pulls*18)+'%';F.style.bottom=(22+pulls*18)+'%';F.style.height=(foam*7)+'%';
+      fb.className='fb '+(g===1?'good':g?'warn':'bad');fb.textContent=g===1?'Tarikan cantik! Buih naik.':g?'Boleh tahan, tarik lebih tinggi lagi.':'Alamak, terpercik sikit!';
+      if(pulls>=3){ended=true;$('#tkGo',b).disabled=true;$$('#dkPick button',b).forEach(y=>y.disabled=true);const q=foam/3;G.brk.drink=1;G.energy=dayIdx(G.gameMin);cnt('drinks');mev('drink');addXP(10);
+        setTimeout(()=>{if(!live())return;fb.className='fb good';fb.innerHTML=`<div>${q>=.84?'🌟 Sempurna!':q>=.5?'😋 Sedap!':'🙂 Boleh minum.'} ${esc(dk[1])} siap. <b>⚡ Bertenaga hari ini:</b> jalan lebih laju dan mata kerja +10%.</div>`;contBtn(fb,'Minum ›',()=>{closeMG();toast('⚡ Bertenaga! Jalan lebih laju & mata +10% hari ini','good');brkNote();});},450);}};
+  }});}
+const PQ=[
+  ['Swab AI dalam VTM dihantar pada suhu…',['2–8°C','Suhu bilik','-20°C']],
+  ['Tiub penutup ungu mengandungi…',['EDTA','Heparin','Gel pemisah serum']],
+  ['Serum ditolak jika hemolisis sekurang-kurangnya…',['100 mg/dL','20 mg/dL','1000 mg/dL']],
+  ['Borang untuk sampel rabies ialah…',['MAKVET 05 (A)','MAKVET 03','MAKVET 10']],
+  ['Darah untuk TB BOVIGAM mesti sampai dalam…',['7 jam, suhu bilik','48 jam, dalam ais','7 hari, beku']],
+  ['Faktor McMaster (2 g najis dalam 28 ml, dua ruang)…',['50','100','25']],
+  ['Label untuk bahan biologi Kategori B ialah…',['UN3373','UN2814','UN1845']],
+  ['Kitaran autoklaf untuk 500 ml media agar…',['121°C · 15 minit','100°C · 10 minit','160°C · 2 jam']],
+  ['Bangkai disyaki antraks…',['Jangan dibedah; maklum DIC','Dibedah di luar bangunan','Dibakar tanpa laporan']],
+  ['Stok reagen dikeluarkan mengikut…',['Tarikh luput paling awal dahulu','Kotak paling depan','Kotak paling baharu']],
+  ['Beg untuk sisa klinikal berwarna…',['Kuning','Hitam','Biru']],
+  ['Darah biri-biri ditambah ke agar asas pada suhu…',['45–50°C','80–90°C','4°C']],
+  ['Zon perencatan Kirby-Bauer diukur sebagai…',['Diameter dalam mm','Jejari dalam cm','Luas dalam mm²']],
+  ['Kiraan WBC hemositometer (4 petak besar, cairan 1:20)…',['Sel/µL = N × 50','Sel/µL = N × 20','Sel/µL = N ÷ 4']],
+  ['Najis untuk McMaster jangan…',['Dibekukan','Disejukkan 4–8°C','Dihantar dalam 2 hari']],
+  ['Aduan SISPAA dijawab dengan…',['Akui aduan & nyatakan tindakan pembetulan','Salahkan pelanggan','Abaikan jika lama']],
+  ['Tawaran "duit kopi" daripada pelanggan…',['Tolak dan laporkan','Terima jika kecil','Terima selepas waktu pejabat']],
+  ['Petrifilm kiraan aerobik susu diinkubasi…',['48 jam pada 32°C','2 jam pada 4°C','7 hari pada suhu bilik']],
+];
+function openPantryQuiz(){if(MG.open||!G.brk)return;
+  openMG({title:'Kuiz pantri',kicker:'📌 Papan kenyataan · RM20 setiap jawapan betul',cap:'#e5b42a',render(b){
+    const qs=shuffle(PQ).slice(0,3).map(([q,o])=>({q,opts:o.map((t,i)=>({t,ok:i===0,why:`Jawapan: ${o[0]}.`}))}));
+    quizSeq(b,qs,sc=>{const right=Math.round(sc*3);G.brk.quiz=1;cnt('quizOk',right);if(right===3)mev('quiz3');const rm=right*20;if(rm){SAVE.wallet+=rm;persist();SFX.cash();}addXP(right*10);
+      b.innerHTML=`<div class="fb ${right===3?'good':'warn'}"><div>${right===3?'🏆 Hebat! 3/3 betul.':`${right}/3 betul.`} ${rm?`+${RM(rm)} masuk simpanan.`:''}</div></div>`;contBtn($('.fb',b),'Tutup ›',()=>{closeMG();brkNote();});});
+  }});}
+
+/* ============ field trip (Wednesday): DIC briefing → van → farm objectives → van back ============ */
+const KIT={cool:'🧊 Kotak sejuk + pek ais',biasa:'🔴 Tiub biasa (serum)',edta:'🟣 Tiub EDTA',jarum:'💉 Jarum vakum & pemegang',vtm:'🧪 Tiub VTM',swab:'🥢 Swab steril',botol:'🧴 Botol plastik steril',pot:'🫙 Bekas najis bertutup skru',borang:'📄 Borang MAKVET 01',ppe:'🧤 Sarung tangan, apron & but',label:'🏷️ Label & pen penanda',
+  formalin:'⚗️ Formalin 10%',agar:'🧫 Piring agar darah',bpw:'🟡 Media BPW',heparin:'🟢 Tiub heparin',aiskering:'❄️ Ais kering -70°C',amies:'🔵 Media Amies'};
+const KIT_X=['formalin','agar','bpw','heparin','aiskering','amies'];
+const TRIPS={
+  lembu:{t:'Lembu & ayam',case:'Penternak melaporkan beberapa ekor lembu demam dan berbenjol di kulit, manakala ayam kampung lesu. Kumpul sampel untuk saringan.',
+    obj:[['darah','kandang',4,'Darah lembu (tiub biasa + EDTA)','Lembu'],['swab','reban',5,'Swab kloaka ayam dalam VTM'],['air','kolam',2,'Sampel air minuman ternakan'],['borang','penternak',1,'Borang & sejarah kes'],['cool','coolbox',1,'Kotak sejuk 2–8°C']],
+    kit:['cool','biasa','edta','jarum','vtm','swab','botol','borang','ppe','label'],out:{pm:[['rbpt','Lembu'],['lsd','Lembu'],['ai','Ayam'],['water',null]],pps:[['rbpt','Lembu'],['lsd','Lembu'],['ai','Ayam']]}},
+  kambing:{t:'Kambing',case:'Kambing kurus, pucat dan ada yang cirit. Kumpul sampel darah dan najis untuk diagnosis.',
+    obj:[['darah','kandang',3,'Darah kambing (tiub biasa + EDTA)','Kambing'],['najis','kandang',3,'Najis segar kambing (> 3 g)'],['air','kolam',2,'Sampel air minuman ternakan'],['borang','penternak',1,'Borang & sejarah kes'],['cool','coolbox',1,'Kotak sejuk 2–8°C']],
+    kit:['cool','biasa','edta','jarum','pot','botol','borang','ppe','label'],out:{pm:[['rbpt','Kambing'],['smear','Kambing'],['fec','Kambing'],['water',null]],pps:[['pcv','Kambing'],['fec','Kambing'],['hemo','Kambing']]}},
+  ayam:{t:'Ayam',case:'Kematian ayam meningkat mendadak dan sumber air disyaki tercemar. Saringan influenza avian dan semak air.',
+    obj:[['swab','reban',6,'Swab kloaka ayam dalam VTM'],['air','kolam',3,'Sampel air kolam & takungan'],['darah','kandang',2,'Darah lembu jiran (tiub biasa)','Lembu'],['borang','penternak',1,'Borang & sejarah kes'],['cool','coolbox',1,'Kotak sejuk 2–8°C']],
+    kit:['cool','vtm','swab','biasa','jarum','botol','borang','ppe','label'],out:{pm:[['ai','Ayam'],['ai','Ayam'],['water',null],['rbpt','Lembu']],pps:[['ai','Ayam'],['gel','Ayam'],['rbpt','Lembu']]}},
+};
+function assignTrip(){
+  const vk=pick(Object.keys(TRIPS)),T=TRIPS[vk],farm=pick(FARMS);
+  const j={uid:++JOBSEQ,key:'lapangan',kind:'lapangan',title:'Kerja lapangan',icon:'🚐',cap:'#5b8f2a',sub:`${farm} · ${T.t}`,steps:[{st:'boss',mg:'taklimat',label:'Taklimat & sediakan kit'},{st:'van',mg:'pergi',label:'Naik van ke ladang'},{st:'van_farm',mg:'ladang',label:'Capai objektif sampling'}],stepIdx:0,q:[],born:G.gameMin,tatM:DAYM,deadline:G.gameMin+DAYM,urgent:false,late:false,validM:Infinity,age0:0,
+    data:{v:vk,farm,obj:T.obj.map(([id,st,n,label,sp])=>({id,st,n,label,sp:sp||null,done:0,q:0}))}};
+  G.tray.push(j);G.focus=j;renderTray();refreshMarkers();SFX.ring();
+  toast('🚐 Tugasan kerja lapangan! Jumpa Ketua Seksyen untuk taklimat','gold');
+  announce('Perhatian. Ketua Seksyen menugaskan anda membuat kerja lapangan hari ini. Sila jumpa Ketua Seksyen untuk taklimat.',{key:'trip'});}
+const farmObjDone=o=>o.done>=o.n;
+function updateFarmStep(job){const s=job.steps[2];if(!s)return;const left=job.data.obj.filter(o=>!farmObjDone(o));const nx=left.find(o=>o.id!=='cool')||left[0];
+  if(nx){s.st=nx.st;s.label=`${nx.label} (${nx.done}/${nx.n})`;}else{s.st='van_farm';s.label='Objektif lengkap · pulang dengan van';}}
+function goFarm(job){if(MG.open)return;SFX.tap();
+  fadeTo(()=>{setArea('farm');P.x=44.0;P.z=9.15;P.heading=0;P.path=null;P.walkTarget=null;P.moving=false;G.farmT=0;drawFarmSign(job.data.farm);updateFarmStep(job);stepDone(job,1,'🚐 Tiba di ladang');netSend(true);saveWeek();
+    announce(`Anda telah tiba di ${job.data.farm}. Lengkapkan semua objektif sampling sebelum pulang ke makmal.`,{key:'arrive',gap:5000});},`🚐 Menuju ke ${job.data.farm}…`);}
+function farmActLabel(id,job){const D=job.data;if(id==='van_farm'){const left=D.obj.filter(o=>!farmObjDone(o)).length;return left?`🚐 Pulang (${left} objektif belum siap)`:'🚐 Pulang ke VRI';}
+  const o=D.obj.find(o=>o.st===id&&!farmObjDone(o));return o?`${STATIONS[id].icon} ${o.label}${o.n>1?` (${o.done}/${o.n})`:''}`:'✔ Objektif di sini siap';}
+function farmAct(id,job){
+  const D=job.data;
+  if(id==='van_farm'){const left=D.obj.filter(o=>!farmObjDone(o));if(left.length){SFX.bad();toast(`🚫 Belum boleh pulang: ${left.map(o=>esc(o.label)).join(', ')}`,'bad');announce('Objektif sampling belum lengkap. Van belum boleh bertolak.',{key:'vanno',gap:12000});return;}openReturn(job);return;}
+  const o=D.obj.find(x=>x.st===id&&!farmObjDone(x));if(!o){toast('✔ Objektif di sini sudah siap');return;}
+  if(o.id==='cool'){const need=D.obj.filter(x=>x.id!=='cool'&&x.id!=='borang'&&!farmObjDone(x));if(need.length){SFX.bad();toast(`Kumpul semua sampel dulu: ${need.map(x=>esc(x.label)).join(', ')}`,'bad');return;}}
+  G.focus=job;renderTray();
+  FMINI[o.id](job,o,q=>{if(!MG.open)return;closeMG();o.done=o.n;o.q=clamp(q,0,1);SFX.ok();toast(`✔ ${esc(o.label)} siap`,'good');updateFarmStep(job);renderTray();refreshMarkers();updateProximity(true);saveWeek();
+    if(D.obj.every(farmObjDone)){toast('🚐 Semua objektif siap! Kembali ke van untuk pulang','gold');announce('Semua objektif sampling telah lengkap. Sila kembali ke van untuk pulang ke makmal.',{key:'tripok'});}});
+  MG.job=job;}
+function openReturn(job){const D=job.data;const qa=D.obj.reduce((a,o)=>a+o.q,0)/D.obj.length;const fast=G.farmT<240;
+  openMG({job,title:'Pulang ke VRI',kicker:`🚐 ${D.farm}`,cap:job.cap,render(b){
+    b.innerHTML=`<p class="lead">Semua objektif sampling lengkap. Semak ringkasan sebelum van bertolak.</p><ul class="qlist">${D.obj.map(o=>`<li class="qi"><span style="font-size:20px">${o.q>=.85?'🌟':o.q>=.5?'✔':'⚠️'}</span><div style="min-width:0"><div class="qi-t">${esc(o.label)}</div><div class="qi-s">${o.n>1?o.n+' sampel · ':''}kualiti ${Math.round(o.q*100)}%${o.bad?' · <span class="late">suhu kotak sejuk tidak sesuai</span>':''}</div></div><span></span></li>`).join('')}</ul><p class="note">⏱️ Masa di ladang ${Math.floor(G.farmT/60)} min ${Math.round(G.farmT%60)} s${fast?' · <b>bonus pantas +30</b>':''}</p><div class="row2"><button class="btn big" id="rtGo">🚐 Pulang ke VRI</button></div>`;
+    $('#rtGo',b).onclick=()=>{closeMG();goLab(job,qa,fast);};}});}
+function tripSamples(job){const D=job.data,T=TRIPS[D.v];const cool=D.obj.find(o=>o.id==='cool');const warm=!!(cool&&cool.bad);let n=0;
+  for(const [key,spp] of T.out[G.role]){let j;
+    if(G.role==='pm')j=newPmJob(key,{spp,farm:D.farm,faults:warm?['suhu']:[],fresh:true});
+    else{j=newPpsJob(key,{spp});j.farm=D.farm;j.sub=`${j.spp} · ${D.farm}`;j.age0=rnd(20,90);}
+    j.lap=true;j.sender='Kerja lapangan VRI';G.queue.push(j);n++;}
+  updateCoolers();hudTick();return n;}
+function goLab(job,qa,fast){
+  fadeTo(()=>{setArea('lab');const S=STATIONS.van;P.x=S.use[0];P.z=S.use[1];P.heading=0;P.path=null;P.walkTarget=null;P.moving=false;
+    const n=tripSamples(job);G.tripDone=true;if(fast)G.score+=Math.round(30*DIFF[G.diff].pts);cnt('trips');mev('trip');stepDone(job,qa);
+    toast(`📥 ${n} sampel lapangan masuk ${G.role==='pm'?'kaunter penerimaan':'peti sejuk sampel'}`,'gold');
+    announce(`Selamat kembali ke makmal. ${n} sampel lapangan telah diserahkan untuk ${G.role==='pm'?'disemak di kaunter':'diuji'}.`,{key:'back',gap:5000});netSend(true);saveWeek();},'🚐 Pulang ke VRI…');}
+MINI.taklimat=(j,st,done)=>openMG({job:j,title:'Taklimat kerja lapangan',kicker:'👔 Ketua Seksyen / DIC',cap:j.cap,render(b){
+  const T=TRIPS[j.data.v];const need=new Set(T.kit);const items=shuffle([...T.kit,...shuffle(KIT_X).slice(0,4)]);const sel=new Set();
+  b.innerHTML=`<div class="sp-card" style="border-color:#bcd9a8;background:#f4fbef"><b>📋 ${esc(j.data.farm)} · ${esc(T.t)}</b><span>${esc(T.case)}</span><span class="mono">Objektif: ${j.data.obj.map(o=>esc(o.label)+(o.n>1?` ×${o.n}`:'')).join(' · ')}</span></div><p class="q">Pilih semua barang yang perlu dibawa ke ladang:</p><div class="chipsel kit">${items.map(k=>`<button class="chip" data-k="${k}" aria-pressed="false">${KIT[k]}</button>`).join('')}</div><button class="btn" id="kitGo">✔ Kit siap</button><div class="fb" id="kitFb"></div>`;
+  $$('.chip',b).forEach(c=>c.onclick=()=>{const k=c.dataset.k;sel.has(k)?sel.delete(k):sel.add(k);c.setAttribute('aria-pressed',sel.has(k));SFX.tap();});
+  $('#kitGo',b).onclick=()=>{const fb=$('#kitFb',b);if(!sel.size){fb.className='fb warn';fb.textContent='Pilih barang untuk dibawa.';return;}
+    const right=[...need].filter(k=>sel.has(k)).length,extra=[...sel].filter(k=>!need.has(k)).length,q=clamp((right-extra*.5)/need.size,0,1);
+    $$('.chip',b).forEach(c=>{c.disabled=true;const k=c.dataset.k;if(need.has(k))c.classList.add('need');if(sel.has(k)&&!need.has(k))c.classList.add('extra');});$('#kitGo',b).hidden=true;
+    if(q===1)SFX.ok();else mistake();fb.className='fb '+(q===1?'good':'warn');fb.innerHTML=q===1?'<div>✔ Kit lengkap. Naik van di pintu masuk.</div>':`<div>Barang bergaris hijau perlu dibawa${extra?'; barang bergaris merah tidak diperlukan untuk kes ini':''}. ${right<need.size?`Tertinggal ${need.size-right} barang.`:''}</div>`;
+    contBtn(fb,'Ke van ›',()=>{bossSay('🚐');done(q);});};
+}});
+const FMINI={};
+FMINI.darah=(job,o,done)=>openMG({job,title:`Ambil darah ${o.sp.toLowerCase()}`,kicker:'🐄 Kandang',cap:job.cap,render(b){
+  const live=liveFn();const n=o.n,EM=o.sp==='Kambing'?'🐐':'🐄',both=job.data.v!=='ayam';let k=0,tries=0,sc=0,pos=0,dir=1,ended=false,zone=[.4,.58];
+  b.innerHTML=`<p class="lead">Cucuk <b>vena jugular</b> bila penanda berada dalam zon hijau. Haiwan bergerak, jadi tunggu saat yang tepat. ${both?'Tiub biasa diisi dahulu, kemudian tiub EDTA.':'Isi tiub biasa untuk serum.'}</p>
+  <div class="vein"><div class="vn-an" id="vnA">${EM}</div><div class="vn-bar"><i class="vn-zone" id="vnZ"></i><i class="vn-mark" id="vnM"></i></div></div>
+  <div class="scope-bar"><span class="mono">${esc(o.sp)} <b id="vnK">1</b>/${n}</span><div class="reps" id="vnR">${'<i></i>'.repeat(n)}</div><button class="btn" id="vnGo">💉 Cucuk</button></div><div class="fb" id="vnFb"></div><div id="vnQ"></div>`;
+  const setZone=()=>{const w=Math.max(.1,.2-k*.025),c=rnd(.22,.78);zone=[c-w/2,c+w/2];const z=$('#vnZ',b);z.style.left=zone[0]*100+'%';z.style.width=(zone[1]-zone[0])*100+'%';};setZone();
+  const m=$('#vnM',b),fb=$('#vnFb',b),jig=()=>{const a=$('#vnA',b);a.classList.remove('jig');void a.offsetWidth;a.classList.add('jig');};
+  let raf,prev=performance.now();const loop=now=>{if(!live())return;const dt=Math.min(.05,(now-prev)/1000);prev=now;if(!ended){pos+=dir*dt*.8*(1+k*.14);if(pos>1){pos=1;dir=-1;}if(pos<0){pos=0;dir=1;}m.style.left=pos*100+'%';}raf=requestAnimationFrame(loop);};raf=requestAnimationFrame(loop);addCleanup(()=>cancelAnimationFrame(raf));
+  $('#vnGo',b).onclick=()=>{if(ended)return;
+    if(pos>=zone[0]-.01&&pos<=zone[1]+.01){sc+=tries===0?1:tries===1?.7:.45;tries=0;k++;SFX.ok();$$('#vnR i',b).forEach((x,i)=>x.classList.toggle('on',i<k));fb.className='fb good';fb.textContent=both?`✔ ${o.sp} ${k}: tiub biasa ✔ · tiub EDTA ✔`:`✔ ${o.sp} ${k}: tiub biasa ✔`;
+      if(k>=n){ended=true;$('#vnGo',b).disabled=true;setTimeout(()=>{if(live())quiz();},450);}else{$('#vnK',b).textContent=k+1;setZone();jig();}}
+    else{tries++;SFX.bad();fb.className='fb warn';fb.textContent='Tersasar vena. Haiwan meronta, cuba lagi.';jig();}};
+  function quiz(){quizSeq($('#vnQ',b),both?[{q:'Urutan pengisian tiub yang betul?',opts:[{t:'Tiub biasa (tanpa bahan tambah) dahulu, kemudian tiub EDTA',ok:true},{t:'Tiub EDTA dahulu, kemudian tiub biasa',why:'EDTA boleh terbawa ke tiub seterusnya. Isi tiub tanpa bahan tambah dahulu.'},{t:'Urutan tidak penting',why:'Urutan penting untuk elak pencemaran bahan tambah.'}]},{q:'Selepas diisi, tiub EDTA perlu…',opts:[{t:'Diterbalikkan perlahan 8–10 kali',ok:true},{t:'Digoncang kuat',why:'Goncangan kuat menyebabkan hemolisis.'},{t:'Dibiarkan tanpa digaul',why:'Darah boleh membeku jika tidak bercampur dengan antikoagulan.'}]}]
+    :[{q:'Tiub biasa untuk serum selepas diisi…',opts:[{t:'Dibiarkan tegak sehingga membeku, kemudian disejukkan tanpa menyentuh ais secara terus',ok:true},{t:'Digoncang kuat supaya cepat membeku',why:'Goncangan kuat menyebabkan hemolisis.'},{t:'Dibekukan dalam ais kering',why:'Darah penuh yang beku akan hemolisis.'}]}],qs=>done(clamp(.6*sc/n+.4*qs,0,1)));}
+}});
+FMINI.swab=(job,o,done)=>openMG({job,title:'Swab kloaka ayam',kicker:'🐔 Reban ayam',cap:job.cap,render(b){
+  const live=liveFn();const n=o.n,T=n*3+9,ch=[],NS='http://www.w3.org/2000/svg';let got=0,ended=false;const t0=performance.now();
+  b.innerHTML=`<p class="lead">Ketik ayam untuk menangkapnya. Setiap ayam yang ditangkap diswab di kloaka dan swab dimasukkan ke dalam tiub VTM. Perlu <b>${n} ekor</b>.</p><div class="pen"><svg viewBox="0 0 320 200" id="penS"><rect width="320" height="200" rx="14" fill="#d9c79a"/>${Array.from({length:20},()=>`<circle cx="${rint(8,312)}" cy="${rint(8,192)}" r="${rint(2,4)}" fill="#c4b07f"/>`).join('')}</svg></div><div class="scope-bar"><span class="mono">Ditangkap <b id="swN">0</b>/${n}</span><div class="timer"><i id="swT"></i></div></div><div class="fb" id="swFb"></div><div id="swQ"></div>`;
+  const svg=$('#penS',b);
+  for(let i=0;i<n+2;i++){const t=document.createElementNS(NS,'text');t.setAttribute('font-size','30');t.setAttribute('text-anchor','middle');t.setAttribute('dominant-baseline','central');t.textContent='🐔';svg.appendChild(t);const a=rnd(0,Math.PI*2),sp=rnd(50,90);ch.push({el:t,x:rnd(30,290),y:rnd(30,170),vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,c:false,turn:rnd(.6,1.6)});}
+  const XY=e=>{const r=svg.getBoundingClientRect();return [(e.clientX-r.left)/r.width*320,(e.clientY-r.top)/r.height*200];};
+  const fin=()=>{if(ended)return;ended=true;const fb=$('#swFb',b);fb.className='fb '+(got>=n?'good':'warn');fb.textContent=got>=n?`✔ ${n} swab kloaka dalam VTM.`:`Masa tamat: ${got}/${n} ayam diswab.`;
+    quizSeq($('#swQ',b),[{q:'Swab kloaka untuk saringan influenza avian dihantar…',opts:[{t:'Dalam VTM, 2–8°C, sampai dalam 48 jam',ok:true},{t:'Dalam tiub kering, suhu bilik',why:'Swab AI mesti dalam VTM pada 2–8°C.'},{t:'Dibekukan dalam ais kering',why:'Hantar 2–8°C dalam VTM, dalam 48 jam.'}]}],qs=>done(clamp(.6*got/n+.4*qs,0,1)));};
+  svg.addEventListener('pointerdown',e=>{if(ended)return;const [x,y]=XY(e);let best=null,bd=34;for(const c of ch){if(c.c)continue;const d=Math.hypot(c.x-x,c.y-y);if(d<bd){bd=d;best=c;}}
+    if(best){best.c=true;got++;best.el.textContent='🧪';SFX.ok();$('#swN',b).textContent=got;const el=best.el;setTimeout(()=>{el.style.opacity='0';},400);if(got>=n)setTimeout(fin,300);}else SFX.tap();});
+  let raf,prev=performance.now();const loop=now=>{if(!live())return;const dt=Math.min(.05,(now-prev)/1000);prev=now;
+    if(!ended){for(const c of ch){if(c.c)continue;c.turn-=dt;if(c.turn<=0){c.turn=rnd(.5,1.5);const a=rnd(0,Math.PI*2),sp=rnd(50,100);c.vx=Math.cos(a)*sp;c.vy=Math.sin(a)*sp;}c.x+=c.vx*dt;c.y+=c.vy*dt;if(c.x<18||c.x>302){c.vx*=-1;c.x=clamp(c.x,18,302);}if(c.y<18||c.y>182){c.vy*=-1;c.y=clamp(c.y,18,182);}c.el.setAttribute('transform',`translate(${c.x.toFixed(1)} ${c.y.toFixed(1)}) scale(${c.vx>0?-1:1} 1)`);}
+      const p=1-(now-t0)/1000/T;$('#swT',b).style.width=clamp(p,0,1)*100+'%';if(p<=0)fin();}
+    raf=requestAnimationFrame(loop);};raf=requestAnimationFrame(loop);addCleanup(()=>cancelAnimationFrame(raf));
+}});
+FMINI.air=(job,o,done)=>openMG({job,title:'Sampel air',kicker:'💧 Kolam & takungan air',cap:job.cap,render(b){
+  const live=liveFn();const n=o.n;let k=0,sc=0,q1=0,V=0,dip=false,ended=false,rate=140,tries=0;
+  quizSeq(b,[{q:'Pilih bekas untuk sampel air:',opts:[{t:'Botol plastik bersih bebas parameter, bertutup rapat',ok:true},{t:'Botol racun perosak terpakai (sudah dibilas)',why:'Bekas terpakai mencemarkan parameter kimia. Guna botol bersih bebas parameter.'},{t:'Botol susu terpakai',why:'Sisa susu mencemarkan sampel.'}]}],s=>{q1=s;dips();});
+  function dips(){const yv=v=>190-clamp(v/600,0,1)*150;
+    b.innerHTML=`<p class="lead">Tekan <b>Celup</b>, kemudian <b>Angkat</b> bila paras air dalam zon hijau (250–450 ml). Perlu ${n} botol.</p><div class="pip"><svg viewBox="0 0 120 200" aria-label="Botol sampel"><defs><clipPath id="btl"><rect x="28" y="40" width="64" height="150" rx="12"/></clipPath></defs><rect x="28" y="40" width="64" height="150" rx="12" fill="rgba(255,255,255,.8)" stroke="#7fa3ad" stroke-width="2"/><rect x="46" y="22" width="28" height="20" rx="4" fill="#3e7bbf"/><rect x="0" y="${yv(450)}" width="120" height="${yv(250)-yv(450)}" fill="rgba(43,138,87,.2)"/><rect id="dpL" x="28" y="190" width="64" height="0" fill="#7cc6e0" clip-path="url(#btl)"/></svg><div class="side"><div class="readout"><span id="dpV">0</span> ml</div><div class="reps" id="dpR">${'<i></i>'.repeat(n)}</div><button class="btn" id="dpGo">⬇️ Celup</button></div></div><div class="fb" id="dpFb"></div><div id="dpQ"></div>`;
+    const L=$('#dpL',b),fb=$('#dpFb',b),go=$('#dpGo',b);const upd=()=>{$('#dpV',b).textContent=Math.round(V);const y=yv(V);L.setAttribute('y',String(y));L.setAttribute('height',String(190-y));};
+    go.onclick=()=>{if(ended)return;if(!dip){dip=true;V=0;rate=rnd(120,170);go.textContent='⬆️ Angkat';SFX.tap();return;}dip=false;go.textContent='⬇️ Celup';
+      if(V>=250&&V<=450){sc+=tries?.6:1;tries=0;k++;SFX.ok();$$('#dpR i',b).forEach((x,i)=>x.classList.toggle('on',i<k));fb.className='fb good';fb.textContent=`✔ Botol ${k}: ${Math.round(V)} ml, ditutup dan dilabel.`;if(k>=n){ended=true;go.disabled=true;setTimeout(()=>{if(live())quiz();},400);}}
+      else{tries++;SFX.bad();fb.className='fb warn';fb.textContent=V<250?`Hanya ${Math.round(V)} ml. Sampel perlu lebih 200 ml; buang dan celup semula.`:`${Math.round(V)} ml, terlalu penuh dan tumpah. Buang dan celup semula.`;}
+      V=0;upd();};
+    let raf,prev=performance.now();const loop=now=>{if(!live())return;const dt=Math.min(.05,(now-prev)/1000);prev=now;if(dip&&!ended){V=Math.min(600,V+rate*dt*(1+V/600));upd();}raf=requestAnimationFrame(loop);};raf=requestAnimationFrame(loop);addCleanup(()=>cancelAnimationFrame(raf));}
+  function quiz(){quizSeq($('#dpQ',b),[{q:'Sampel air untuk ujian kualiti dihantar…',opts:[{t:'Lebih 200 ml, 4–8°C, sampai makmal dalam 2 hari',ok:true},{t:'Suhu bilik, bila-bila masa',why:'Sampel air perlu 4–8°C dan sampai dalam 2 hari.'},{t:'Dibekukan supaya tahan lama',why:'Hantar sejuk 4–8°C, bukan beku.'}]}],qs=>done(clamp(.2*q1+.5*sc/n+.3*qs,0,1)));}
+}});
+FMINI.najis=(job,o,done)=>openMG({job,title:'Kutip najis segar',kicker:'🐐 Kandang',cap:job.cap,render(b){
+  const n=o.n;let k=0,g=0,sc=0;
+  b.innerHTML=`<p class="lead">Kaut najis segar terus dari rektum ke dalam bekas. Setiap bekas perlu <b>lebih 3 g</b> (jangan terlalu penuh, maksimum 10 g). Perlu ${n} bekas.</p><div class="pip"><div style="font-size:64px;line-height:1">🐐</div><div class="side"><div class="readout"><span id="njV">0.0</span> g</div><div class="reps" id="njR">${'<i></i>'.repeat(n)}</div><div class="row2"><button class="btn" id="njAdd">🥄 Kaut</button><button class="btn ok" id="njOk">🏷️ Tutup & label</button></div></div></div><div class="fb" id="njFb"></div><div id="njQ"></div>`;
+  const fb=$('#njFb',b),upd=()=>{$('#njV',b).textContent=fx(g,1);};
+  $('#njAdd',b).onclick=()=>{if(k>=n)return;g+=rnd(.6,1.5);SFX.drip();upd();if(g>10){fb.className='fb warn';fb.textContent='Bekas terlalu penuh! Kurangkan sampel.';g=rnd(6,8);upd();}};
+  $('#njOk',b).onclick=()=>{if(k>=n)return;if(g<=3){SFX.bad();fb.className='fb warn';fb.textContent=`Baru ${fx(g,1)} g. Perlu lebih 3 g untuk McMaster.`;return;}k++;sc+=1;SFX.ok();$$('#njR i',b).forEach((x,i)=>x.classList.toggle('on',i<k));fb.className='fb good';fb.textContent=`✔ Bekas ${k}: ${fx(g,1)} g, ditutup skru dan dilabel.`;g=0;upd();
+    if(k>=n){$('#njAdd',b).disabled=true;$('#njOk',b).disabled=true;quizSeq($('#njQ',b),[{q:'Najis untuk kiraan telur cacing (McMaster) dihantar…',opts:[{t:'Segar, 4–8°C, sampai dalam 2 hari (jangan dibekukan)',ok:true},{t:'Dibekukan supaya telur tidak menetas',why:'Najis beku ditolak. Hantar 4–8°C dalam 2 hari.'},{t:'Suhu bilik selama seminggu',why:'Najis perlu 4–8°C dan sampai dalam 2 hari.'}]}],qs=>done(clamp(.5*sc/n+.5*qs,0,1)));}};
+}});
+FMINI.borang=(job,o,done)=>openMG({job,title:'Borang & sejarah kes',kicker:'👨‍🌾 Penternak',cap:job.cap,render(b){
+  const qs=[{html:`<div class="case"><b class="em">👨‍🌾</b><div>"Tuan, ternakan saya mula sakit sejak minggu lepas. Apa lagi yang tuan perlukan?"</div></div>`,q:'Maklumat penting untuk borang penghantaran:',opts:[{t:'Bilangan haiwan, tanda klinikal, tarikh mula sakit, sejarah vaksinasi & rawatan',ok:true},{t:'Harga jualan ternakan sahaja',why:'Borang perlukan sejarah kes: bilangan haiwan, tanda klinikal, vaksinasi dan rawatan.'},{t:'Tidak perlu, sampel sudah cukup',why:'Sejarah kes membantu makmal memilih ujian yang betul.'}]},
+    {q:'Setiap tiub dan bekas sampel dilabel dengan…',opts:[{t:'ID haiwan / tag telinga, tarikh dan jenis sampel, sepadan dengan borang',ok:true},{t:'Nama ladang sahaja',why:'Label mesti sepadan dengan borang untuk setiap haiwan.'},{t:'Tidak perlu label jika satu ladang',why:'Sampel tanpa label sepadan akan ditolak di kaunter.'}]}];
+  if(Math.random()<.5)qs.push({html:'<div class="case"><b class="em">💵</b><div>Penternak menghulur RM50 "duit minyak" sebagai tanda terima kasih.</div></div>',q:'Tindakan anda?',opts:[{t:'Tolak dengan sopan; tugas rasmi tidak boleh menerima pemberian',ok:true},{t:'Terima, bukan rasuah kerana kerja sudah siap',why:'Pemberian berkaitan tugas rasmi ialah suapan.',off:'rasuah'}]});
+  quizSeq(b,qs,sc=>done(sc));
+}});
+FMINI.cool=(job,o,done)=>openMG({job,title:'Susun dalam kotak sejuk',kicker:'🧊 Kotak sejuk',cap:job.cap,render(b){
+  let T=rnd(27,31);const drops=[];const yT=t=>clamp((t+10)/45,0,1)*100;
+  b.innerHTML=`<p class="lead">Masukkan pek ais sehingga termometer kotak sejuk menunjukkan <b>2–8°C</b>. Terlalu sejuk boleh membekukan darah (hemolisis).</p><div class="cool"><div class="thermo"><i class="th-zone" style="bottom:${yT(2)}%;height:${yT(8)-yT(2)}%"></i><i class="th-liq" id="cbL"></i></div><div class="side"><div class="readout"><span id="cbT">0</span> °C</div><div class="mono" id="cbP">Pek ais: 0</div><button class="btn" id="cbAdd">🧊 Tambah pek ais</button><button class="btn ghost" id="cbRem">↩️ Keluarkan satu</button><button class="btn ok" id="cbOk">🔒 Tutup & kunci</button></div></div><div class="fb" id="cbFb"></div><div id="cbQ"></div>`;
+  const upd=()=>{$('#cbT',b).textContent=fx(T,1);$('#cbL',b).style.height=`calc(${yT(T)}% - 6px)`;$('#cbP',b).textContent=`Pek ais: ${drops.length}`;};upd();
+  $('#cbAdd',b).onclick=()=>{const d=rnd(5.2,7.6);drops.push(d);T-=d;SFX.tap();upd();};
+  $('#cbRem',b).onclick=()=>{if(!drops.length)return;T+=drops.pop();SFX.tap();upd();};
+  $('#cbOk',b).onclick=()=>{const ok=T>=2&&T<=8;o.bad=!ok;$$('.cool .btn',b).forEach(x=>x.disabled=true);const fb=$('#cbFb',b);
+    if(ok){SFX.ok();fb.className='fb good';fb.textContent=`✔ ${fx(T,1)}°C. Sampel selamat untuk perjalanan.`;}else{mistake();fb.className='fb bad';fb.textContent=T>8?`✖ ${fx(T,1)}°C terlalu panas. Sampel akan tiba di luar suhu yang dibenarkan.`:`✖ ${fx(T,1)}°C terlalu sejuk. Darah boleh beku dan hemolisis.`;}
+    quizSeq($('#cbQ',b),[{q:'Tiub darah dalam kotak sejuk diletak…',opts:[{t:'Tegak dalam rak atau beg berlapik, tidak menyentuh pek ais secara terus',ok:true},{t:'Terus di atas pek ais supaya cepat sejuk',why:'Sentuhan terus dengan ais boleh membekukan darah dan menyebabkan hemolisis.'},{t:'Bercampur dengan botol air tanpa beg',why:'Asingkan sampel dalam beg kedap dan rak.'}]}],qs=>done(clamp((ok?.6:.2)+.4*qs,0,1)));};
+}});
+
+/* ============ new activities: PM internal tasks ============ */
+MINI.alikuot=(j,st,done)=>openMG({job:j,title:'Alikuot serum',kicker:'🧊 Serum arkib · krioviál 500 µl',cap:j.cap,render(b){
+  const live=liveFn();const ids=j.data.ids||(j.data.ids=[sampleId(),sampleId(),sampleId()]);const T=40,t0=performance.now();let sel=-1,wrong=0,ended=false;
+  const vials=shuffle([...ids.flatMap((id,i)=>[{id,t:i},{id,t:i}]),{id:mutateId(ids[0]),t:-1},{id:mutateId(ids[1]),t:-1}]).map(v=>Object.assign(v,{f:false}));const cols=['#e7c45f','#f0d27a','#e3b94a'];
+  b.innerHTML=`<p class="lead">Ketik tiub serum, kemudian ketik <b>dua krioviál</b> yang labelnya sama tepat. Setiap krioviál diisi 500 µl. Krioviál berlabel salah jangan diisi.</p>
+  <div class="alq"><div class="col"><h5>TIUB SERUM</h5>${ids.map((id,i)=>`<button class="vb" data-t="${i}" aria-pressed="false" style="--c:${cols[i]}"><i></i><span>${id}<br><small>baki <b class="bk">2</b> alikuot</small></span></button>`).join('')}</div><div class="col"><h5>KRIOVIÁL</h5><div class="vgrid">${vials.map((v,i)=>`<button class="vb" data-v="${i}"><i></i><span>${v.id}</span></button>`).join('')}</div></div></div>
+  <div class="scope-bar"><span class="mono">Ralat <b id="alW">0</b></span><div class="timer"><i id="alT"></i></div></div><div class="fb" id="alFb"></div><div id="alQ"></div>`;
+  const left=ids.map(()=>2),fb=$('#alFb',b);
+  $$('[data-t]',b).forEach(x=>x.onclick=()=>{if(ended)return;sel=+x.dataset.t;$$('[data-t]',b).forEach(y=>y.setAttribute('aria-pressed',y===x));SFX.tap();});
+  $$('[data-v]',b).forEach(x=>x.onclick=()=>{if(ended)return;const v=vials[+x.dataset.v];if(v.f)return;if(sel<0){fb.className='fb warn';fb.textContent='Pilih tiub serum dahulu.';return;}
+    if(v.t===sel&&left[sel]>0){v.f=true;left[sel]--;x.classList.add('done');x.style.setProperty('--c',cols[sel]);$$('.bk',b)[sel].textContent=left[sel];SFX.drip();fb.className='fb';fb.textContent='';if(left.every(n=>n===0))fin();}
+    else{wrong++;$('#alW',b).textContent=wrong;SFX.bad();x.classList.remove('miss');void x.offsetWidth;x.classList.add('miss');fb.className='fb warn';fb.textContent=v.t<0?'Label krioviál ini tidak sepadan dengan mana-mana tiub. Teliti setiap digit!':'Label tidak sepadan dengan tiub yang dipilih.';}});
+  const iv=setInterval(()=>{if(!live()){clearInterval(iv);return;}const p=1-(performance.now()-t0)/1000/T;$('#alT',b).style.width=clamp(p,0,1)*100+'%';if(p<=0)fin();},100);addCleanup(()=>clearInterval(iv));
+  function fin(){if(ended)return;ended=true;clearInterval(iv);const filled=6-left.reduce((a,c)=>a+c,0);const q1=clamp(filled/6-wrong*.15,0,1);if(wrong>1)mistake();
+    fb.className='fb '+(q1>=.85?'good':'warn');fb.textContent=`${filled}/6 krioviál diisi${wrong?`, ${wrong} ralat label`:''}.`;
+    quizSeq($('#alQ',b),[{q:'Kenapa serum dialikuot sebelum disimpan beku?',opts:[{t:'Elak beku-cair berulang yang merosakkan antibodi dan analit',ok:true},{t:'Supaya serum cepat beku',why:'Tujuannya mengelakkan kitaran beku-cair berulang pada sampel asal.'},{t:'Jimat ruang peti beku',why:'Alikuot sebenarnya guna lebih banyak tiub. Tujuannya elak beku-cair berulang.'}]}],qs=>done(clamp(.6*q1+.4*qs,0,1)));}
+}});
+MINI.simpan_beku=(j,st,done)=>openMG({job:j,title:'Simpan dalam peti beku',kicker:'🧊 Peti beku -20°C · kotak krio B',cap:j.cap,render(b){
+  const rows='ABCDE',occ=new Set();for(let i=0;i<9;i++)occ.add(rint(0,4)*6+rint(0,5));const free=[...Array(30).keys()].filter(i=>!occ.has(i));const tgt=shuffle(free).slice(0,3).sort((a,c)=>a-c);const lab=i=>`${rows[Math.floor(i/6)]}-${i%6+1}`;let got=0,wrong=0;
+  b.innerHTML=`<p class="lead">Log peti beku: letak krioviál pada kedudukan <b class="mono">${tgt.map(lab).join(' · ')}</b>. Ketik petak yang betul.</p>
+  <div class="cbox"><span></span>${[1,2,3,4,5,6].map(n=>`<b>${n}</b>`).join('')}${[...rows].map((r,ri)=>`<b>${r}</b>${[0,1,2,3,4,5].map(c=>{const i=ri*6+c;return `<button data-i="${i}" ${occ.has(i)?'disabled class="occ"':''} aria-label="${lab(i)}"></button>`;}).join('')}`).join('')}</div><div class="fb" id="sbFb"></div><div id="sbQ"></div>`;
+  const fb=$('#sbFb',b);
+  $$('.cbox button:not([disabled])',b).forEach(x=>x.onclick=()=>{const i=+x.dataset.i;if(got>=3||x.classList.contains('on'))return;if(tgt.includes(i)){x.classList.add('on');got++;SFX.drip();if(got>=3){SFX.ok();fb.className='fb good';fb.textContent='✔ Semua krioviál di kedudukan yang betul.';quiz();}}else{wrong++;SFX.bad();x.classList.remove('miss');void x.offsetWidth;x.classList.add('miss');fb.className='fb warn';fb.textContent=`Itu petak ${lab(i)}. Semak semula log.`;}});
+  function quiz(){quizSeq($('#sbQ',b),[{q:'Serum arkib untuk simpanan jangka panjang disimpan pada…',opts:[{t:'-20°C atau lebih rendah',ok:true},{t:'2–8°C (peti sejuk)',why:'Peti sejuk hanya untuk simpanan jangka pendek.'},{t:'Suhu bilik',why:'Serum akan rosak pada suhu bilik.'}]},{q:'Selepas menyimpan, apa yang dikemas kini?',opts:[{t:'Log peti beku: ID sampel, kotak/baris/lajur, tarikh dan paraf',ok:true},{t:'Tiada, label sudah cukup',why:'Log lokasi penting untuk mengesan sampel semula.'},{t:'Tulis di kertas pelekat pada pintu',why:'Rekod rasmi dalam log peti beku.'}]}],qs=>done(clamp(.5*clamp(1-wrong*.2,0,1)+.5*qs,0,1)));}
+}});
+const PACK=[['primer','🧪','Bekas primer kedap air','Tiub tutup skru, dibalut parafilm'],['serap','🧻','Bahan penyerap','Cukup untuk serap semua cecair'],['sekunder','🛍️','Bekas sekunder kedap air','Beg / bekas kedap berganda'],['dokumen','📄','Borang & senarai kandungan','Dalam sampul plastik, di luar bekas sekunder'],['luar','📦','Bungkusan luar tegar','Berlabel UN3373 & anak panah arah']];
+MINI.bungkus=(j,st,done)=>openMG({job:j,title:'Bungkus UN3373',kicker:'📦 Penghantaran ke makmal rujukan',cap:j.cap,render(b){
+  let k=0,wrong=0;const order=PACK.map(p=>p[0]);
+  b.innerHTML=`<p class="lead">Bungkus sampel rujukan dengan <b>pembungkusan tiga lapis</b>. Ketik lapisan mengikut urutan, dari paling dalam ke paling luar.</p><div class="pack" id="pkStack"></div><div class="pickset">${shuffle(PACK).map(p=>`<button class="pick" data-k="${p[0]}"><b>${p[1]} ${p[2]}</b><br><small>${p[3]}</small></button>`).join('')}</div><div class="fb" id="pkFb"></div><div id="pkQ"></div>`;
+  const fb=$('#pkFb',b),stack=$('#pkStack',b);
+  $$('.pick',b).forEach(x=>x.onclick=()=>{if(k>=5||x.disabled)return;if(x.dataset.k===order[k]){x.disabled=true;x.classList.add('good');const p=PACK[k];stack.insertAdjacentHTML('beforeend',`<span style="--d:${k}">${p[1]}</span>`);k++;SFX.ok();fb.className='fb';fb.textContent='';if(k>=5){fb.className='fb good';fb.textContent='✔ Pembungkusan tiga lapis lengkap.';quiz();}}
+    else{wrong++;SFX.bad();x.classList.remove('miss');void x.offsetWidth;x.classList.add('miss');fb.className='fb warn';fb.textContent=`Belum lagi. Lapisan seterusnya: ${k===0?'yang paling dalam, menyentuh sampel':'lebih luar daripada '+PACK[k-1][2].toLowerCase()}.`;}});
+  function quiz(){quizSeq($('#pkQ',b),[{q:'Label pada bungkusan luar untuk sampel diagnostik haiwan ini?',opts:[{t:'UN3373 · Bahan Biologi, Kategori B',ok:true},{t:'UN2814 · Bahan berjangkit Kategori A (manusia)',why:'Kategori A untuk bahan yang boleh menyebabkan penyakit maut. Sampel diagnostik rutin: UN3373.'},{t:'Label bahan mudah terbakar',why:'Sampel biologi tidak dilabel sebagai bahan mudah terbakar.'}]},{q:'Borang untuk penghantaran antara makmal?',opts:[{t:'MAKVET 05',ok:true},{t:'MAKVET 03',why:'MAKVET 03 untuk serologi mamalia.'},{t:'MAKVET 10',why:'MAKVET 10 untuk TPC susu dan air.'}]}],qs=>done(clamp(.55*clamp(1-wrong*.15,0,1)+.45*qs,0,1)));}
+}});
+const MEDIA=[['Agar darah asas',40],['Agar MacConkey',50],['Agar Mueller-Hinton',38]];
+MINI.timbang_agar=(j,st,done)=>openMG({job:j,title:'Timbang serbuk media',kicker:'⚖️ Penimbang analitik',cap:j.cap,render(b){
+  const d=j.data;if(!d.med){const M=pick(MEDIA);d.med=M[0];d.gL=M[1];d.vol=pick([250,500,750]);}const g=d.gL*d.vol/1000;
+  const o=uniq([{v:g,ok:true},{v:d.gL*d.vol/100,why:'Bahagi dengan 1000 (ml ke L).'},{v:d.gL*d.vol,why:'Tukar ml kepada L dahulu: ÷ 1000.'},{v:d.gL/d.vol*1000,why:'Darab kepekatan dengan isipadu.'}],1,k=>g+k*2.5);
+  const CX=makeCalc({f:['Berat serbuk (g) = kepekatan (g/L) × isipadu (ml) ÷ 1000'],vals:[['g/L',d.gL,0],['ml',d.vol,0],['1000',1000,0]]});
+  quizSeq(b,[{html:`<div class="lims-h mono">MEDIA › ${esc(d.med)} · ${d.vol} ml</div><div class="formula">Label botol: ${d.gL} g/L air suling</div>`,calc:CX,q:`Berapa gram serbuk ${esc(d.med)} untuk ${d.vol} ml?`,opts:o.map(x=>({t:`<span class="mono">${fx(x.v,1)} g</span>`,ok:x.ok,why:x.why}))}],q1=>weigh(q1));
+  function weigh(q1){let W=+rnd(2.8,3.6).toFixed(2),tared=false,ended=false;
+    b.innerHTML=`<p class="lead">Letak bot timbang, tekan <b>TARE</b>, kemudian kaut serbuk sehingga <b class="mono">${fx(g,1)} g</b> (±0.2 g).</p><div class="pip"><div style="font-size:60px;line-height:1">⚖️</div><div class="side"><div class="readout"><span id="wgV">${fx(W,2)}</span> g</div><div class="row2"><button class="btn ghost" id="wgT">TARE</button><button class="btn" id="wgB">🥄 Kaut</button><button class="btn ghost" id="wgS">🤏 Ketuk halus</button></div><button class="btn ok" id="wgOk">Rekod berat</button></div></div><div class="fb" id="wgFb"></div>`;
+    const upd=()=>{$('#wgV',b).textContent=fx(W,2);},fb=$('#wgFb',b);
+    $('#wgT',b).onclick=()=>{if(ended)return;if(tared&&W>0.5){fb.className='fb warn';fb.textContent='Jangan TARE selepas serbuk dimasukkan.';return;}tared=true;W=0;upd();SFX.tap();};
+    $('#wgB',b).onclick=()=>{if(ended)return;W+=rnd(.8,2.6);SFX.drip();upd();};
+    $('#wgS',b).onclick=()=>{if(ended)return;W+=rnd(.04,.14);SFX.tap();upd();};
+    $('#wgOk',b).onclick=()=>{if(ended)return;const real=tared?W:W-3.2;const dv=Math.abs(real-g);if(!tared&&dv>.2){ended=true;mistake();fb.className='fb bad';fb.innerHTML='<div>✖ Anda terlupa TARE. Bacaan termasuk berat bot timbang, jadi serbuk sebenar tidak tepat.</div>';contBtn(fb,'Teruskan ›',()=>done(clamp(.5*q1+.1,0,1)));return;}
+      if(real<g-.2){fb.className='fb warn';fb.textContent='Belum cukup. Tambah sedikit lagi.';return;}ended=true;$$('.side .btn',b).forEach(x=>x.disabled=true);
+      const q2=dv<=.2?1:dv<=.6?.6:.25;if(q2<.6)mistake();else SFX.ok();fb.className='fb '+(q2===1?'good':'warn');fb.innerHTML=`<div>${q2===1?'✔ Tepat':'Hampir'}: ${fx(real,2)} g (sasaran ${fx(g,1)} g). Larutkan dalam air suling dan hantar ke autoklaf.</div>`;contBtn(fb,'Teruskan ›',()=>done(clamp(.5*q1+.5*q2,0,1)));};}
+}});
+MINI.tuang=(j,st,done)=>openMG({job:j,title:'Tuang agar ke piring',kicker:'🧫 Kabinet bakteriologi',cap:j.cap,render(b){
+  const live=liveFn();let T=88,added=false,ended=false,q1=0;const isBlood=String(j.data.med||'Agar darah asas').includes('darah');
+  b.innerHTML=`<p class="lead">Media baru keluar dari autoklaf dan sedang menyejuk. ${isBlood?'Tambah <b>5% darah biri-biri</b> bila suhu dalam zon hijau (45–50°C), kemudian tuang.':'Tuang ke piring bila suhu dalam zon hijau (45–50°C).'}</p><div class="cool"><div class="thermo"><i class="th-zone" style="bottom:${(45-20)/80*100}%;height:${5/80*100}%"></i><i class="th-liq" id="tgL"></i></div><div class="side"><div class="readout"><span id="tgT">88</span> °C</div><button class="btn" id="tgGo">${isBlood?'🩸 Tambah darah':'🫗 Mula tuang'}</button></div></div><div class="fb" id="tgFb"></div><div id="tgQ"></div>`;
+  const fb=$('#tgFb',b);
+  let raf,prev=performance.now();const loop=now=>{if(!live())return;const dt=Math.min(.05,(now-prev)/1000);prev=now;if(!ended){T-=dt*4.2;if(T<30){T=30;}$('#tgT',b).textContent=fx(T,0);$('#tgL',b).style.height=`calc(${clamp((T-20)/80,0,1)*100}% - 6px)`;if(T<=30&&!added){ended=true;mistake();fb.className='fb bad';fb.textContent='✖ Media sudah mula memejal sebelum dituang. Perlu dicairkan semula.';q1=.1;setTimeout(()=>{if(live())quiz();},600);}}raf=requestAnimationFrame(loop);};raf=requestAnimationFrame(loop);addCleanup(()=>cancelAnimationFrame(raf));
+  $('#tgGo',b).onclick=()=>{if(ended)return;ended=true;added=true;$('#tgGo',b).disabled=true;
+    if(T>=44.5&&T<=50.5){q1=1;SFX.ok();fb.className='fb good';fb.textContent=`✔ ${fx(T,0)}°C. ${isBlood?'Darah tidak rosak dan media masih cair.':'Media masih cair, kurang wap air pada penutup.'} ±20 ml dituang ke setiap piring.`;}
+    else if(T>50.5){q1=.3;mistake();fb.className='fb bad';fb.textContent=`✖ ${fx(T,0)}°C terlalu panas. ${isBlood?'Sel darah merah rosak (hemolisis) dan agar jadi coklat.':'Banyak wap terperangkap pada penutup piring.'}`;}
+    else{q1=.6;fb.className='fb warn';fb.textContent=`${fx(T,0)}°C agak sejuk. Media hampir memejal; tuang dengan cepat.`;}
+    setTimeout(()=>{if(live())quiz();},500);};
+  function quiz(){quizSeq($('#tgQ',b),[{q:'Selepas agar memejal, piring disimpan…',opts:[{t:'Terbalik (penutup di bawah) pada 2–8°C',ok:true},{t:'Menegak (penutup di atas) pada suhu bilik',why:'Simpan terbalik supaya titisan wap tidak jatuh ke permukaan agar.'},{t:'Dalam peti beku -20°C',why:'Agar beku akan rosak.'}]}],qs=>done(clamp(.6*q1+.4*qs,0,1)));}
+}});
+MINI.fifo=(j,st,done)=>openMG({job:j,title:'Stok reagen FIFO',kicker:'📦 Stor reagen',cap:j.cap,render(b){
+  const now=new Date(),day=864e5,dt=n=>fmtDate(new Date(now.getTime()+n*day));const prods=shuffle(['Kit ELISA HS','Antigen Rose Bengal','Larutan Giemsa','Kit ekstrak DNA','Media BPW','Konjugat FAT']);
+  const P0=prods[0];const items=[{n:P0,d:rint(25,60)},{n:P0,d:rint(90,200)},{n:P0,d:-rint(3,40)},{n:prods[1],d:-rint(2,60)},{n:prods[1],d:rint(30,300)},{n:prods[2],d:rint(10,400)},{n:prods[3],d:-rint(5,90)},{n:prods[4],d:rint(40,250)}];
+  const sh=shuffle(items.map((it,i)=>Object.assign(it,{i,exp:it.d<0})));const sel=new Set();
+  b.innerHTML=`<p class="lead">Hari ini <b class="mono">${fmtDate(now)}</b>. Tandakan semua reagen yang <b>sudah luput</b> untuk dilupuskan.</p><div class="shelf">${sh.map(it=>`<button class="rg" data-i="${it.i}" aria-pressed="false"><b>${esc(it.n)}</b><span class="mono">Luput ${dt(it.d)}</span></button>`).join('')}</div><button class="btn" id="ffGo">Lupuskan yang ditanda</button><div class="fb" id="ffFb"></div><div id="ffQ"></div>`;
+  $$('.rg',b).forEach(x=>x.onclick=()=>{const i=+x.dataset.i;sel.has(i)?sel.delete(i):sel.add(i);x.setAttribute('aria-pressed',sel.has(i));SFX.tap();});
+  $('#ffGo',b).onclick=()=>{const exp=items.filter(it=>it.exp).map(it=>it.i);const right=exp.filter(i=>sel.has(i)).length,extra=[...sel].filter(i=>!exp.includes(i)).length;const q1=clamp((right-extra)/exp.length,0,1);
+    $$('.rg',b).forEach(x=>{x.disabled=true;const it=items[+x.dataset.i];if(it.exp)x.classList.add('exp');if(sel.has(it.i)&&!it.exp)x.classList.add('extra');});$('#ffGo',b).hidden=true;const fb=$('#ffFb',b);
+    if(q1===1){SFX.ok();fb.className='fb good';fb.textContent='✔ Semua reagen luput dikeluarkan dan direkod untuk pelupusan.';}else{mistake();fb.className='fb warn';fb.textContent='Reagen luput ditanda merah. Bandingkan setiap tarikh dengan tarikh hari ini.';}
+    const ok=items.filter(it=>it.n===P0&&!it.exp).sort((a,c)=>a.d-c.d);
+    quizSeq($('#ffQ',b),[{q:`Juruteknik minta satu ${esc(P0)}. Keluarkan yang mana?`,keep:true,opts:items.filter(it=>it.n===P0).map(it=>({t:`<span class="mono">${esc(it.n)} · luput ${dt(it.d)}</span>`,ok:it===ok[0],why:it.exp?'Itu sudah luput.':`Keluarkan yang luput paling awal tetapi masih sah (${dt(ok[0].d)}).`}))},{q:'Stok baharu yang baru diterima disusun…',opts:[{t:'Di belakang stok lama, supaya stok lama digunakan dahulu',ok:true},{t:'Di hadapan supaya mudah dicapai',why:'Stok lama di hadapan (FIFO) supaya tidak luput tanpa digunakan.'},{t:'Bercampur di mana-mana ruang kosong',why:'Susun ikut tarikh supaya stok lama digunakan dahulu.'}]}],qs=>done(clamp(.5*q1+.5*qs,0,1)));};
+}});
+
+/* ============ new activities: PPS tests ============ */
+const ABX=[['AMP','Ampisilin 10 µg',17,13],['TE','Tetrasiklin 30 µg',15,11],['SXT','Sulfametoksazol-trimetoprim',16,10],['CIP','Siprofloksasin 5 µg',26,21],['GEN','Gentamisin 10 µg',15,12]];
+function astData(j){const L=shuffle(ABX).slice(0,4);return {org:pick(['Salmonella spp.','Escherichia coli']),abx:L.map(([c,n,S,Rr],i)=>{const cat=pick(['S','S','I','R']);const d=cat==='S'?rint(S,S+8):cat==='R'?rint(6,Rr):rint(Rr+1,S-1);return {c,n,S,R:Rr,d,cat};}),read:[]};}
+MINI.ast=(j,st,done)=>openMG({job:j,title:'Kirby-Bauer',kicker:'💊 Ujian kerentanan antimikrob',cap:j.cap,render(b){
+  const A=j.data.ast||(j.data.ast=astData(j));const sc=3.1,pts=[[-62,-58],[62,-58],[-62,60],[62,60]];let cur=0;const rec=A.abx.map(()=>null);const r=srand(j.uid*5);
+  let lawn='';for(let i=0;i<260;i++){const a=r()*Math.PI*2,dd=Math.sqrt(r())*136;lawn+=`<circle cx="${fx(Math.cos(a)*dd,1)}" cy="${fx(Math.sin(a)*dd,1)}" r="${fx(.8+r()*1.4,1)}" fill="#c9b27a" opacity=".55"/>`;}
+  b.innerHTML=`<p class="lead">Piring Mueller-Hinton dengan isolat <i>${esc(A.org)}</i>, diinkubasi 16–18 jam. Pilih cakera, laraskan bulatan ukur sehingga sama dengan <b>tepi zon jernih</b>, kemudian rekod diameter (mm).</p>
+  <div class="scope-wrap"><div class="scope plate"><svg viewBox="-150 -150 300 300" id="astS"><circle r="148" fill="#e8d7a8"/>${lawn}${A.abx.map((a,i)=>`<circle cx="${pts[i][0]}" cy="${pts[i][1]}" r="${fx(a.d*sc/2,1)}" fill="#fbf7ea" stroke="#d9c58e" stroke-width="1"/>`).join('')}${A.abx.map((a,i)=>`<g transform="translate(${pts[i][0]} ${pts[i][1]})"><circle r="${fx(3*sc,1)}" fill="#fff" stroke="#9aa7ab"/><text y="3" font-size="7" text-anchor="middle" font-family="Chakra Petch, monospace" fill="#16313a">${a.c}</text></g>`).join('')}<circle id="astR" r="30" fill="none" stroke="#d64045" stroke-width="2" stroke-dasharray="5 4"/></svg></div></div>
+  <div class="seg2 row" id="astTabs">${A.abx.map((a,i)=>`<button data-i="${i}" aria-pressed="${i===0}">${a.c} <small class="mono" data-r="${i}">—</small></button>`).join('')}</div>
+  <label class="slider"><span class="mono">Diameter <b id="astV">20</b> mm</span><input type="range" id="astIn" min="6" max="40" step="1" value="20" aria-label="Diameter zon"></label>
+  <div class="row2"><button class="btn" id="astRec">📏 Rekod</button><button class="btn ok" id="astOk" disabled>Selesai</button></div><div class="fb" id="astFb"></div>`;
+  const ring=$('#astR',b),inp=$('#astIn',b);const place=()=>{const v=+inp.value;$('#astV',b).textContent=v;ring.setAttribute('cx',pts[cur][0]);ring.setAttribute('cy',pts[cur][1]);ring.setAttribute('r',fx(v*sc/2,1));};place();
+  inp.addEventListener('input',place);
+  $$('#astTabs button',b).forEach(x=>x.onclick=()=>{cur=+x.dataset.i;$$('#astTabs button',b).forEach(y=>y.setAttribute('aria-pressed',y===x));inp.value=rec[cur]||20;place();SFX.tap();});
+  $('#astRec',b).onclick=()=>{rec[cur]=+inp.value;$(`[data-r="${cur}"]`,b).textContent=rec[cur]+' mm';SFX.tap();$('#astOk',b).disabled=rec.some(v=>v==null);const nx=rec.findIndex(v=>v==null);if(nx>=0){$$('#astTabs button',b)[nx].click();}};
+  $('#astOk',b).onclick=()=>{let s=0;const lines=A.abx.map((a,i)=>{const e=Math.abs(rec[i]-a.d);s+=e<=1?1:e<=2?.8:e<=4?.4:0;return `${a.c}: ${rec[i]} mm (sebenar ${a.d} mm)`;});A.read=rec.slice();const q=s/A.abx.length;
+    $$('button,input',b).forEach(x=>x.disabled=true);const fb=$('#astFb',b);if(q>=.8)SFX.ok();else mistake();fb.className='fb '+(q>=.8?'good':'warn');fb.innerHTML=`<div>${q>=.8?'✔ Bacaan tepat.':'Ada bacaan yang tersasar.'} ${lines.join(' · ')}</div>`;contBtn(fb,'Teruskan ›',()=>done(q));};
+}});
+MINI.lims_ast=(j,st,done)=>openMG({job:j,title:'Tafsir S / I / R',kicker:'Komputer LIMS',cap:j.cap,render(b){
+  const A=j.data.ast||(j.data.ast=astData(j));const rd=A.abx.map((a,i)=>A.read[i]??a.d);const cat=(a,v)=>v>=a.S?'S':v<=a.R?'R':'I';const ch={};
+  b.innerHTML=`<div class="lims-h mono">LIMS › ${j.sid} › AST · ${esc(A.org)}</div><p class="lead">Bandingkan diameter zon dengan nilai sempadan (contoh; rujuk piawaian CLSI terkini). S = rentan, I = pertengahan, R = rintang.</p>
+  <div class="tbl-wrap"><table class="res"><thead><tr><th>Antibiotik</th><th>Zon</th><th>Sempadan (mm)</th><th>Tafsiran</th></tr></thead><tbody>${A.abx.map((a,i)=>`<tr data-r="${i}"><td><b>${a.c}</b><br><small>${esc(a.n)}</small></td><td class="mono">${rd[i]}</td><td class="mono">S ≥ ${a.S}<br>I ${a.R+1}–${a.S-1}<br>R ≤ ${a.R}</td><td><div class="tri" data-i="${i}"><button data-s="S" aria-pressed="false">S</button><button data-s="I" aria-pressed="false">I</button><button data-s="R" aria-pressed="false">R</button></div></td></tr>`).join('')}</tbody></table></div><button class="btn" id="laOk" disabled>Sahkan</button><div class="fb" id="laFb"></div><div id="laQ"></div>`;
+  $$('.tri',b).forEach(t=>$$('button',t).forEach(x=>x.onclick=()=>{ch[t.dataset.i]=x.dataset.s;$$('button',t).forEach(y=>y.setAttribute('aria-pressed',y===x));SFX.tap();$('#laOk',b).disabled=Object.keys(ch).length<A.abx.length;}));
+  $('#laOk',b).onclick=()=>{let c=0;const wrong=[];A.abx.forEach((a,i)=>{const r=cat(a,rd[i]);const ok=ch[i]===r;if(ok)c++;else wrong.push(`${a.c} sepatutnya <b>${r}</b>`);$(`tr[data-r="${i}"]`,b).className=ok?'ok':'no';});$$('.tri button',b).forEach(x=>x.disabled=true);$('#laOk',b).hidden=true;const q1=c/A.abx.length;const fb=$('#laFb',b);
+    if(q1===1){SFX.ok();fb.className='fb good';fb.textContent='✔ Semua tafsiran betul.';}else{mistake();fb.className='fb bad';fb.innerHTML=`<div>✖ ${wrong.join('; ')}.</div>`;}
+    quizSeq($('#laQ',b),[{q:'Keputusan "R" bagi satu antibiotik bermaksud…',opts:[{t:'Bakteria rintang; antibiotik itu tidak disyorkan untuk rawatan',ok:true},{t:'Antibiotik itu paling berkesan',why:'R = rintang. Pilih antibiotik yang S.'},{t:'Ujian perlu diulang dengan dos lebih tinggi',why:'R bermaksud bakteria rintang pada kepekatan klinikal.'}]}],qs=>done(clamp(.65*q1+.35*qs,0,1)));};
+}});
+const GELBP=[100,200,300,400,500,600,700,800,900,1000];
+function gelData(){const lanes=[{id:'M',k:'ladder'},{id:'NTC',k:'neg'},{id:'PC',k:'pos'}];for(let i=1;i<=4;i++){const r=Math.random();lanes.push({id:'S'+i,k:r<.4?'pos':r<.82?'neg':'ns'});}return {lanes,target:460};}
+MINI.gel=(j,st,done)=>openMG({job:j,title:'Elektroforesis gel',kicker:'🧬 PCR konvensional · gel agarosa 1.5%',cap:j.cap,render(b){
+  const live=liveFn();const D=j.data.gel||(j.data.gel=gelData());let q1=0;
+  quizSeq(b,[{q:'Telaga gel mesti diletak di hujung elektrod…',opts:[{t:'Negatif (hitam): DNA bercas negatif bergerak ke kutub positif (merah)',ok:true},{t:'Positif (merah): DNA bergerak ke kutub negatif',why:'DNA bercas negatif dan bergerak ke kutub positif. Telaga di kutub negatif.'},{t:'Mana-mana, DNA bergerak ke dua-dua arah',why:'DNA hanya bergerak ke kutub positif.'}]}],s=>{q1=s;b.innerHTML='<div class="readout">100 V · 40 minit</div>';progressRun(b,'Elektroforesis berjalan…',1300,read);});
+  function read(){const W=300,H=230,y0=26,y1=212,ly=bp=>y0+(Math.log10(1500)-Math.log10(bp))/(Math.log10(1500)-Math.log10(80))*(y1-y0),lx=i=>48+i*35;const ans={};
+    let s=`<svg class="gel" viewBox="0 0 ${W} ${H}" role="img" aria-label="Gel agarosa"><rect width="${W}" height="${H}" rx="10" fill="#141a33"/>`;
+    D.lanes.forEach((L,i)=>{s+=`<rect x="${lx(i)-12}" y="10" width="24" height="7" rx="2" fill="#2b3566"/><text x="${lx(i)}" y="${H-5}" font-size="10" text-anchor="middle" fill="#cfd8ff" font-family="Chakra Petch, monospace">${L.id}</text>`;
+      const band=(bp,o=1)=>`<rect x="${lx(i)-12}" y="${fx(ly(bp)-2,1)}" width="24" height="4" rx="2" fill="#f6ffbf" opacity="${o}" style="filter:drop-shadow(0 0 3px #e6ff7a)"/>`;
+      if(L.k==='ladder')GELBP.forEach(bp=>{s+=band(bp,bp===500?1:.7);});else if(L.k==='pos')s+=band(D.target);else if(L.k==='ns')s+=band(rint(200,260),.85);
+      if(L.k!=='ladder'&&Math.random()<.35)s+=`<rect x="${lx(i)-12}" y="${fx(ly(85),1)}" width="24" height="3" rx="1.5" fill="#f6ffbf" opacity=".3"/>`;});
+    [100,300,500,1000].forEach(bp=>{s+=`<text x="30" y="${fx(ly(bp)+3,1)}" font-size="9" text-anchor="end" fill="#cfd8ff" font-family="Chakra Petch, monospace">${bp}</text>`;});s+=`</svg>`;
+    b.innerHTML=`<p class="lead">Penanda (M) 100 bp; jalur 500 bp lebih terang. Saiz amplikon sasaran (contoh kit): <b>${D.target} bp</b>. Jalur pada saiz lain atau di bawah 100 bp (dimer primer) dikira negatif. Ketik setiap sampel.</p><div class="gelwrap">${s}</div><div class="tile" style="grid-template-columns:repeat(4,1fr)">${D.lanes.slice(3).map((L,k)=>`<button class="well" data-i="${k+3}"><b>${L.id}${k===0?' ★':''}</b><span class="st">Ketik</span></button>`).join('')}</div><p class="note">★ S1 = sampel ${j.sid}. Kawalan: NTC tiada jalur sasaran, PC jalur ${D.target} bp.</p><button class="btn" id="gOk" disabled>Rekod keputusan</button><div class="fb" id="gFb"></div>`;
+    $$('.well',b).forEach(w=>w.onclick=()=>{const i=+w.dataset.i;ans[i]=ans[i]==='p'?'n':'p';w.dataset.v=ans[i];$('.st',w).textContent=ans[i]==='p'?'Positif':'Negatif';SFX.tap();$('#gOk',b).disabled=Object.keys(ans).length<4;});
+    $('#gOk',b).onclick=()=>{let c=0;for(let i=3;i<7;i++){const ok=(ans[i]==='p')===(D.lanes[i].k==='pos');if(ok)c++;else $(`.well[data-i="${i}"]`,b).classList.add('wrongw');}$$('.well',b).forEach(x=>x.disabled=true);$('#gOk',b).hidden=true;const q2=c/4;j.data.result=D.lanes[3].k==='pos';const fb=$('#gFb',b);
+      if(q2===1){SFX.ok();fb.className='fb good';fb.innerHTML='<div>✔ Semua bacaan tepat.</div>';}else{mistake();fb.className='fb bad';fb.innerHTML=`<div>✖ ${4-c} bacaan salah. Positif hanya jika jalur sejajar dengan kawalan positif (${D.target} bp).</div>`;}
+      contBtn(fb,'Teruskan ›',()=>done(clamp(.3*q1+.7*q2,0,1)));};}
+}});
+const WBCR={Lembu:[4000,12000],Kambing:[4000,13000]};
+MINI.hemo=(j,st,done)=>openMG({job:j,title:'Kiraan sel hemositometer',kicker:'🔬 Kebuk Neubauer · larutan Türk 1:20',cap:j.cap,render(b){
+  const H=j.data.hemo||(j.data.hemo={c:Math.random()<.4?rint(9,16):rint(21,34)});const S=100;const items=[];const r=srand(j.uid*11);
+  const place=(x,y,t,kind)=>items.push({x,y,t,kind});
+  for(let k=0,g=0;k<H.c-3&&g<4000;g++){const x=rnd(-S+12,S-12),y=rnd(-S+12,S-12);if(items.every(o=>Math.hypot(o.x-x,o.y-y)>21)){place(x,y,true,'in');k++;}}
+  const edge=(side,t)=>{for(let g=0;g<400;g++){const u=rnd(-S+14,S-14);const [x,y]=side==='top'?[u,-S]:side==='left'?[-S,u]:side==='bottom'?[u,S]:[S,u];if(items.every(o=>Math.hypot(o.x-x,o.y-y)>21)){place(x,y,t,side);return;}}};
+  ['top','left','top'].forEach(s=>edge(s,true));['bottom','right','right'].forEach(s=>edge(s,false));
+  for(let k=0,g=0;k<4&&g<2000;g++){const x=rnd(-S+8,S-8),y=rnd(-S+8,S-8);if(items.every(o=>Math.hypot(o.x-x,o.y-y)>18)){place(x,y,false,'deb');k++;}}
+  const tgN=items.filter(o=>o.t).length;H.n1=tgN;
+  let grid=`<rect x="-150" y="-150" width="300" height="300" fill="#eef1f7"/>`;for(let k=1;k<4;k++){const p=-S+k*S/2;grid+=`<line x1="${p}" x2="${p}" y1="${-S}" y2="${S}" stroke="#9aa7c0" stroke-width="1"/><line y1="${p}" y2="${p}" x1="${-S}" x2="${S}" stroke="#9aa7c0" stroke-width="1"/>`;}
+  grid+=`<rect x="${-S}" y="${-S}" width="${2*S}" height="${2*S}" fill="none" stroke="#5a6a8a" stroke-width="3.5"/>`;
+  const cell=o=>o.kind==='deb'?`<g class="dx" transform="translate(${fx(o.x,1)} ${fx(o.y,1)})"><circle r="14" fill="transparent"/><path d="M-6 -3 L5 -6 L7 4 L-4 6z" fill="#b9b39a" opacity=".8"/></g>`:`<g class="cell ${o.t?'tg':'dx'}" transform="translate(${fx(o.x,1)} ${fx(o.y,1)})"><circle r="10" fill="#e9e4f6" stroke="#b7a9e0"/><path d="M-5 -2 q3 -5 6 0 q3 4 -1 6 q-5 1 -5 -6z" fill="#5a3f9a"/></g>`;
+  fieldTap(b,{items,draw:grid+items.map(cell).join(''),T:Math.max(22,tgN*1.3+10),lead:'Ketik setiap <b>sel darah putih</b> (nukleus ungu) dalam petak besar. Peraturan sempadan: kira sel yang menyentuh garisan <b>ATAS</b> dan <b>KIRI</b> sahaja; jangan kira yang menyentuh garisan BAWAH dan KANAN. Abaikan serpihan.',
+    onFinish:(cnt,wrong,fb)=>{H.count=cnt;const q=clamp((cnt-wrong*.6)/Math.max(1,tgN),0,1);if(q<.6)mistake();else if(q>=.85)SFX.ok();fb.className='fb '+(q>=.85?'good':'warn');fb.innerHTML=`<div>Anda kira <b>${cnt}</b> sel (sebenar ${tgN})${wrong?`, ${wrong} ketikan salah (sempadan bawah/kanan atau serpihan)`:''}.</div>`;contBtn(fb,'Rekod kiraan ›',()=>done(q));}});
+}});
+MINI.kira_hemo=(j,st,done)=>openMG({job:j,title:'Kira sel/µL',kicker:'Komputer LIMS',cap:j.cap,render(b){
+  const H=j.data.hemo||(j.data.hemo={c:25,count:25});const c1=H.count??H.n1??H.c;if(!H.o)H.o=[0,1,2].map(()=>Math.max(3,Math.round(c1*rnd(.88,1.12))));const N=c1+H.o.reduce((a,c)=>a+c,0),V=N*50;const R=WBCR[j.spp]||WBCR.Lembu;const st_=V<R[0]?'Rendah (leukopenia)':V>R[1]?'Tinggi (leukositosis)':'Normal';
+  const o=uniq([{v:V,ok:true},{v:N*20,why:'Bahagi juga dengan isipadu: 4 petak × 0.1 µL = 0.4 µL.'},{v:N*200,why:'Faktor pencairan untuk WBC ialah 20, bukan 200.'},{v:N/.4,why:'Darab dengan faktor pencairan 20 juga.'}],0,k=>V+k*150);
+  const CX=makeCalc({f:['Sel/µL = N × faktor pencairan ÷ (bilangan petak × 0.1 µL)','= N × 20 ÷ 0.4 = N × 50'],vals:[['N',N,0],['Pencairan',20,0],['Petak',4,0],['Isipadu',.1,1]]});
+  quizSeq(b,[{html:`<div class="lims-h mono">LIMS › ${j.sid} › WBC · ${j.spp}</div><div class="formula">Petak 1 (kiraan anda) = ${c1}<br>Petak 2 = ${H.o[0]} · Petak 3 = ${H.o[1]} · Petak 4 = ${H.o[2]}<br>Jumlah N = <b>${N}</b> · pencairan 1:20 · 0.1 µL setiap petak</div>`,calc:CX,q:'Kiraan WBC (sel/µL) = ?',opts:o.map(x=>({t:`<span class="mono">${Math.round(x.v).toLocaleString('en-MY')} sel/µL</span>`,ok:x.ok,why:x.why}))},
+    {html:`<p class="lead">WBC = <b class="mono">${V.toLocaleString('en-MY')}</b> sel/µL · julat rujukan (contoh) ${j.spp.toLowerCase()} ${R[0].toLocaleString('en-MY')}–${R[1].toLocaleString('en-MY')}</p>`,q:'Tafsiran?',keep:true,opts:['Rendah (leukopenia)','Normal','Tinggi (leukositosis)'].map(t=>({t,ok:t===st_,why:`${V.toLocaleString('en-MY')} sel/µL berbanding julat ${R[0].toLocaleString('en-MY')}–${R[1].toLocaleString('en-MY')}: ${st_.toLowerCase()}.`}))}],sc=>done(sc));
+}});
+MINI.tpc_kira=(j,st,done)=>openMG({job:j,title:'Kira koloni Petrifilm',kicker:'🍼 Petrifilm kiraan aerobik · 48 jam, 32°C',cap:j.cap,render(b){
+  const T=j.data.tpc||(j.data.tpc={col:rint(15,42),dil:pick([3,4,5])});const items=placeItems(T.col,rint(5,8),5.5,8);const nCol=items.filter(o=>o.t).length;
+  let grid=`<rect x="-150" y="-150" width="300" height="300" fill="#f3efe0"/><circle r="128" fill="#fbf3dc" stroke="#e0d3a8" stroke-width="2"/>`;for(let k=-120;k<=120;k+=30)grid+=`<line x1="${k}" x2="${k}" y1="-150" y2="150" stroke="rgba(120,140,90,.25)"/><line y1="${k}" y2="${k}" x1="-150" x2="150" stroke="rgba(120,140,90,.25)"/>`;
+  const draw=grid+items.map(o=>o.t?`<g class="tg" transform="translate(${fx(o.x,1)} ${fx(o.y,1)})"><circle r="11" fill="transparent"/><circle r="${fx(3+Math.random()*2.5,1)}" fill="#c4262e"/></g>`:`<g class="dx" transform="translate(${fx(o.x,1)} ${fx(o.y,1)})"><circle r="${fx(5+Math.random()*4,1)}" fill="rgba(255,255,255,.6)" stroke="#c9c2a8" stroke-width="1.4"/></g>`).join('');
+  fieldTap(b,{items,draw,T:Math.max(22,nCol*1.05+9),lead:'Ketik setiap <b>koloni merah</b>. Jangan kira gelembung udara (bulatan jernih).',onFinish:(cnt,wrong,fb)=>{T.count=cnt;const q=clamp((cnt-wrong*.5)/Math.max(1,nCol),0,1);if(q<.6)mistake();else if(q>=.85)SFX.ok();fb.className='fb '+(q>=.85?'good':'warn');fb.innerHTML=`<div>Anda kira <b>${cnt}</b> koloni (sebenar ${nCol})${wrong?`, ${wrong} gelembung diketik`:''}.</div>`;contBtn(fb,'Rekod kiraan ›',()=>done(q));}});
+}});
+MINI.kira_tpc=(j,st,done)=>openMG({job:j,title:'Kira CFU/ml',kicker:'Komputer LIMS',cap:j.cap,render(b){
+  const T=j.data.tpc||(j.data.tpc={col:30,dil:4});const c=T.count??T.col,f=Math.pow(10,T.dil),V=c*f,lim=1e6,pass=V<=lim;const sup=['⁰','¹','²','³','⁴','⁵','⁶'];
+  const o=uniq([{v:V,ok:true},{v:c*f/10,why:`Faktor = 1 ÷ 10⁻${sup[T.dil]} = ${f.toLocaleString('en-MY')}.`},{v:c*f*10,why:`Faktor = ${f.toLocaleString('en-MY')}.`},{v:c,why:'Darab dengan faktor pencairan.'}],0,k=>V+k*f/2);
+  const CX=makeCalc({f:['CFU/ml = bilangan koloni × faktor pencairan','Faktor = 1 ÷ pencairan (1 ml diinokulasi)'],vals:[['Koloni',c,0],['Faktor',f,0]]});
+  quizSeq(b,[{html:`<div class="lims-h mono">LIMS › ${j.sid} › TPC susu mentah</div><div class="formula">Koloni = ${c} · pencairan 10⁻${sup[T.dil]} · 1 ml diinokulasi</div>`,calc:CX,q:'Jumlah kiraan plat (CFU/ml) = ?',opts:o.map(x=>({t:`<span class="mono">${Math.round(x.v).toLocaleString('en-MY')} CFU/ml</span>`,ok:x.ok,why:x.why}))},
+    {html:`<p class="lead">TPC = <b class="mono">${V.toLocaleString('en-MY')}</b> CFU/ml · had (contoh permainan) ≤ ${lim.toLocaleString('en-MY')} CFU/ml</p>`,q:'Keputusan?',keep:true,opts:[{t:'Memenuhi had',ok:pass,why:`${V.toLocaleString('en-MY')} melebihi had.`},{t:'Melebihi had',ok:!pass,why:`${V.toLocaleString('en-MY')} masih dalam had.`}]}],sc=>done(sc));
+}});
+
+/* ============ progression: XP levels, daily missions, album cards, badges ============ */
+const XPL=n=>25*n*(n+1); // XP kumulatif untuk mencapai tahap n+1 (50, 150, 300, 500…)
+function xpLvl(xp){let n=1;while(xp>=XPL(n)&&n<99)n++;return n;}
+function persistSoon(){clearTimeout(persistSoon.t);persistSoon.t=setTimeout(persist,400);}
+function addXP(n){n=Math.round(n||0);if(n<=0)return;const PG=SAVE.prog,b=xpLvl(PG.xp);PG.xp+=n;if(G.wk)G.wk.xp+=n;const a=xpLvl(PG.xp);PG.c.lvl=a;for(let L=b+1;L<=a;L++)levelUp(L);checkBadges();persistSoon();}
+function levelUp(L){const rm=40*L;SAVE.wallet+=rm;SFX.done();toast(`🆙 Naik ke tahap ${L}! +${RM(rm)}`,'gold');announce(`Tahniah! Anda naik ke tahap ${L}.`,{key:'lvl'+L,gap:3000});if(G.wk)G.wk.lv.push(L);
+  for(const it of SHOP.baju.items)if(it.lock&&it.lock.lvl===L&&!has(it.id)){SAVE.owned.push(it.id);UP[it.id]=true;setTimeout(()=>toast(`🎁 Hadiah tahap ${L}: ${esc(it.n)} (pakai di Kedai)`,'gold'),900);}}
+function cnt(k,n=1){const c=SAVE.prog.c;c[k]=(c[k]||0)+n;checkBadges();persistSoon();}
+const BADGES=[
+  ['b_mula','🐣','Langkah pertama','Siapkan kerja pertama',c=>c.jobs>=1],
+  ['b_halus','🎯','Tangan halus','10 kerja dengan markah penuh',c=>c.perfect>=10],
+  ['b_sampel','🧪','Penjaga sampel','Siapkan 50 kerja sampel',c=>c.samples>=50],
+  ['b_helang','🦅','Mata helang','Tolak 10 sampel dengan sebab betul',c=>c.rejectOk>=10],
+  ['b_mesra','🤝','Mesra pelanggan','Jawab 5 aduan SISPAA',c=>c.sispaa>=5],
+  ['b_integ','🛡️','Integriti tinggi','Lulus 5 ujian integriti',c=>c.integ>=5],
+  ['b_bintang','⭐','Minggu cemerlang','Dapat ⭐⭐⭐ dalam satu minggu',c=>c.star3>=1],
+  ['b_apc','🏅','Anugerah pertama','Terima APC pertama',c=>c.apc>=1],
+  ['b_ladang','🚜','Orang lapangan','Siapkan satu kerja lapangan',c=>c.trips>=1],
+  ['b_ladang5','🤠','Raja ladang','Siapkan 5 kerja lapangan',c=>c.trips>=5],
+  ['b_teh','🫖','Mamak pantri','Bancuh 10 minuman di pantri',c=>c.drinks>=10],
+  ['b_kuiz','🧠','Juara kuiz','10 jawapan kuiz pantri betul',c=>c.quizOk>=10],
+  ['b_misi','📋','Pemburu misi','Siapkan 20 misi harian',c=>c.missions>=20],
+  ['b_set','📚','Pengumpul','Lengkapkan satu set album',c=>c.sets>=1],
+  ['b_dua','🔁','Serba boleh','Main sebagai PM dan PPS',c=>c.pmWeeks>=1&&c.ppsWeeks>=1],
+  ['b_tahap10','👑','Veteran VRI','Capai tahap 10',c=>c.lvl>=10],
+];
+function checkBadges(){const PG=SAVE.prog,c=PG.c;for(const [id,e,n,d,f] of BADGES){if(PG.badges[id]||!f(c))continue;PG.badges[id]=Date.now();SAVE.wallet+=50;if(G.wk)G.wk.bd.push(id);
+    setTimeout(()=>{SFX.cash();toast(`🏅 Lencana baharu: ${e} ${esc(n)} · +RM50`,'gold');},600);if(G.mode!=='menu')announce(`Tahniah! Lencana baharu: ${n}.`,{key:'bd'+id,gap:3000});addXP(30);}}
+const SETS={lapor:['🚨','Penyakit wajib lapor','kot_lapor'],mikrob:['🦠','Mikrob & parasit','kot_mikrob'],ruminan:['🐄','Diagnostik ruminan','kot_ruminan'],makanan:['🥛','Makanan, air & susu','kot_makanan'],operasi:['🧰','Operasi makmal','kot_operasi']};
+const CARDS={nipah:['Nipah','🦇','lapor'],asf:['ASF','🐖','lapor'],ai:['Influenza avian','🐔','lapor'],lsd:['LSD','🐂','lapor'],rabies:['Rabies','🐕','lapor'],antraks:['Antraks','☠️','lapor'],
+  salmo:['Salmonella','🦠','mikrob'],strangles:['Strangles','🐎','mikrob'],ast:['Kirby-Bauer','💊','mikrob'],gel:['Gel PCR mikoplasma','🧬','mikrob'],fec:['Cacing McMaster','🪱','mikrob'],calitan:['Calitan darah','🔴','mikrob'],anaplasma:['Anaplasma','🟣','mikrob'],babesia:['Babesia','🍐','mikrob'],
+  rbpt:['Bruselosis','🩸','ruminan'],hs:['Septisemia hemoragik','🐃','ruminan'],tb:['TB bovin','🐄','ruminan'],pcv:['PCV','🧪','ruminan'],bio:['Kimia klinikal','⚗️','ruminan'],hemo:['Kiraan WBC','🔬','ruminan'],bangkai:['Bedah siasat','🩻','ruminan'],haemonkosis:['Haemonkosis','🐐','ruminan'],histo:['Histopatologi','🧫','ruminan'],
+  prox:['Proksimat','🌾','makanan'],water:['Kualiti air','💧','makanan'],milk:['Kualiti susu','🥛','makanan'],tpc:['TPC susu','🍼','makanan'],ladang:['Kerja lapangan','🚜','makanan'],
+  basuh:['Basuh peralatan','🧼','operasi'],autoklaf:['Nyahcemar sisa','♨️','operasi'],agar:['Media agar','🧫','operasi'],alikuot:['Alikuot serum','🧊','operasi'],bungkus:['Bungkus UN3373','📦','operasi'],fifo:['Stok FIFO','🗃️','operasi'],kajian:['Projek penyelidikan','📒','operasi']};
+function cardsOf(job){const k=job.key;if(job.kind==='lapangan')return ['ladang'];if(job.kind==='dalaman')return [k==='media'?'agar':k].filter(id=>CARDS[id]);if(job.kind!=='sampel')return [];const out=[];
+  if(k==='pm'){out.push('bangkai');const m={antraks:'antraks',kurus:'haemonkosis',hs:'hs'}[job.data.case];if(m)out.push(m);}else if(k==='smear'){out.push('calitan');if(job.data.org)out.push(job.data.org);}else out.push(k);return out.filter(id=>CARDS[id]);}
+function gainCards(job,qa){if(qa<.5)return;for(const id of cardsOf(job)){const PG=SAVE.prog;if(PG.cards[id])continue;PG.cards[id]=Date.now();const C=CARDS[id];if(G.wk)G.wk.cards.push(id);setTimeout(()=>{SFX.cash();toast(`🃏 Kad album baharu: ${C[1]} ${esc(C[0])}`,'gold');},300);addXP(15);
+  const set=C[2],all=Object.keys(CARDS).filter(x=>CARDS[x][2]===set);
+  if(all.every(x=>PG.cards[x])&&!PG.sets[set]){PG.sets[set]=1;const S=SETS[set],coat=ITEM[S[2]];if(coat&&!has(coat.id)){SAVE.owned.push(coat.id);UP[coat.id]=true;}SAVE.wallet+=200;cnt('sets');setTimeout(()=>toast(`📚 Set "${esc(S[1])}" lengkap! Hadiah: ${coat?esc(coat.n):''} + RM200`,'gold'),1200);announce(`Tahniah! Set album ${S[1]} lengkap. Anda menerima kot eksklusif.`,{key:'set'+set,gap:3000});}}
+  persistSoon();}
+function progJob(job,qa,pts){if(job.kind==='tt')return 0;const xp=clamp(Math.round(pts/4),2,40);addXP(xp);cnt('jobs');if(qa>=.999){cnt('perfect');mev('perfect');}
+  if(job.kind==='sampel'){cnt('samples');if(G.role==='pps'){mev('samples');const C=CAT[job.key];if(C)mev('sections',C.sec);if(['ast','gel','hemo','tpc'].includes(job.key))mev('newtest');}else if(job.shortValid)mev('shortValid');}
+  if(job.kind==='dalaman')mev('internal');if(job.kind==='sispaa')cnt('sispaa');gainCards(job,qa);return xp;}
+const MISS={
+  pm:[['terima','Terima {n} sampel yang lengkap',[3,4],'accept'],['tolak','Tolak {n} sampel dengan sebab betul',[1,2],'rejectOk'],['dalaman','Siapkan {n} tugasan dalaman',[2,2],'internal'],['sempurna','Siapkan {n} kerja dengan markah penuh',[2,3],'perfect'],['emparan','Emparkan {n} sampel tanpa rotor bergegar',[1,2],'spinOk'],['kilat','Uruskan {n} sampel ⚡ kesahan pendek',[1,1],'shortValid']],
+  pps:[['uji','Siapkan {n} ujian sampel',[2,3],'samples'],['seksyen','Siapkan ujian di {n} seksyen berbeza',[2,3],'sections'],['sempurna','Siapkan {n} kerja dengan markah penuh',[2,3],'perfect'],['baru','Siapkan {n} ujian baharu (AST, gel, WBC atau TPC)',[1,1],'newtest'],['kira','Jawab {n} soalan kiraan dengan betul',[2,3],'calcOk']],
+};
+function newMissions(di){const list=shuffle(MISS[G.role]).slice(0,di===0?3:2).map(([id,t,[a,b2],ev])=>{const n=rint(a,b2);return {id,txt:t.replace('{n}',n),n,p:0,ev,done:false};});
+  if(di>=1){if(di===2&&!G.tripDone)list.push({id:'lapangan',txt:'Siapkan kerja lapangan di ladang',n:1,p:0,ev:'trip',done:false});else list.push(pick([{id:'pantri',txt:'Bancuh minuman di pantri semasa rehat',n:1,p:0,ev:'drink',done:false},{id:'kuiz',txt:'Jawab kuiz pantri 3/3 betul',n:1,p:0,ev:'quiz3',done:false}]));}
+  G.miss={di,list,bonus:false};hudMiss();setTimeout(()=>{if(G.mode==='play')toast(`🎯 ${list.length} misi baharu untuk hari ${DAYS[di].toLowerCase()} · tekan 🎯`,'gold');},di?1400:2600);}
+function mev(ev,arg){if(!G.miss||G.mode!=='play')return;let ch=false;
+  for(const m of G.miss.list){if(m.done||m.ev!==ev)continue;if(ev==='sections'){m.set=m.set||[];if(m.set.includes(arg))continue;m.set.push(arg);m.p=m.set.length;}else m.p+=1;ch=true;if(m.p>=m.n){m.p=m.n;m.done=true;missDone(m);}}
+  if(ch){hudMiss();if(!$('#missPop').hidden)renderMiss();}}
+function missDone(m){SAVE.wallet+=60;cnt('missions');if(G.wk)G.wk.miss++;setTimeout(()=>{SFX.cash();toast(`🎯 Misi selesai: ${esc(m.txt)} · +RM60`,'good');},500);addXP(40);
+  if(G.miss.list.every(x=>x.done)&&!G.miss.bonus){G.miss.bonus=true;SAVE.wallet+=100;addXP(60);setTimeout(()=>{toast('🏆 Semua misi hari ini selesai! Bonus +RM100','gold');announce('Tahniah! Semua misi hari ini selesai.',{key:'allm'+G.miss.di,gap:3000});},1500);}persistSoon();}
+function hudMiss(){const el=$('#hMiss');if(!el)return;if(!G.miss){el.textContent='';return;}const d=G.miss.list.filter(m=>m.done).length;el.textContent=`${d}/${G.miss.list.length}`;$('#bMiss').classList.toggle('on',d===G.miss.list.length);}
+function lvlBox(){const xp=SAVE.prog.xp,L=xpLvl(xp),a=L>1?XPL(L-1):0,b2=XPL(L);return `<div class="lvl"><b>Tahap ${L}</b><div class="meter"><i style="width:${clamp((xp-a)/(b2-a),0,1)*100}%"></i></div><span class="mono">${xp-a}/${b2-a} XP</span></div>`;}
+function renderMiss(){$('#miLvl').innerHTML=lvlBox();$('#miList').innerHTML=G.miss?G.miss.list.map(m=>`<li class="${m.done?'done':''}"><span>${m.done?'✅':'🎯'}</span><div><b>${esc(m.txt)}</b><div class="meter"><i style="width:${m.p/m.n*100}%"></i></div></div><span class="mono">${m.p}/${m.n}</span></li>`).join('')+`<li class="${G.miss.bonus?'done':''}"><span>🏆</span><div><b>Siapkan semua misi: bonus RM100</b></div><span></span></li><li class="note" style="background:none">Setiap misi: +RM60 dan 40 XP</li>`:'<li>Tiada misi aktif.</li>';}
+let albumTab='album',albumReturn='sMenu';
+function openAlbum(from){albumReturn=from;closePops();renderAlbum();show('sAlbum');$('#sAlbum').scrollTop=0;}
+function renderAlbum(){const PG=SAVE.prog;const nb=Object.keys(PG.badges).length,nc=Object.keys(PG.cards).length;
+  $('#alLvl').innerHTML=lvlBox()+`<p class="note">🃏 ${nc}/${Object.keys(CARDS).length} kad · 🏅 ${nb}/${BADGES.length} lencana. Kad dikumpul apabila kerja disiapkan dengan baik. Lengkapkan satu set untuk dapat kot eksklusif. Sesetengah kad hanya ditemui oleh PPS.</p>`;
+  $$('#alTabs button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.t===albumTab));const el=$('#alBody');
+  if(albumTab==='album')el.innerHTML=Object.entries(SETS).map(([sk,[e,nm,coat]])=>{const ids=Object.keys(CARDS).filter(k=>CARDS[k][2]===sk);const got=ids.filter(k=>PG.cards[k]).length;const it=ITEM[coat];
+    return `<section class="aset"><header><b>${e} ${esc(nm)}</b><span class="mono">${got}/${ids.length}</span></header><div class="meter"><i style="width:${got/ids.length*100}%"></i></div><div class="cards">${ids.map(k=>PG.cards[k]?`<div class="cardk on"><i>${CARDS[k][1]}</i><span>${esc(CARDS[k][0])}</span></div>`:'<div class="cardk"><i>❓</i><span>???</span></div>').join('')}</div><p class="note">Hadiah set: <i class="csw${it&&it.trim?' trim':''}" style="--c:${it?it.c:'#ccc'}"></i> ${it?esc(it.n):''}${PG.sets[sk]?' · ✔ diterima':''} + RM200</p></section>`;}).join('');
+  else el.innerHTML=`<div class="cards bd">${BADGES.map(([id,e,n,d])=>`<div class="cardk ${PG.badges[id]?'on':''}"><i>${PG.badges[id]?e:'🔒'}</i><span><b>${esc(n)}</b><br><small>${esc(d)}</small></span></div>`).join('')}</div><p class="note">Setiap lencana: +RM50 dan 30 XP. Kot Wira VRI dibuka pada tahap 5.</p>`;}
+function progVerdict(){const w=G.wk||{xp:0,miss:0,cards:[],bd:[],lv:[]};const bd=w.bd.map(id=>{const B=BADGES.find(x=>x[0]===id);return B?B[1]+' '+esc(B[2]):'';}).filter(Boolean);
+  return `<div class="verdict prog"><span>🎯 Kemajuan minggu ini</span>${lvlBox()}<span>+${w.xp} XP · ${w.miss} misi selesai · ${w.cards.length} kad album baharu${w.lv.length?` · 🆙 naik ke tahap ${w.lv[w.lv.length-1]}`:''}${bd.length?`<br>Lencana baharu: ${bd.join(', ')}`:''}</span></div>`;}
+
 /* ============ shop (Kedai & avatar) ============ */
 let shopTab='baju',shopReturn='sMenu',shopMsg='';
 function openShop(from){audio();SFX.tap();closePops();shopReturn=from;shopMsg='';for(const id in LABELS)LABELS[id].visible=false;G.shop=true;G.shopFocus=null;P.x=-4.5;P.z=.4;P.path=null;P.walkTarget=null;P.moving=false;P.heading=0;cam.pos=null;cam.look=null;if(playerRig)playerRig.g.rotation.y=0;renderShop();show('sShop');$('#sShop').scrollTop=0;netSend(true);}
-function closeShop(){SFX.tap();G.shop=false;G.shopFocus=null;for(const id in LABELS)LABELS[id].visible=!STATIONS[id].dynamic||G.spillOn;cam.pos=null;cam.look=null;show(shopReturn);if(shopReturn==='sMenu')renderCareer();const sb=$('#slipBal');if(sb)sb.textContent=RM(SAVE.wallet);netSend(true);}
+function closeShop(){SFX.tap();G.shop=false;G.shopFocus=null;for(const id in LABELS)LABELS[id].visible=(!STATIONS[id].dynamic||G.spillOn)&&!STATIONS[id].farm;cam.pos=null;cam.look=null;show(shopReturn);if(shopReturn==='sMenu')renderCareer();const sb=$('#slipBal');if(sb)sb.textContent=RM(SAVE.wallet);netSend(true);}
 function syncSetup(){const p=SAVE.profile;$$('#fGender button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.v===p.gender)));$$('#fSkin button').forEach(b=>b.setAttribute('aria-pressed',String(+b.dataset.v===+p.skin)));$('#fGlasses').checked=!!p.glasses;$('#fName').value=p.name||'';}
 function itemCard(it){
   const own=has(it.id),e=SAVE.equip,p=SAVE.profile;let on=false,act='';
   const sw=it.c!==undefined?`<i class="${it.trim?'trim':''}" style="--c:${it.c||(p.gender==='l'?'#1e1a18':'#2f6a8a')}"></i>`:`<i>${it.e}</i>`;
   if(it.cat==='baju')on=e.coat===it.id;else if(it.cat==='warna')on=e.hc===it.id;else if(it.cat==='aks')on=own&&e.acc.includes(it.id);else on=own;
-  if(!own){const can=SAVE.wallet>=it.p;act=`<button class="btn" data-buy="${it.id}" ${can?'':'disabled'}>${it.p?'Beli '+RM(it.p):'Ambil'}</button>${can?'':`<p>Kurang ${RM(it.p-SAVE.wallet)}</p>`}`;}
+  if(!own&&it.lock)act=`<span class="btn ghost" style="font-size:13px">🔒 ${it.lock.lvl?'Capai tahap '+it.lock.lvl:'Lengkapkan set album'}</span>`;
+  else if(!own){const can=SAVE.wallet>=it.p;act=`<button class="btn" data-buy="${it.id}" ${can?'':'disabled'}>${it.p?'Beli '+RM(it.p):'Ambil'}</button>${can?'':`<p>Kurang ${RM(it.p-SAVE.wallet)}</p>`}`;}
   else if(it.cat==='baju'||it.cat==='warna')act=on?'<span class="btn ok">✔ Dipakai</span>':`<button class="btn ghost" data-use="${it.id}">Pakai</button>`;
   else if(it.cat==='aks')act=it.g&&it.g!==p.gender?`<span class="btn ghost">Watak ${it.g==='l'?'lelaki':'perempuan'} sahaja</span>`:on?`<button class="btn ok" data-use="${it.id}">✔ Dipakai · tanggal</button>`:`<button class="btn ghost" data-use="${it.id}">Pakai</button>`;
   else act=`<button class="btn ghost" data-look="${it.id}">✔ Dipasang · 👁️ lihat</button>`;
@@ -1998,16 +2699,21 @@ function rUi(){const L=$('#rdList');L.innerHTML=STNS.map((s,i)=>`<button class="
   $$('.stn',L).forEach(b=>b.onclick=()=>{SFX.tap();radioTune(+b.dataset.i);});
   $$('.trk button',L).forEach(b=>b.onclick=()=>{SFX.tap();plPick(+b.dataset.k);});
   $('#radioPop').classList.toggle('live',R.on);const pw=$('#rdPow');pw.textContent=R.on?'⏸ Matikan':'▶ Hidupkan';pw.className='btn sm'+(R.on?' ghost':'');$('#rdVol').value=R.vol;$('#bRadio').classList.toggle('on',R.on);$('#bRadio1').textContent=R.on?(STNS[R.st].pl?`📀 ${TRACKS[PL.i].t}`:`📻 ${STNS[R.st].n}`):'📻 Radio';}
-function openPop(id,center){closePops();const el=$('#'+id);el.classList.toggle('mid',!!center);el.hidden=false;if(id==='radioPop')rUi();else renderSocial();}
-function closePops(){$('#radioPop').hidden=true;$('#socialPop').hidden=true;$('#chatPop').hidden=true;}
+function openPop(id,center){closePops();const el=$('#'+id);el.classList.toggle('mid',!!center);el.hidden=false;if(id==='radioPop')rUi();else if(id==='missPop')renderMiss();else renderSocial();}
+function closePops(){$('#radioPop').hidden=true;$('#socialPop').hidden=true;$('#chatPop').hidden=true;$('#missPop').hidden=true;}
 $('#bRadio').onclick=()=>{audio();if($('#radioPop').hidden)openPop('radioPop');else closePops();};
 $('#bRadio1').onclick=()=>{audio();openPop('radioPop',true);};$('#bRadio2').onclick=()=>{audio();openPop('radioPop',true);};
 $('#bSocial').onclick=()=>{audio();if($('#socialPop').hidden)openPop('socialPop');else closePops();};
-$('#rdX').onclick=closePops;$('#soX').onclick=closePops;
+$('#rdX').onclick=closePops;$('#soX').onclick=closePops;$('#miX').onclick=closePops;
+$('#bMiss').onclick=()=>{audio();if($('#missPop').hidden)openPop('missPop');else closePops();};
+$('#miAlbum').onclick=()=>{SFX.tap();closePops();if(G.mode==='play'){pause();openAlbum('sPause');}else openAlbum('sMenu');};
+$('#bAlbum1').onclick=()=>{audio();SFX.tap();openAlbum('sMenu');};$('#bAlbum2').onclick=()=>{SFX.tap();openAlbum('sPause');};
+$('#bAlbumX').onclick=()=>{SFX.tap();show(albumReturn);if(albumReturn==='sMenu')renderCareer();};
+$$('#alTabs button').forEach(b=>b.onclick=()=>{SFX.tap();albumTab=b.dataset.t;renderAlbum();});
 $('#rdPow').onclick=()=>{SFX.tap();if(R.on)radioOff();else radioOn();};
 $('#rdVol').addEventListener('input',e=>{R.vol=+e.target.value;SAVE.radio.vol=R.vol;plVol();if(R.bus&&R.on&&AC&&!STNS[R.st].pl)R.bus.gain.setTargetAtTime(rLevel(),AC.currentTime,.05);});
 $('#rdVol').addEventListener('change',persist);
-document.addEventListener('pointerdown',e=>{const t=e.target;if(!t||!t.closest)return;if(t.closest('.pop')||t.closest('#bRadio,#bSocial,#bRadio1,#bRadio2,#bChat,#bMic,#micLive,#vcTap'))return;if(!$('#radioPop').hidden||!$('#socialPop').hidden||!$('#chatPop').hidden)closePops();},true);
+document.addEventListener('pointerdown',e=>{const t=e.target;if(!t||!t.closest)return;if(t.closest('.pop')||t.closest('#bRadio,#bSocial,#bRadio1,#bRadio2,#bChat,#bMic,#micLive,#vcTap,#bMiss'))return;if(!$('#radioPop').hidden||!$('#socialPop').hidden||!$('#chatPop').hidden||!$('#missPop').hidden)closePops();},true);
 document.addEventListener('visibilitychange',()=>{if(!R.on)return;const pl=STNS[R.st].pl;if(document.hidden){if(pl)plStop();else if(AC)AC.suspend().catch(()=>{});}else{if(pl)plPlay();else if(AC)AC.resume().then(()=>{R.next=AC.currentTime+.05;}).catch(()=>{});}});
 
 /* ============ online: room presence (avatars, reactions) + db leaderboard + user names ============ */
@@ -2033,7 +2739,7 @@ async function netInit(){
 function netResolve(ids){if(!NET.user)return;const need=[...new Set(ids)].filter(id=>typeof id==='string'&&!(id in NET.names)&&!NET.pending.has(id));if(!need.length)return;need.forEach(id=>NET.pending.add(id));
   Promise.resolve().then(()=>NET.user.profiles(need)).then(ps=>{for(const id of need){const p=ps&&ps[id];NET.names[id]=(p&&p.name)||'';NET.avs[id]=(p&&p.avatarUrl)||'';}}).catch(()=>{need.forEach(id=>{NET.names[id]='';});}).finally(()=>{need.forEach(id=>NET.pending.delete(id));renderLb();if(!$('#socialPop').hidden)renderSocial();});}
 function netCount(){const n=NET.peers.length;$('#hOnline').textContent=Math.max(1,n);const m=$('#mOnline');if(n>1){m.hidden=false;m.textContent=`${n-1} rakan sekerja dalam talian sekarang`;}else m.hidden=true;}
-function myPresence(){const inPlay=G.mode==='play';return {v:1,nm:cleanNm(SAVE.profile.name)||(NET.wsMode?wsNick():''),id:NET.wsMode?null:(NET.me||null),st:inPlay?(G.paused?'rehat':'main'):(G.shop?'kedai':G.mode==='end'?'laporan':'menu'),r:inPlay?G.role:SAVE.profile.role,x:inPlay?Math.round(P.x*100)/100:null,z:inPlay?Math.round(P.z*100)/100:null,h:inPlay?Math.round(P.heading*100)/100:0,m:inPlay&&P.moving?1:0,o:outfit(),sc:inPlay?G.score:null,e:NET.em,et:NET.emT,ch:!NET.wsMode&&NET.chatMe?NET.chatMe:undefined,vc:NET.wsMode&&VC.on?1:0,ls:NET.wsMode&&VC.ls?1:0};}
+function myPresence(){const inPlay=G.mode==='play';return {v:1,nm:cleanNm(SAVE.profile.name)||(NET.wsMode?wsNick():''),id:NET.wsMode?null:(NET.me||null),st:inPlay?(G.paused?'rehat':G.brk?'pantri':G.area==='farm'?'ladang':'main'):(G.shop?'kedai':G.mode==='end'?'laporan':'menu'),r:inPlay?G.role:SAVE.profile.role,x:inPlay?Math.round(P.x*100)/100:null,z:inPlay?Math.round(P.z*100)/100:null,h:inPlay?Math.round(P.heading*100)/100:0,m:inPlay&&P.moving?1:0,o:outfit(),sc:inPlay?G.score:null,e:NET.em,et:NET.emT,ch:!NET.wsMode&&NET.chatMe?NET.chatMe:undefined,vc:NET.wsMode&&VC.on?1:0,ls:NET.wsMode&&VC.ls?1:0};}
 function netSend(force){if(!NET.room)return;const p=myPresence();const k=JSON.stringify(p);if(!force&&k===NET.last)return;NET.last=k;try{NET.room.presence(p).catch(()=>{});}catch(e){}}
 function dropSprite(sp){if(!sp)return;scene.remove(sp);if(sp.material.map)sp.material.map.dispose();sp.material.dispose();}
 function netFrame(dt){
@@ -2044,12 +2750,13 @@ function netFrame(dt){
     if(pe.isMe)continue;const pr=pe.presence||{};
     if(pr.v!==1||typeof pr.x!=='number'||typeof pr.z!=='number'||!isFinite(pr.x)||!isFinite(pr.z))continue;
     seen.add(pe.peer);let Rg=NET.rigs.get(pe.peer);const o=cleanOutfit(pr.o),ok=JSON.stringify(o);
-    if(!Rg||Rg.ok!==ok){const old=Rg;Rg={rig:personFromOutfit(o),ok,ph:0,et:old?old.et:pr.et,emT:old?old.emT:0,tag:old?old.tag:null,emo:old?old.emo:null,lbl:old?old.lbl:'',ring:old?old.ring:null};
+    if(!Rg||Rg.ok!==ok){const old=Rg;Rg={rig:personFromOutfit(o),ok,ph:0,et:old?old.et:pr.et,emT:old?old.emT:0,st:old?old.st:undefined,tag:old?old.tag:null,emo:old?old.emo:null,lbl:old?old.lbl:'',ring:old?old.ring:null};
       if(old){Rg.rig.g.position.copy(old.rig.g.position);Rg.rig.g.rotation.y=old.rig.g.rotation.y;disposeRig(old.rig);}else Rg.rig.g.position.set(pr.x,0,pr.z);scene.add(Rg.rig.g);NET.rigs.set(pe.peer,Rg);}
-    const g=Rg.rig.g,k=1-Math.exp(-dt*9),tx=clamp(pr.x,-17.7,17.7),tz=clamp(pr.z,-10.75,10.7),d=Math.hypot(tx-g.position.x,tz-g.position.z);
+    const g=Rg.rig.g,k=1-Math.exp(-dt*9),tx=clamp(pr.x,-17.7,69.7),tz=clamp(pr.z,-10.75,10.7),d=Math.hypot(tx-g.position.x,tz-g.position.z);
     if(d>6){g.position.x=tx;g.position.z=tz;}else{g.position.x=lerp(g.position.x,tx,k);g.position.z=lerp(g.position.z,tz,k);}
     g.rotation.y=lerpAngle(g.rotation.y,isFinite(+pr.h)?+pr.h:0,k);const mv=pr.m===1||d>.05;if(mv)Rg.ph+=dt*11;animPerson(Rg.rig,mv,Rg.ph);
-    const lbl=(pr.r==='pps'?'🔬 ':'📥 ')+peerLabel(pe)+(pr.st==='rehat'?' · rehat':'');
+    const lbl=(pr.r==='pps'?'🔬 ':'📥 ')+peerLabel(pe)+(pr.st==='rehat'?' · rehat':pr.st==='pantri'?' · ☕':pr.st==='ladang'?' · 🚐':'');
+    if(pr.st!==Rg.st){if(Rg.st!==undefined&&G.mode==='play'){if(pr.st==='pantri')toast(`☕ ${esc(peerLabel(pe))} sedang rehat di pantri`);else if(pr.st==='ladang')toast(`🚐 ${esc(peerLabel(pe))} keluar ke ladang`);}Rg.st=pr.st;}
     if(lbl!==Rg.lbl||!Rg.tag){dropSprite(Rg.tag);Rg.tag=labelSprite(lbl,{h:.46,bg:'rgba(22,49,58,.9)',fg:'#ffffff'});scene.add(Rg.tag);Rg.lbl=lbl;}
     Rg.tag.position.set(g.position.x,2.12,g.position.z);
     if(pr.et!==Rg.et){Rg.et=pr.et;if(EMOTES.includes(pr.e)){dropSprite(Rg.emo);Rg.emo=labelSprite(pr.e,{h:.55,bg:'rgba(255,255,255,.95)'});scene.add(Rg.emo);Rg.emT=2.6;}}
@@ -2059,7 +2766,7 @@ function netFrame(dt){
   for(const [key,Rg] of NET.rigs)if(!seen.has(key)){disposeRig(Rg.rig);dropSprite(Rg.tag);dropSprite(Rg.emo);if(Rg.ring){scene.remove(Rg.ring);Rg.ring.geometry.dispose();}NET.rigs.delete(key);}
 }
 function sendEmote(e){NET.em=e;NET.emT=Date.now();netSend(true);SFX.tap();if(scene){dropSprite(myEmo);myEmo=labelSprite(e,{h:.55,bg:'rgba(255,255,255,.95)'});scene.add(myEmo);myEmoT=2.6;myEmo.visible=G.mode==='play';}closePops();}
-const statusTxt=pr=>{const r=pr.r==='pps'?'PPS':'PM';if(pr.st==='main')return `${r} · ${typeof pr.sc==='number'?Math.round(pr.sc):0} mata`;return ({rehat:'rehat',kedai:'di kedai',laporan:'laporan minggu',menu:'di menu'})[pr.st]||'';};
+const statusTxt=pr=>{const r=pr.r==='pps'?'PPS':'PM';if(pr.st==='pantri')return '☕ rehat di pantri';if(pr.st==='ladang')return '🚐 kerja lapangan';if(pr.st==='main')return `${r} · ${typeof pr.sc==='number'?Math.round(pr.sc):0} mata`;return ({rehat:'rehat',kedai:'di kedai',laporan:'laporan minggu',menu:'di menu'})[pr.st]||'';};
 function renderSocial(){const L=$('#soList');const list=NET.peers.slice().sort((a,b)=>(b.sameTab?1:0)-(a.sameTab?1:0));L.innerHTML='';
   if(!list.length){const li=document.createElement('li');li.textContent='Menyambung…';L.appendChild(li);}
   for(const pe of list){const pr=pe.presence||{},id=peerId(pe),li=document.createElement('li');const av=id&&NET.avs[id];
@@ -2238,7 +2945,7 @@ $('#vcLs').addEventListener('change',e=>{VC.ls=e.target.checked;SAVE.settings.vc
 const WKEY='wiraMakmalVRI.week',INFS='__inf__';
 let wkT=0;
 function saveWeek(){if(G.mode!=='play')return;try{const g={};
-  for(const k of ['role','week','gameMin','dur','diff','rate','score','queue','tray','stats','spawnT','spawnInt','events','th','tut','tt','offences','lastDay','spillOn'])g[k]=G[k];
+  for(const k of ['role','week','gameMin','dur','diff','rate','score','queue','tray','stats','spawnT','spawnInt','events','th','tut','tt','offences','lastDay','spillOn','brk','brkPend','area','tripDone','energy','miss','wk','recent','farmT'])g[k]=G[k];
   g.focus=G.focus?G.focus.uid:null;
   const d={v:1,ts:Date.now(),wk:(SAVE.stats.weeks||0)+1,g,p:{x:P.x,z:P.z,h:P.heading},spill:G.spillOn?STATIONS.spill.pos:null,seq:JOBSEQ,sp:SPSEQ};
   localStorage.setItem(WKEY,JSON.stringify(d,(k,v)=>v===Infinity?INFS:v));}catch(e){}}
@@ -2254,6 +2961,8 @@ function resumeWeek(){const d=loadWeek();if(!d||!renderer){clearWeek();return;}a
   JOBSEQ=Math.max(JOBSEQ,d.seq||0,...G.queue.map(j=>j.uid||0),...G.tray.map(j=>j.uid||0));SPSEQ=Math.max(SPSEQ,d.sp||0);
   P.x=+d.p.x||-4.5;P.z=+d.p.z||.4;P.heading=+d.p.h||0;P.path=null;P.walkTarget=null;P.moving=false;cam.pos=null;cam.look=null;cam.zoom=1;
   closePops();buildPlayer();placeSpill(!!(d.g.spillOn&&d.spill),d.spill?[+d.spill[0],+d.spill[1]]:null);lastClockMin=-1;
+  if(G.area!=='farm')G.area='lab';setArea(G.area);setLabLock(!!G.brk);if(G.brkPend===undefined)G.brkPend=null;if(G.area==='farm'){const fj=G.tray.find(j=>j.kind==='lapangan');if(fj)drawFarmSign(fj.data.farm);}if(!G.wk)G.wk={xp:0,miss:0,cards:[],bd:[],lv:[]};
+  cam.pos=null;cam.look=null;
   show(null);$('#hud').hidden=false;$('#coach').hidden=true;G.tut=-1;renderTray();refreshMarkers();updateCoolers();hudTick();setAct(null,true);
   const [dn,tm]=clockOf(G.gameMin);pause();toast(`💾 Minggu ${G.week} disambung · ${dn} ${tm}`,'gold');netSend(true);}
 $('#bResumeWk').onclick=resumeWeek;
@@ -2261,12 +2970,12 @@ document.addEventListener('visibilitychange',()=>{if(document.hidden)saveWeek();
 addEventListener('pagehide',saveWeek);
 
 /* ============ screens & flow ============ */
-const SCREENS=['sMenu','sSetup','sBrief','sPause','sBook','sEnd','sShop'];
+const SCREENS=['sMenu','sSetup','sBrief','sPause','sBook','sEnd','sShop','sAlbum'];
 function show(id){SCREENS.forEach(s=>{$('#'+s).hidden=s!==id;});vcUi();}
 let bookReturn='sMenu';
 function rankIdx(st){let k=0;RANKS.forEach((r,i)=>{if(st>=r[0])k=i;});return k;}
 function ttActive(){return SAVE.tt.level>=0&&SAVE.tt.weeks>0;}
-function renderCareer(){renderResume();const s=SAVE.stats;const r=RANKS[rankIdx(s.stars)];$('#career').innerHTML=s.weeks?`<span>Gelaran <b>${r[1]}</b></span><span>⭐ <b>${s.stars}</b></span><span>Minggu <b>${s.weeks}</b></span><span>APC <b>${s.apc}</b></span><span>💰 <b>${RM(SAVE.wallet)}</b></span>${ttActive()?`<span class="warnt">⚖️ ${HUKUMAN[SAVE.tt.level].n} · ${SAVE.tt.weeks} minggu</span>`:''}`:`<span>Minggu pertama anda di VRI. Selamat bertugas!</span>${SAVE.wallet?`<span>💰 <b>${RM(SAVE.wallet)}</b></span>`:''}`;}
+function renderCareer(){renderResume();const s=SAVE.stats;const r=RANKS[rankIdx(s.stars)];const lv=xpLvl(SAVE.prog.xp);$('#career').innerHTML=s.weeks?`<span>Tahap <b>${lv}</b></span><span>Gelaran <b>${r[1]}</b></span><span>⭐ <b>${s.stars}</b></span><span>Minggu <b>${s.weeks}</b></span><span>APC <b>${s.apc}</b></span><span>💰 <b>${RM(SAVE.wallet)}</b></span>${ttActive()?`<span class="warnt">⚖️ ${HUKUMAN[SAVE.tt.level].n} · ${SAVE.tt.weeks} minggu</span>`:''}`:`<span>Minggu pertama anda di VRI. Selamat bertugas!</span>${SAVE.wallet?`<span>💰 <b>${RM(SAVE.wallet)}</b></span>`:''}`;}
 function segInit(id,val,onSet){const el=$('#'+id);const set=v=>{$$('button',el).forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.v===String(v))));onSet(v);};$$('button',el).forEach(b=>b.addEventListener('click',()=>{SFX.tap();set(b.dataset.v);}));set(val);}
 function setupForm(){const p=SAVE.profile;if(![6,10,15].includes(+p.dur))p.dur=10;$('#fName').value=p.name||'';segInit('fRole',p.role,v=>p.role=v);segInit('fGender',p.gender,v=>{p.gender=v;});segInit('fSkin',p.skin,v=>p.skin=+v);segInit('fDur',p.dur,v=>p.dur=+v);segInit('fDiff',p.diff,v=>p.diff=v);$('#fGlasses').checked=!!p.glasses;}
 $('#fGlasses').addEventListener('change',e=>{SAVE.profile.glasses=e.target.checked;});
@@ -2291,7 +3000,8 @@ function brief(){const p=SAVE.profile;const wk=(SAVE.stats.weeks||0)+1;const th=
   const tn=$('#brTt');if(ttActive()){tn.hidden=false;tn.innerHTML=`<b>⚖️ Hukuman aktif: ${HUKUMAN[SAVE.tt.level].n}</b><span>Baki ${SAVE.tt.weeks} minggu. ${HUKUMAN[SAVE.tt.level].fx}.</span>`;}else tn.hidden=true;}
 function startWeek(){
   clearWeek();const p=SAVE.profile;G.shop=false;G.shopFocus=null;closePops();Object.assign(G,{role:p.role,dur:p.dur,diff:p.diff,week:(SAVE.stats.weeks||0)+1,gameMin:0,rate:WEEK/(p.dur*60),score:0,queue:[],tray:[],focus:null,lastDay:0,
-    stats:{done:0,accepted:0,rejected:0,tasks:0,events:0,errors:0,late:0,expired:0,left:0,sispaa:0,sispaaOk:0,sispaaLate:0,integ:0},spawnInt:30,spawnT:6,paused:false,endPending:false,pop:[],th:computeTargets(),tt:0,offences:[]});
+    stats:{done:0,accepted:0,rejected:0,tasks:0,events:0,errors:0,late:0,expired:0,left:0,sispaa:0,sispaaOk:0,sispaaLate:0,integ:0},spawnInt:30,spawnT:6,paused:false,endPending:false,pop:[],th:computeTargets(),tt:0,offences:[],
+    brk:null,brkPend:null,area:'lab',tripDone:false,energy:-1,miss:null,recent:[],farmT:0,wk:{xp:0,miss:0,cards:[],bd:[],lv:[]}});setArea('lab');setLabLock(false);
   G.spawnInt=(p.dur*60/5)/(p.role==='pm'?2.7:2.1)*DIFF[p.diff].spawn;
   const evs=['telefon','telefon','integ','tumpahan'];if(p.dur>=10)evs.push('integ','audit');const ev=shuffle(evs);G.events=ev.map((t,i)=>({type:t,at:150+(i+.5)*((WEEK-400)/ev.length)+rnd(-60,60),fired:false}));
   P.x=-4.5;P.z=.4;P.heading=Math.PI;P.path=null;P.walkTarget=null;cam.pos=null;cam.look=null;cam.zoom=1;
@@ -2299,7 +3009,8 @@ function startWeek(){
   G.mode='play';spawnJob();spawnJob();
   show(null);$('#hud').hidden=false;renderTray();refreshMarkers();updateCoolers();hudTick();setAct(null,true);
   G.tut=-1;if(!SAVE.tutDone)coach(0);else $('#coach').hidden=true;
-  toast(`Minggu ${G.week} bermula · ${ROLE[G.role].name}`,'gold');
+  toast(`Minggu ${G.week} bermula · ${ROLE[G.role].name}`,'gold');newMissions(0);
+  announce(`Selamat pagi dan selamat bertugas. Minggu ${G.week} bermula.`,{key:'wk'+G.week,gap:3000});
 }
 function coach(stage){G.tut=stage;const el=$('#coach');if(stage<0||stage>3){el.hidden=true;return;}
   const T=[G.role==='pm'?'Sampel sudah sampai di kaunter! Tekan 📥 di atas untuk ambil kerja.':'Sampel sedia untuk diuji! Tekan 📥 di atas untuk ambil kerja.','Ikut anak panah ke stesen, atau tekan 🚶 pada kad kerja untuk jalan automatik.','Tekan butang besar di kanan bawah untuk mula.','Siapkan langkah ini. Kad kerja di kiri menunjukkan langkah seterusnya dan baki masa.'];
@@ -2312,13 +3023,15 @@ $('#bPause').onclick=()=>{audio();if(MG.open)return;pause();};
 $('#bResume').onclick=resume;
 $('#bQuit').onclick=()=>{if(!quitArm){quitArm=true;$('#bQuit').textContent='Tekan sekali lagi: minggu dibatalkan, tiada markah';return;}quitArm=false;clearWeek();toMenu();};
 $('#bSaveQuit').onclick=()=>{saveWeek();toMenu();toast('💾 Minggu disimpan. Tekan Sambung minggu bila nak main semula.','good');};
-function syncSettings(){$('#bSound').textContent=SAVE.settings.sound?'🔊 Bunyi: hidup':'🔇 Bunyi: senyap';$('#bShadow').textContent=SAVE.settings.shadows?'🌗 Bayang: hidup':'⚪ Bayang: tutup (lebih laju)';}
+function syncSettings(){$('#bVoice').textContent=(SAVE.settings.voice?'🗣️ Suara pengumuman: hidup':'🤐 Suara pengumuman: senyap')+(VOX.ok?'':' (tiada sokongan)');$('#bSound').textContent=SAVE.settings.sound?'🔊 Bunyi: hidup':'🔇 Bunyi: senyap';$('#bShadow').textContent=SAVE.settings.shadows?'🌗 Bayang: hidup':'⚪ Bayang: tutup (lebih laju)';}
 $('#bSound').onclick=()=>{SAVE.settings.sound=!SAVE.settings.sound;persist();syncSettings();audio();SFX.tap();};
+$('#bVoice').onclick=()=>{SAVE.settings.voice=!SAVE.settings.voice;persist();syncSettings();SFX.tap();if(!SAVE.settings.voice)voxStop();else{const m=G.mode;G.mode='play';announce('Suara pengumuman dihidupkan.',{key:'vtest',gap:1500});G.mode=m;}};
 $('#bShadow').onclick=()=>{SAVE.settings.shadows=!SAVE.settings.shadows;persist();syncSettings();if(renderer){renderer.shadowMap.enabled=SAVE.settings.shadows;sun.castShadow=SAVE.settings.shadows;scene.traverse(o=>{if(o.material){(Array.isArray(o.material)?o.material:[o.material]).forEach(m=>m.needsUpdate=true);}});}};
-function toMenu(){if(MG.open)closeMG();G.shop=false;G.mode='menu';G.paused=false;G.tray=[];G.queue=[];G.focus=null;$('#hud').hidden=true;setAct(null,true);refreshMarkers();updateCoolers();if(renderer)placeSpill(false);cam.pos=null;renderCareer();show('sMenu');}
+function toMenu(){if(MG.open)closeMG();voxStop();G.brk=null;G.brkPend=null;setLabLock(false);if(G.area==='farm'){setArea('lab');P.x=-4.5;P.z=.4;}$('#brkNote').hidden=true;G.shop=false;G.mode='menu';G.paused=false;G.tray=[];G.queue=[];G.focus=null;$('#hud').hidden=true;setAct(null,true);refreshMarkers();updateCoolers();if(renderer)placeSpill(false);cam.pos=null;renderCareer();show('sMenu');}
 
 function endWeek(){
   if(G.mode!=='play')return;clearWeek();if(MG.open){MG.cleanup&&MG.cleanup();MG.open=false;$('#mgWrap').hidden=true;TQ.length=0;}
+  G.brk=null;G.brkPend=null;setLabLock(false);if(G.area==='farm'){setArea('lab');P.x=-4.5;P.z=.4;}$('#brkNote').hidden=true;
   G.mode='end';$('#hud').hidden=true;setAct(null,true);$$('#toasts .toast').forEach(t=>t.remove());TQ.length=0;
   const pendSp=G.tray.filter(j=>j.kind==='sispaa').length,pendTt=G.tray.filter(j=>j.kind==='tt').length;
   G.stats.sispaaPend=pendSp;
@@ -2327,6 +3040,7 @@ function endWeek(){
   const verdicts=[];let fired=false,pIdx=-1;
   if(G.tt>0){const idx=Math.min(6,G.tt-1+(wasActive?1:0));pIdx=idx;const H=HUKUMAN[idx];SFX.gavel();
     const offs=[...new Set(G.offences)].map(c=>OFF[c].name).join('; ')||'tiada representasi';
+    announce(`Keputusan Lembaga Tatatertib: ${H.n}.`,{key:'ttv'+G.week,gap:3000});
     if(idx===6){fired=true;verdicts.push(`<div class="verdict bad"><span>⚖️ Keputusan Lembaga Tatatertib</span><b class="big">BUANG KERJA</b><span>Salah laku: ${offs}.<br>${H.fx}.</span></div>`);}
     else{SAVE.tt={level:idx,weeks:H.w};if(idx===5){const k=Math.max(0,rankIdx(S.stars)-1);S.stars=RANKS[k][0];}
       verdicts.push(`<div class="verdict bad"><span>⚖️ Keputusan Lembaga Tatatertib</span><b class="big">${H.n}</b><span>Salah laku: ${offs}.<br>${H.fx}.</span></div>`);}
@@ -2339,6 +3053,8 @@ function endWeek(){
     if(eligible){S.apcProg++;if(S.apcProg>=3){S.apcProg=0;S.apc++;apcNow=true;}}
     verdicts.push(apcNow?`<div class="verdict apc"><span>🏅 Anugerah Perkhidmatan Cemerlang</span><b class="big">Tahniah! APC ke-${S.apc}</b><span>Tiga minggu cemerlang dengan rekod bersih.</span></div>`:`<div class="verdict ${eligible?'apc':'clean'}" style="${eligible?'':'background:var(--wash);color:var(--ink)'}"><span>🏅 Kemajuan APC: ${S.apcProg}/3 minggu cemerlang</span><span>${eligible?'Minggu ini dikira cemerlang.':frozen?'Tidak layak: rekod tatatertib.':stars<3?'Perlu ⭐⭐⭐ untuk dikira.':'Tidak layak: masih ada aduan SISPAA belum dijawab atau tertunggak.'}</span></div>`);
     if(frozen&&stars)verdicts.push(`<div class="verdict clean" style="background:var(--wash);color:var(--ink)"><span>Bintang minggu ini tidak dikira untuk kenaikan pangkat semasa tempoh hukuman.</span></div>`);}
+  cnt(G.role==='pm'?'pmWeeks':'ppsWeeks');if(stars===3)cnt('star3');if(apcNow)cnt('apc');
+  verdicts.push(progVerdict());
   $('#rSlip').innerHTML=payWeek(pIdx,fired,apcNow,frozen);
   persist();netSaveScore();
   const nm=SAVE.profile.name||'Tanpa nama';$('#rName').textContent=nm;$('#rRole').textContent=`${ROLE[G.role].name} · Minggu ${G.week} · ${DIFF[G.diff].label}`;
