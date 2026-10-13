@@ -66,6 +66,28 @@ Pemain yang sedang main akan terputus sekejap dan game sambung semula sendiri.
 
 Guna hanya lagu yang anda ada hak untuk kongsi.
 
+## Chat & voice
+
+- **💬 Chat:** butang 💬 di kanan atas. Mesej keluar dalam kotak chat dan sebagai belon atas kepala avatar.
+  Pemain yang baru masuk nampak 30 mesej terakhir. Kosongkan chat: `https://LINK/api/admin?key=KATALALUAN&padam=chat`.
+- **🎙️ Voice:** tekan 🎙️ sekali untuk hidupkan mikrofon, tekan sekali lagi untuk tutup. Suara dihantar terus antara
+  pelayar pemain (tidak dirakam, tidak melalui server). Bulatan hijau di kaki avatar = sedang bercakap.
+  Tutup "Dengar suara rakan" dalam 👥 kalau tak nak dengar. Sesuai untuk lebih kurang 6 orang bercakap serentak.
+
+### Pilihan: relay suara (TURN) supaya voice sampai di semua rangkaian
+
+Tanpa langkah ini voice jalan di kebanyakan WiFi rumah. Tapi rangkaian pejabat atau data mudah alih kadang-kadang
+menyekat sambungan terus, jadi suara tak sampai. Relay TURN Cloudflare selesaikan masalah ini (percuma sehingga 1,000 GB sebulan).
+
+1. Dashboard Cloudflare → **Realtime** → **TURN Server** → **Create**. Beri nama (contoh `wira-makmal`).
+2. Salin dua nilai yang keluar: **Turn Token ID** dan **API Token**.
+3. Buka Worker `wira-makmal-vri` → **Settings** → **Variables and Secrets** → **Add**, pilih jenis **Secret** untuk kedua-duanya:
+   - `TURN_KEY_ID` = Turn Token ID
+   - `TURN_KEY_API_TOKEN` = API Token
+4. Simpan (Deploy). Semak: buka `https://LINK/api/ice`. Kalau ada `"turn":true`, relay dah aktif.
+
+Pilih jenis **Secret** (bukan Text). Nilai jenis Text akan hilang setiap kali repo dikemas kini.
+
 ## Urus papan markah (pilihan)
 
 Tetapkan kata laluan admin sekali sahaja:
