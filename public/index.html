@@ -441,6 +441,8 @@ table.res{border-collapse:collapse;width:100%;font-size:14px}
 /* chat + voice */
 .ibtn .badge{position:absolute;right:-4px;top:-4px;min-width:18px;height:18px;border-radius:9px;background:var(--bad);color:#fff;font:600 11px/18px var(--mono);padding:0 4px;box-shadow:0 0 0 2px #fff}
 #bMic.on{background:#d64045;color:#fff}
+#bMic.dim{opacity:.5}
+.vcrow{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
 #bMic.on.talk{box-shadow:0 0 0 4px rgba(214,64,69,.35),0 2px 10px rgba(10,40,45,.18)}
 .chlog{list-style:none;margin:0;padding:0;display:grid;gap:6px;max-height:min(240px,34vh);overflow:auto;-webkit-overflow-scrolling:touch}
 .chlog li{display:grid;gap:1px;padding:7px 10px;border-radius:12px;background:var(--wash);font-size:14px;max-width:88%;justify-self:start;overflow-wrap:anywhere}
@@ -549,7 +551,7 @@ table.res{border-collapse:collapse;width:100%;font-size:14px}
   <div class="pop-h"><b>👥 Dalam talian</b><button class="pop-x" id="soX" aria-label="Tutup">✕</button></div>
   <ul class="plist" id="soList"></ul>
   <div><h4>Hantar reaksi</h4><div class="emotes" id="soEmo"></div></div>
-  <label class="tog" id="vcLsRow" hidden><input type="checkbox" id="vcLs" checked> 🔊 Dengar suara rakan</label>
+  <div class="vcrow" id="vcRow" hidden><button class="btn sm" id="vcBtn2" type="button">🎙️ Hidupkan mikrofon</button><label class="tog"><input type="checkbox" id="vcLs" checked> 🔊 Dengar suara rakan</label></div>
   <p class="note">Rakan sekerja yang buka permainan ini pada masa sama muncul di makmal anda. Setiap orang uruskan sampel sendiri.</p>
 </div>
 <div id="chatPop" class="pop" role="dialog" aria-label="Chat" hidden>
@@ -2124,7 +2126,8 @@ function iceDone(pc){return new Promise(res=>{if(pc.iceGatheringState==='complet
 function lvlOf(o){try{o.an.getFloatTimeDomainData(o.buf);let s=0;for(let i=0;i<o.buf.length;i++)s+=o.buf[i]*o.buf[i];return Math.sqrt(s/o.buf.length);}catch(e){return 0;}}
 function meterFor(stream){if(!audio())return null;try{const src=AC.createMediaStreamSource(stream);const an=AC.createAnalyser();an.fftSize=512;src.connect(an);return {src,an,buf:new Float32Array(512)};}catch(e){return null;}}
 async function micToggle(){audio();if(VC.busy)return;if(VC.on){micOff();return;}
-  if(!vcOK()){toast('Voice hanya ada dalam versi Cloudflare','bad');return;}
+  if(!NET.wsMode){toast('Voice hanya ada dalam versi Cloudflare','bad');return;}
+  if(!vcOK()){toast('🎙️ Pelayar ini tak benarkan mikrofon. Buka link game dalam Chrome atau Safari (bukan dalam WhatsApp/Facebook).','bad');return;}
   if(!NET.wsId){toast('Belum bersambung ke server. Cuba sekejap lagi.','bad');return;}
   VC.busy=true;let st=null;
   try{st=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true,autoGainControl:true},video:false});}
@@ -2159,9 +2162,9 @@ function vcTick(){let ch=false;
   for(const [id,o] of VC.inn){const sp=o.an?lvlOf(o)>.015:false;if(sp!==VC.spk.has(id)){ch=true;if(sp)VC.spk.add(id);else VC.spk.delete(id);}}
   if(ch&&!$('#socialPop').hidden)renderSocial();}
 setInterval(vcTick,120);
-function vcUi(){const ok=vcOK()&&!!NET.wsId;const b=$('#bMic');b.hidden=!ok;b.classList.toggle('on',VC.on);if(!VC.on)b.classList.remove('talk');b.setAttribute('aria-pressed',String(VC.on));b.title=VC.on?'Mikrofon hidup: tekan untuk tutup':'Tekan untuk hidupkan mikrofon';
-  $('#micLive').hidden=!(VC.on&&(G.mode!=='play'||G.paused||G.shop));$('#vcLsRow').hidden=!ok;$('#vcLs').checked=VC.ls;}
-$('#bMic').onclick=micToggle;$('#micLive').onclick=()=>{if(VC.on)micOff();};
+function vcUi(){const ok=vcOK()&&!!NET.wsId;const b=$('#bMic');b.hidden=!NET.wsMode;b.classList.toggle('dim',!ok);const b2=$('#vcBtn2');b2.textContent=VC.on?'🔇 Tutup mikrofon':'🎙️ Hidupkan mikrofon';b2.className='btn sm'+(VC.on?' bad':'');b.classList.toggle('on',VC.on);if(!VC.on)b.classList.remove('talk');b.setAttribute('aria-pressed',String(VC.on));b.title=VC.on?'Mikrofon hidup: tekan untuk tutup':'Tekan untuk hidupkan mikrofon';
+  $('#micLive').hidden=!(VC.on&&(G.mode!=='play'||G.paused||G.shop));$('#vcRow').hidden=!NET.wsMode;$('#vcLs').checked=VC.ls;}
+$('#bMic').onclick=micToggle;$('#vcBtn2').onclick=micToggle;$('#micLive').onclick=()=>{if(VC.on)micOff();};
 $('#vcTap').onclick=()=>{audio();for(const o of VC.inn.values())if(o.audio){const p=o.audio.play();if(p&&p.catch)p.catch(()=>{});}$('#vcTap').hidden=true;};
 $('#vcLs').addEventListener('change',e=>{VC.ls=e.target.checked;SAVE.settings.vcls=VC.ls;persist();netSend(true);vcSync();});
 
