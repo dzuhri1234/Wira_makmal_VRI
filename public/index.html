@@ -457,6 +457,9 @@ table.res{border-collapse:collapse;width:100%;font-size:14px}
 #micLive{bottom:calc(14px + var(--sb));background:#d64045;color:#fff}
 #vcTap{bottom:calc(150px + var(--sb));background:var(--ink);color:#fff}
 @media (max-height:430px){.hud-side{grid-auto-flow:column;grid-template-rows:repeat(2,auto)}.pop:not(.mid){right:calc(118px + var(--sr))}}
+#bResumeWk{flex-direction:column;gap:3px;flex:2 1 220px}
+@media (max-height:430px){#sPause .card{grid-template-columns:1fr 1fr;width:min(560px,100%)}#sPause h2,#sPause .note,#bResume{grid-column:1/-1}}
+#bResumeWk small{font:600 12px/1.2 var(--mono);letter-spacing:.02em;opacity:.9}
 /* shop */
 #sShop{background:linear-gradient(90deg,transparent 0,transparent 38%,rgba(12,38,44,.26))}
 #sShop > .card{margin:auto 0 auto auto;width:min(460px,56vw);max-height:100%;overflow:auto;gap:12px}
@@ -578,7 +581,7 @@ table.res{border-collapse:collapse;width:100%;font-size:14px}
     <h1 class="title">Wira <span>Makmal</span><em>VRI</em></h1>
     <p class="tag">Seminggu di VRI. Terima sampel ikut garis panduan penghantaran, uji di sembilan seksyen, siapkan dalam TAT, jawab aduan SISPAA, dan jaga integriti supaya rekod tatatertib kekal bersih.</p>
     <div class="career" id="career"></div>
-    <div class="menu-btns"><button class="btn big" id="bPlay" disabled>▶ Mula minggu</button><button class="btn ghost" id="bBook1">📖 Buku rujukan</button></div>
+    <div class="menu-btns"><button class="btn big" id="bResumeWk" hidden></button><button class="btn big" id="bPlay" disabled>▶ Mula minggu</button><button class="btn ghost" id="bBook1">📖 Buku rujukan</button></div>
     <div class="menu-btns sub"><button class="btn ghost" id="bShop1">🛍️ Kedai &amp; avatar</button><button class="btn ghost" id="bRadio1">📻 Radio</button><button class="btn ghost" id="bLb1" hidden>🏆 Papan markah</button></div>
     <div class="online" id="mOnline" hidden></div>
     <div class="barcode" aria-hidden="true"></div>
@@ -629,7 +632,8 @@ table.res{border-collapse:collapse;width:100%;font-size:14px}
     <button class="btn ghost" id="bShadow"></button>
     <button class="btn ghost" id="bRadio2">📻 Radio</button>
     <button class="btn ghost" id="bBook2">📖 Buku rujukan</button>
-    <button class="btn ghost" id="bQuit">🏠 Keluar ke menu</button>
+    <button class="btn ghost" id="bSaveQuit">💾 Simpan &amp; keluar</button>
+    <button class="btn ghost" id="bQuit">🗑️ Batal minggu ini</button>
   </div>
 </section>
 
@@ -1200,7 +1204,7 @@ function refreshMarkers(){
 }
 function updateLabels(){if(!ring)return;const tg=G.mode==='play'?targetStations():null;for(const id in LABELS){const s=STATIONS[id];if(s.dynamic){LABELS[id].visible=G.spillOn;continue;}if(G.mode!=='play'){LABELS[id].visible=true;continue;}LABELS[id].visible=tg.has(id)||Math.hypot(P.x-s.pos[0],P.z-s.pos[1])<7.5;}}
 function bossSay(e){if(!bossBubble)return;const s=labelSprite(e,{h:.55});bossBubble.material.map.dispose();bossBubble.material=s.material;bossBubble.scale.copy(s.scale);bossBubble.visible=true;bossBubbleT=1.8;}
-function placeSpill(on){G.spillOn=on;if(!puddle)return;puddle.visible=spillCone.visible=on;LABELS.spill.visible=on;if(on){const p=pick(SPILLPTS);STATIONS.spill.pos=[p[0],p[1]];STATIONS.spill.use=[p[0],p[1]+.9];puddle.position.set(p[0],.012,p[1]);spillCone.position.set(p[0]+.9,0,p[1]-.3);LABELS.spill.position.set(p[0],1.3,p[1]);}}
+function placeSpill(on,at){G.spillOn=on;if(!puddle)return;puddle.visible=spillCone.visible=on;LABELS.spill.visible=on;if(on){const p=at||pick(SPILLPTS);STATIONS.spill.pos=[p[0],p[1]];STATIONS.spill.use=[p[0],p[1]+.9];puddle.position.set(p[0],.012,p[1]);spillCone.position.set(p[0]+.9,0,p[1]-.3);LABELS.spill.position.set(p[0],1.3,p[1]);}}
 
 /* ============ input ============ */
 const JOY={x:0,y:0,id:null};const KEYS={};const joy=$('#joy'),knob=$('#knob');
@@ -1290,6 +1294,7 @@ function frame(now){
     checkEvents();checkTimers();
     if(G.gameMin>=WEEK){if(!MG.open)endWeek();else G.endPending=true;}
     if(!MG.open)movePlayer(dt);else P.moving=false;
+    wkT-=dt;if(wkT<=0){wkT=4;saveWeek();}
     hudT-=dt;if(hudT<=0){hudT=.2;hudTick();updateProximity();updateLabels();}
     const cm=Math.floor(G.gameMin);if(cm!==lastClockMin){lastClockMin=cm;drawClock(cm);}
   }
@@ -2168,18 +2173,45 @@ $('#bMic').onclick=micToggle;$('#vcBtn2').onclick=micToggle;$('#micLive').onclic
 $('#vcTap').onclick=()=>{audio();for(const o of VC.inn.values())if(o.audio){const p=o.audio.play();if(p&&p.catch)p.catch(()=>{});}$('#vcTap').hidden=true;};
 $('#vcLs').addEventListener('change',e=>{VC.ls=e.target.checked;SAVE.settings.vcls=VC.ls;persist();netSend(true);vcSync();});
 
+/* ============ save & resume an unfinished week (this browser only) ============ */
+const WKEY='wiraMakmalVRI.week',INFS='__inf__';
+let wkT=0;
+function saveWeek(){if(G.mode!=='play')return;try{const g={};
+  for(const k of ['role','week','gameMin','dur','diff','rate','score','queue','tray','stats','spawnT','spawnInt','events','th','tut','tt','offences','lastDay','spillOn'])g[k]=G[k];
+  g.focus=G.focus?G.focus.uid:null;
+  const d={v:1,ts:Date.now(),wk:(SAVE.stats.weeks||0)+1,g,p:{x:P.x,z:P.z,h:P.heading},spill:G.spillOn?STATIONS.spill.pos:null,seq:JOBSEQ,sp:SPSEQ};
+  localStorage.setItem(WKEY,JSON.stringify(d,(k,v)=>v===Infinity?INFS:v));}catch(e){}}
+function clearWeek(){try{localStorage.removeItem(WKEY);}catch(e){}renderResume();}
+function loadWeek(){try{const d=JSON.parse(localStorage.getItem(WKEY)||'null',(k,v)=>v===INFS?Infinity:v);
+  if(d&&d.v===1&&d.g&&Array.isArray(d.g.queue)&&Array.isArray(d.g.tray)&&d.wk===(SAVE.stats.weeks||0)+1&&d.g.week===d.wk&&d.g.gameMin<WEEK)return d;}catch(e){}return null;}
+function renderResume(){const b=$('#bResumeWk'),pb=$('#bPlay');if(!b||!pb)return;const d=renderer?loadWeek():null;newArm=false;
+  if(d){const [dn,tm]=clockOf(d.g.gameMin);b.hidden=false;b.innerHTML=`<span>▶ Sambung minggu ${d.g.week}</span><small>${ROLE[d.g.role]?ROLE[d.g.role].short:''} · ${dn} ${tm} · ${Math.round(d.g.score)} mata</small>`;pb.className='btn ghost';pb.textContent='Mula minggu baharu';}
+  else{b.hidden=true;pb.className='btn big';pb.textContent='▶ Mula minggu';}}
+function resumeWeek(){const d=loadWeek();if(!d||!renderer){clearWeek();return;}audio();SFX.tap();
+  Object.assign(G,d.g,{mode:'play',paused:false,endPending:false,pop:[],shop:false,shopFocus:null});
+  G.focus=G.tray.find(j=>j.uid===d.g.focus)||G.tray[0]||null;
+  JOBSEQ=Math.max(JOBSEQ,d.seq||0,...G.queue.map(j=>j.uid||0),...G.tray.map(j=>j.uid||0));SPSEQ=Math.max(SPSEQ,d.sp||0);
+  P.x=+d.p.x||-4.5;P.z=+d.p.z||.4;P.heading=+d.p.h||0;P.path=null;P.walkTarget=null;P.moving=false;cam.pos=null;cam.look=null;cam.zoom=1;
+  closePops();buildPlayer();placeSpill(!!(d.g.spillOn&&d.spill),d.spill?[+d.spill[0],+d.spill[1]]:null);lastClockMin=-1;
+  show(null);$('#hud').hidden=false;$('#coach').hidden=true;G.tut=-1;renderTray();refreshMarkers();updateCoolers();hudTick();setAct(null,true);
+  const [dn,tm]=clockOf(G.gameMin);pause();toast(`💾 Minggu ${G.week} disambung · ${dn} ${tm}`,'gold');netSend(true);}
+$('#bResumeWk').onclick=resumeWeek;
+document.addEventListener('visibilitychange',()=>{if(document.hidden)saveWeek();});
+addEventListener('pagehide',saveWeek);
+
 /* ============ screens & flow ============ */
 const SCREENS=['sMenu','sSetup','sBrief','sPause','sBook','sEnd','sShop'];
 function show(id){SCREENS.forEach(s=>{$('#'+s).hidden=s!==id;});vcUi();}
 let bookReturn='sMenu';
 function rankIdx(st){let k=0;RANKS.forEach((r,i)=>{if(st>=r[0])k=i;});return k;}
 function ttActive(){return SAVE.tt.level>=0&&SAVE.tt.weeks>0;}
-function renderCareer(){const s=SAVE.stats;const r=RANKS[rankIdx(s.stars)];$('#career').innerHTML=s.weeks?`<span>Gelaran <b>${r[1]}</b></span><span>⭐ <b>${s.stars}</b></span><span>Minggu <b>${s.weeks}</b></span><span>APC <b>${s.apc}</b></span><span>💰 <b>${RM(SAVE.wallet)}</b></span>${ttActive()?`<span class="warnt">⚖️ ${HUKUMAN[SAVE.tt.level].n} · ${SAVE.tt.weeks} minggu</span>`:''}`:`<span>Minggu pertama anda di VRI. Selamat bertugas!</span>${SAVE.wallet?`<span>💰 <b>${RM(SAVE.wallet)}</b></span>`:''}`;}
+function renderCareer(){renderResume();const s=SAVE.stats;const r=RANKS[rankIdx(s.stars)];$('#career').innerHTML=s.weeks?`<span>Gelaran <b>${r[1]}</b></span><span>⭐ <b>${s.stars}</b></span><span>Minggu <b>${s.weeks}</b></span><span>APC <b>${s.apc}</b></span><span>💰 <b>${RM(SAVE.wallet)}</b></span>${ttActive()?`<span class="warnt">⚖️ ${HUKUMAN[SAVE.tt.level].n} · ${SAVE.tt.weeks} minggu</span>`:''}`:`<span>Minggu pertama anda di VRI. Selamat bertugas!</span>${SAVE.wallet?`<span>💰 <b>${RM(SAVE.wallet)}</b></span>`:''}`;}
 function segInit(id,val,onSet){const el=$('#'+id);const set=v=>{$$('button',el).forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.v===String(v))));onSet(v);};$$('button',el).forEach(b=>b.addEventListener('click',()=>{SFX.tap();set(b.dataset.v);}));set(val);}
 function setupForm(){const p=SAVE.profile;if(![6,10,15].includes(+p.dur))p.dur=10;$('#fName').value=p.name||'';segInit('fRole',p.role,v=>p.role=v);segInit('fGender',p.gender,v=>{p.gender=v;});segInit('fSkin',p.skin,v=>p.skin=+v);segInit('fDur',p.dur,v=>p.dur=+v);segInit('fDiff',p.diff,v=>p.diff=v);$('#fGlasses').checked=!!p.glasses;}
 $('#fGlasses').addEventListener('change',e=>{SAVE.profile.glasses=e.target.checked;});
 $('#fName').addEventListener('input',e=>{SAVE.profile.name=e.target.value.trim().slice(0,18);});
-$('#bPlay').onclick=()=>{audio();SFX.tap();show('sSetup');};
+let newArm=false;
+$('#bPlay').onclick=()=>{audio();SFX.tap();if(loadWeek()&&!newArm){newArm=true;$('#bPlay').textContent='Tekan lagi: minggu lama dibatalkan';return;}newArm=false;show('sSetup');};
 $('#bBack1').onclick=()=>show('sMenu');
 $('#bToBrief').onclick=()=>{audio();persist();brief();show('sBrief');};
 $('#bBack2').onclick=()=>show('sSetup');
@@ -2197,7 +2229,7 @@ function brief(){const p=SAVE.profile;const wk=(SAVE.stats.weeks||0)+1;const th=
   const ups=SHOP.makmal.items.filter(it=>has(it.id)&&(!it.r||it.r===p.role));const bu=$('#brUp');bu.hidden=!ups.length;bu.textContent=ups.length?`🔧 Naik taraf aktif: ${ups.map(it=>it.e+' '+it.n).join(' · ')}`:'';
   const tn=$('#brTt');if(ttActive()){tn.hidden=false;tn.innerHTML=`<b>⚖️ Hukuman aktif: ${HUKUMAN[SAVE.tt.level].n}</b><span>Baki ${SAVE.tt.weeks} minggu. ${HUKUMAN[SAVE.tt.level].fx}.</span>`;}else tn.hidden=true;}
 function startWeek(){
-  const p=SAVE.profile;G.shop=false;G.shopFocus=null;closePops();Object.assign(G,{role:p.role,dur:p.dur,diff:p.diff,week:(SAVE.stats.weeks||0)+1,gameMin:0,rate:WEEK/(p.dur*60),score:0,queue:[],tray:[],focus:null,lastDay:0,
+  clearWeek();const p=SAVE.profile;G.shop=false;G.shopFocus=null;closePops();Object.assign(G,{role:p.role,dur:p.dur,diff:p.diff,week:(SAVE.stats.weeks||0)+1,gameMin:0,rate:WEEK/(p.dur*60),score:0,queue:[],tray:[],focus:null,lastDay:0,
     stats:{done:0,accepted:0,rejected:0,tasks:0,events:0,errors:0,late:0,expired:0,left:0,sispaa:0,sispaaOk:0,sispaaLate:0,integ:0},spawnInt:30,spawnT:6,paused:false,endPending:false,pop:[],th:computeTargets(),tt:0,offences:[]});
   G.spawnInt=(p.dur*60/5)/(p.role==='pm'?2.7:2.1)*DIFF[p.diff].spawn;
   const evs=['telefon','telefon','integ','tumpahan'];if(p.dur>=10)evs.push('integ','audit');const ev=shuffle(evs);G.events=ev.map((t,i)=>({type:t,at:150+(i+.5)*((WEEK-400)/ev.length)+rnd(-60,60),fired:false}));
@@ -2213,18 +2245,19 @@ function coach(stage){G.tut=stage;const el=$('#coach');if(stage<0||stage>3){el.h
   $('#coachT').textContent=T[stage];el.hidden=false;}
 $('#coachX').onclick=()=>{SAVE.tutDone=true;persist();coach(-1);};
 let quitArm=false;
-function pause(){if(G.mode!=='play'||G.paused)return;G.paused=true;setAct(null);quitArm=false;$('#bQuit').textContent='🏠 Keluar ke menu';syncSettings();show('sPause');}
+function pause(){if(G.mode!=='play'||G.paused)return;G.paused=true;saveWeek();setAct(null);quitArm=false;$('#bQuit').textContent='🗑️ Batal minggu ini';syncSettings();show('sPause');}
 function resume(){G.paused=false;show(null);updateProximity(true);if(G.pop.length&&!MG.open){const f=G.pop.shift();f();}}
 $('#bPause').onclick=()=>{audio();if(MG.open)return;pause();};
 $('#bResume').onclick=resume;
-$('#bQuit').onclick=()=>{if(!quitArm){quitArm=true;$('#bQuit').textContent='Tekan sekali lagi: minggu dibatalkan, tiada markah';return;}quitArm=false;toMenu();};
+$('#bQuit').onclick=()=>{if(!quitArm){quitArm=true;$('#bQuit').textContent='Tekan sekali lagi: minggu dibatalkan, tiada markah';return;}quitArm=false;clearWeek();toMenu();};
+$('#bSaveQuit').onclick=()=>{saveWeek();toMenu();toast('💾 Minggu disimpan. Tekan Sambung minggu bila nak main semula.','good');};
 function syncSettings(){$('#bSound').textContent=SAVE.settings.sound?'🔊 Bunyi: hidup':'🔇 Bunyi: senyap';$('#bShadow').textContent=SAVE.settings.shadows?'🌗 Bayang: hidup':'⚪ Bayang: tutup (lebih laju)';}
 $('#bSound').onclick=()=>{SAVE.settings.sound=!SAVE.settings.sound;persist();syncSettings();audio();SFX.tap();};
 $('#bShadow').onclick=()=>{SAVE.settings.shadows=!SAVE.settings.shadows;persist();syncSettings();if(renderer){renderer.shadowMap.enabled=SAVE.settings.shadows;sun.castShadow=SAVE.settings.shadows;scene.traverse(o=>{if(o.material){(Array.isArray(o.material)?o.material:[o.material]).forEach(m=>m.needsUpdate=true);}});}};
 function toMenu(){if(MG.open)closeMG();G.shop=false;G.mode='menu';G.paused=false;G.tray=[];G.queue=[];G.focus=null;$('#hud').hidden=true;setAct(null,true);refreshMarkers();updateCoolers();if(renderer)placeSpill(false);cam.pos=null;renderCareer();show('sMenu');}
 
 function endWeek(){
-  if(G.mode!=='play')return;if(MG.open){MG.cleanup&&MG.cleanup();MG.open=false;$('#mgWrap').hidden=true;TQ.length=0;}
+  if(G.mode!=='play')return;clearWeek();if(MG.open){MG.cleanup&&MG.cleanup();MG.open=false;$('#mgWrap').hidden=true;TQ.length=0;}
   G.mode='end';$('#hud').hidden=true;setAct(null,true);$$('#toasts .toast').forEach(t=>t.remove());TQ.length=0;
   const pendSp=G.tray.filter(j=>j.kind==='sispaa').length,pendTt=G.tray.filter(j=>j.kind==='tt').length;
   G.stats.sispaaPend=pendSp;
@@ -2269,7 +2302,7 @@ $('#bCopy').onclick=()=>{const S=G.stats;const txt=`🧪 Wira Makmal VRI · ${RO
 function boot(){
   renderCareer();setupForm();syncSettings();rUi();netInit().catch(()=>{});
   if(!window.THREE){$('#loadNote').textContent='Gagal memuatkan enjin 3D. Semak sambungan internet dan muat semula.';return;}
-  const go=()=>{try{renderer=new THREE.WebGLRenderer({canvas,antialias:true,powerPreference:'high-performance'});renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,1.75));renderer.shadowMap.enabled=SAVE.settings.shadows;renderer.shadowMap.type=THREE.PCFSoftShadowMap;buildWorld();resize();$('#loadNote').textContent='VRI sedia ✔';$('#bPlay').disabled=false;}catch(e){console.error(e);renderer=null;$('#loadNote').textContent='Peranti ini tidak menyokong WebGL. Cuba pelayar lain.';}};
+  const go=()=>{try{renderer=new THREE.WebGLRenderer({canvas,antialias:true,powerPreference:'high-performance'});renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,1.75));renderer.shadowMap.enabled=SAVE.settings.shadows;renderer.shadowMap.type=THREE.PCFSoftShadowMap;buildWorld();resize();$('#loadNote').textContent='VRI sedia ✔';$('#bPlay').disabled=false;renderResume();}catch(e){console.error(e);renderer=null;$('#loadNote').textContent='Peranti ini tidak menyokong WebGL. Cuba pelayar lain.';}};
   (document.fonts&&document.fonts.ready?Promise.race([document.fonts.ready,new Promise(r=>setTimeout(r,1800))]):Promise.resolve()).then(go);
   requestAnimationFrame(frame);
 }
