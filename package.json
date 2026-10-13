@@ -1,0 +1,13 @@
+{
+  "name": "wira-makmal-vri",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Wira Makmal VRI: game 3D makmal VRI Ipoh dengan main bersama dalam talian (Cloudflare Workers + Durable Objects)",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy"
+  },
+  "devDependencies": {
+    "wrangler": "^4.0.0"
+  }
+}
