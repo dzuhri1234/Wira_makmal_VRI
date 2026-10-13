@@ -438,6 +438,29 @@ table.res{border-collapse:collapse;width:100%;font-size:14px}
 .youtag{font:600 10px var(--mono);background:var(--ink);color:#fff;border-radius:5px;padding:2px 5px;flex:none}
 .online{display:flex;align-items:center;gap:8px;font:600 13px var(--mono);color:var(--ok2)}
 .online::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 3px rgba(43,138,87,.2)}
+/* mini calculator in calculation questions */
+.calc{display:grid;gap:8px;padding:10px;border-radius:14px;background:#f4f7f6;border:1.5px solid var(--line)}
+.calc-f{display:grid;gap:3px}
+.calc-f b{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink2)}
+.calc-f .cf{font:600 14px/1.5 var(--mono);color:var(--ink)}
+.calc summary{cursor:pointer;font-weight:700;font-size:14px;list-style:none;display:flex;align-items:center;gap:6px;padding:4px 0}
+.calc summary::-webkit-details-marker{display:none}
+.calc summary::after{content:'▾';margin-left:auto;transition:transform .2s}
+.calc details:not([open]) summary::after{transform:rotate(-90deg)}
+.calc-in{display:grid;gap:8px;margin-top:6px}
+.calc-d{background:var(--ink);color:#fff;border-radius:10px;padding:8px 10px;text-align:right;min-height:58px;display:grid;align-content:center;gap:2px}
+.calc-e{font:600 19px/1.25 var(--mono);overflow-wrap:anywhere}
+.calc-r{font:600 13px var(--mono);color:#9ff0d8;min-height:16px}
+.calc-chips{display:flex;flex-wrap:wrap;gap:6px}
+.calc-chips button{border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:5px 10px;font:500 12px var(--mono);color:var(--ink)}
+.calc-chips button b{font-weight:700}
+.calc-pad{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.calc-pad button{height:42px;border:0;border-radius:10px;background:#fff;box-shadow:inset 0 0 0 1.5px var(--line);font:600 18px var(--mono);color:var(--ink);touch-action:manipulation}
+.calc-pad button:active{transform:translateY(1px);background:#eef3f2}
+.calc-pad button.op{background:#e3eeec}
+.calc-pad button.ceq{background:var(--accent);color:#fff;box-shadow:none;font-size:20px}
+.calc-pad button.cl{color:var(--bad)}
+@media (min-width:600px){.calc-in{grid-template-columns:minmax(0,1fr) 220px;grid-template-rows:auto 1fr;align-items:start}.calc-d{grid-column:1}.calc-chips{grid-column:1}.calc-pad{grid-column:2;grid-row:1 / span 2}}
 /* chat + voice */
 .ibtn .badge{position:absolute;right:-4px;top:-4px;min-width:18px;height:18px;border-radius:9px;background:var(--bad);color:#fff;font:600 11px/18px var(--mono);padding:0 4px;box-shadow:0 0 0 2px #fff}
 #bMic.on{background:#d64045;color:#fff}
@@ -1376,6 +1399,7 @@ function quizSeq(root,qs,onEnd){
   const next=()=>{if(!live())return;i++;if(i<qs.length)show();else onEnd(sc/qs.length);};
   function show(){const Q=qs[i];const opts=Q.keep?Q.opts:shuffle(Q.opts);
     bx.innerHTML=`${qs.length>1?`<div class="q-n mono">SOALAN ${i+1}/${qs.length}</div>`:''}${Q.html||''}<p class="q">${Q.q}</p><div class="opts">${opts.map((o,k)=>`<button class="opt" data-k="${k}">${o.t}</button>`).join('')}</div><div class="fb"></div>`;
+    if(Q.calc){if(Q.calcF)Q.calc.setF(Q.calcF);bx.insertBefore(Q.calc,$('.q',bx));}
     $$('.opt',bx).forEach(btn=>btn.onclick=()=>{const o=opts[+btn.dataset.k];$$('.opt',bx).forEach(x=>x.disabled=true);const fb=$('.fb',bx);
       if(Q.onPick)Q.onPick(o);
       if(o.ok){sc++;btn.classList.add('right');SFX.ok();fb.className='fb good';fb.innerHTML='✔ Betul!'+(Q.okNote?' '+Q.okNote:'');setTimeout(next,Q.okNote?1500:700);}
@@ -1673,7 +1697,8 @@ MINI.kira=(j,st,done)=>openMG({job:j,title:'Kira telur cacing',kicker:'Mikroskop
 MINI.tafsir_fec=(j,st,done)=>openMG({job:j,title:'Kira EPG & sahkan',kicker:'Komputer LIMS',cap:j.cap,render(b){
   const c=j.data.count,epg=c*50;const cat=epg<500?'Ringan':epg<=1500?'Sederhana':'Berat';
   const ep=uniq([{v:epg,ok:true},{v:c*100,why:'Faktor McMaster (2 g najis + 28 ml larutan, dua ruang) ialah 50.'},{v:c*25,why:'Faktor yang betul ialah 50.'},{v:c*10,why:'Faktor yang betul ialah 50.'}],0,k=>epg+50*k+25);
-  quizSeq(b,[{html:`<div class="lims-h mono">LIMS › ${j.sid} › ${j.data.species}</div><p class="lead">Kiraan anda: <b>${c} telur</b> (kedua-dua ruang McMaster).</p>`,q:'Berapakah EPG?',opts:ep.map(o=>({t:`<span class="mono">${o.v} EPG</span>`,ok:o.ok,why:o.why}))},{html:`<p class="lead">EPG = <b class="mono">${epg}</b></p>`,q:'Tahap jangkitan (panduan permainan: ringan < 500, sederhana 500–1500, berat > 1500)?',keep:true,opts:['Ringan','Sederhana','Berat'].map(t=>({t,ok:t===cat,why:`${epg} EPG berada dalam julat ${cat.toLowerCase()}.`}))}],sc=>done(sc));
+  const CX=makeCalc({f:['EPG = bilangan telur (kedua-dua ruang) × 50','Faktor 50: 2 g najis dalam 28 ml larutan apungan, dua ruang = 0.3 ml'],vals:[['Telur',c,0],['Faktor',50,0]]});
+  quizSeq(b,[{html:`<div class="lims-h mono">LIMS › ${j.sid} › ${j.data.species}</div><p class="lead">Kiraan anda: <b>${c} telur</b> (kedua-dua ruang McMaster).</p>`,calc:CX,q:'Berapakah EPG?',opts:ep.map(o=>({t:`<span class="mono">${o.v} EPG</span>`,ok:o.ok,why:o.why}))},{html:`<p class="lead">EPG = <b class="mono">${epg}</b></p>`,q:'Tahap jangkitan (panduan permainan: ringan < 500, sederhana 500–1500, berat > 1500)?',keep:true,opts:['Ringan','Sederhana','Berat'].map(t=>({t,ok:t===cat,why:`${epg} EPG berada dalam julat ${cat.toLowerCase()}.`}))}],sc=>done(sc));
 }});
 MINI.smear=(j,st,done)=>openMG({job:j,title:'Calitan darah nipis',kicker:'Parasitologi · Giemsa',cap:j.cap,render(b){
   const org=j.data.org;const inf=rint(3,9),tot=rint(34,40);const items=placeItems(inf,tot-inf,10,10);const nTot=items.length,nInf=items.filter(o=>o.t).length;j.data.tot=nTot;
@@ -1684,7 +1709,8 @@ MINI.smear=(j,st,done)=>openMG({job:j,title:'Calitan darah nipis',kicker:'Parasi
 MINI.lims_smear=(j,st,done)=>openMG({job:j,title:'Kira parasitemia',kicker:'Komputer LIMS',cap:j.cap,render(b){
   const c=j.data.count,t=j.data.tot||38,pc=c/t*100;const isA=j.data.org==='anaplasma';
   const o=uniq([{v:pc,ok:true},{v:t/Math.max(1,c),why:'Parasitemia = sel dijangkiti ÷ jumlah sel × 100.'},{v:c,why:'Itu bilangan sel, bukan peratus.'},{v:pc/10,why:'Darab 100, bukan 10.'}],1,k=>pc+k*1.3);
-  quizSeq(b,[{html:`<div class="lims-h mono">LIMS › ${j.sid} › Calitan darah</div><p class="lead">Sel dijangkiti: <b>${c}</b> daripada <b>${t}</b> sel.</p>`,q:'Parasitemia (%) = ?',opts:o.map(x=>({t:`<span class="mono">${fx(x.v,1)}%</span>`,ok:x.ok,why:x.why}))},{q:isA?'Jasad padat ungu di pinggir sel darah merah ialah ciri…':'Jasad berbentuk buah pir berpasangan di dalam sel darah merah ialah ciri…',opts:[{t:'<i>Anaplasma marginale</i>',ok:isA,why:'Anaplasma: titik padat di pinggir sel.'},{t:'<i>Babesia</i> spp.',ok:!isA,why:'Babesia: bentuk buah pir berpasangan di dalam sel.'},{t:'<i>Trypanosoma</i> spp.',why:'Trypanosoma hidup bebas dalam plasma, bukan dalam sel darah merah.'}]}],sc=>done(sc));
+  const CX=makeCalc({f:['Parasitemia (%) = sel dijangkiti ÷ jumlah sel × 100'],vals:[['Dijangkiti',c,0],['Jumlah sel',t,0],['100',100,0]]});
+  quizSeq(b,[{html:`<div class="lims-h mono">LIMS › ${j.sid} › Calitan darah</div><p class="lead">Sel dijangkiti: <b>${c}</b> daripada <b>${t}</b> sel.</p>`,calc:CX,q:'Parasitemia (%) = ?',opts:o.map(x=>({t:`<span class="mono">${fx(x.v,1)}%</span>`,ok:x.ok,why:x.why}))},{q:isA?'Jasad padat ungu di pinggir sel darah merah ialah ciri…':'Jasad berbentuk buah pir berpasangan di dalam sel darah merah ialah ciri…',opts:[{t:'<i>Anaplasma marginale</i>',ok:isA,why:'Anaplasma: titik padat di pinggir sel.'},{t:'<i>Babesia</i> spp.',ok:!isA,why:'Babesia: bentuk buah pir berpasangan di dalam sel.'},{t:'<i>Trypanosoma</i> spp.',why:'Trypanosoma hidup bebas dalam plasma, bukan dalam sel darah merah.'}]}],sc=>done(sc));
 }});
 MINI.pcv=(j,st,done)=>openMG({job:j,title:'Isipadu sel padat (PCV)',kicker:'Hematologi',cap:j.cap,render(b){
   const pcv=j.data.pcv,R=PCVR[j.spp];const st_=pcv<R[0]?'Rendah (anemia)':pcv>R[1]?'Tinggi':'Normal';
@@ -1747,13 +1773,15 @@ MINI.pipet=(j,st,done)=>openMG({job:j,title:'Pipet triplikat',kicker:j.kind==='d
 MINI.tafsir_elisa=(j,st,done)=>openMG({job:j,title:'Kira S/P & sahkan',kicker:'Komputer LIMS',cap:j.cap,render(b){
   const C=CAT[j.key];const {KP,KN,S}=j.data,SP=(S-KN)/(KP-KN),pos=SP>=.4;
   const o=uniq([{v:SP,ok:true},{v:S/KP,why:'Tolak OD KN dahulu: S/P = (S − KN) ÷ (KP − KN).'},{v:(S-KN)/KP,why:'Penyebut juga ditolak KN: (KP − KN).'},{v:S-KN,why:'Bahagi dengan (KP − KN).'}],2,k=>SP+k*.13);
-  quizSeq(b,[{html:`<div class="lims-h mono">LIMS › ${j.sid} › ${esc(C.short)}</div><div class="formula">OD KP = ${fx(KP,3)}<br>OD KN = ${fx(KN,3)}<br>OD sampel (purata triplikat) = ${fx(S,3)}</div>`,q:'Nisbah S/P = ?',opts:o.map(x=>({t:`<span class="mono">${fx(x.v,2)}</span>`,ok:x.ok,why:x.why}))},
+  const CX=makeCalc({f:['S/P = (OD sampel − OD KN) ÷ (OD KP − OD KN)','Ambang (contoh): S/P ≥ 0.40 = positif'],vals:[['Sampel',S,3],['KN',KN,3],['KP',KP,3]]});
+  quizSeq(b,[{html:`<div class="lims-h mono">LIMS › ${j.sid} › ${esc(C.short)}</div><div class="formula">OD KP = ${fx(KP,3)}<br>OD KN = ${fx(KN,3)}<br>OD sampel (purata triplikat) = ${fx(S,3)}</div>`,calc:CX,q:'Nisbah S/P = ?',opts:o.map(x=>({t:`<span class="mono">${fx(x.v,2)}</span>`,ok:x.ok,why:x.why}))},
     {html:`<p class="lead">S/P = <b class="mono">${fx(SP,2)}</b> · nilai ambang (contoh): S/P ≥ 0.40 positif</p>`,q:'Keputusan sampel?',keep:true,opts:[{t:'Positif antibodi',ok:pos,why:`S/P ${fx(SP,2)} < 0.40, maka negatif.`},{t:'Negatif antibodi',ok:!pos,why:`S/P ${fx(SP,2)} ≥ 0.40, maka positif.`}]}],sc=>{if(pos&&C.notif){j.steps.splice(j.stepIdx+1,0,{st:'boss',mg:'lapor',label:'Lapor penyakit wajib segera'});toast(`🚨 ${C.dis} positif: maklum DIC segera!`,'bad');}done(sc);});
 }});
 MINI.purata=(j,st,done)=>openMG({job:j,title:'Rekod data kajian',kicker:'Komputer LIMS · buku log',cap:j.cap,render(b){
   const {vals,dp,unit,proj}=j.data,mean=vals.reduce((a,c)=>a+c,0)/3,sorted=vals.slice().sort((a,c)=>a-c);
   const o=uniq([{v:mean,ok:true},{v:(vals[0]+vals[1]+vals[2])/2,why:'Bahagi dengan bilangan ulangan, iaitu 3.'},{v:sorted[2],why:'Itu nilai tertinggi.'},{v:sorted[0],why:'Itu nilai terendah.'}],dp,k=>mean+k*(dp===1?.7:.07));
-  quizSeq(b,[{html:`<div class="lims-h mono">PROJEK › ${esc(proj)}</div><div class="formula">${vals.map((v,i)=>`Ulangan ${i+1} = ${fx(v,dp)} ${unit}`).join('<br>')}</div>`,q:'Purata triplikat untuk direkod?',opts:o.map(x=>({t:`<span class="mono">${fx(x.v,dp)} ${unit}</span>`,ok:x.ok,why:x.why}))}],sc=>done(sc));
+  const CX=makeCalc({f:['Purata = (Ulangan 1 + Ulangan 2 + Ulangan 3) ÷ 3'],vals:vals.map((v,i)=>['Ulangan '+(i+1),v,dp]).concat([['n',3,0]])});
+  quizSeq(b,[{html:`<div class="lims-h mono">PROJEK › ${esc(proj)}</div><div class="formula">${vals.map((v,i)=>`Ulangan ${i+1} = ${fx(v,dp)} ${unit}`).join('<br>')}</div>`,calc:CX,q:'Purata triplikat untuk direkod?',opts:o.map(x=>({t:`<span class="mono">${fx(x.v,dp)} ${unit}</span>`,ok:x.ok,why:x.why}))}],sc=>done(sc));
 }});
 MINI.kjeldahl=(j,st,done)=>openMG({job:j,title:'Protein kasar · Kjeldahl',kicker:'Biokimia · proksimat',cap:j.cap,render(b){
   const live=liveFn();let q1=0;
@@ -1779,7 +1807,8 @@ MINI.kjeldahl=(j,st,done)=>openMG({job:j,title:'Protein kasar · Kjeldahl',kicke
 MINI.kira_pk=(j,st,done)=>openMG({job:j,title:'Kira protein kasar',kicker:'Komputer LIMS',cap:j.cap,render(b){
   const V=j.data.V??j.data.Ve,N=(V-.15)*.1*14.007*100/500,CP=N*6.25;
   const cp=uniq([{v:CP,ok:true},{v:N,why:'Itu %N sahaja. Darab 6.25.'},{v:N*16,why:'Faktornya 100 ÷ 16 = 6.25.'},{v:CP/2,why:'%PK = %N × 6.25.'}],2,k=>CP+k*.37);
-  quizSeq(b,[{html:`<div class="lims-h mono">LIMS › ${j.sid} › ${esc(j.data.feed)}</div><div class="formula">Vs = ${fx(V,2)} ml · Vb = 0.15 ml · M HCl = 0.1 · berat sampel 500 mg<br>%N = (Vs − Vb) × M × 14.007 × 100 ÷ berat (mg) = <b>${fx(N,3)}%</b></div>`,q:'%Protein kasar = %N × ?',opts:[{t:'6.25',ok:true},{t:'5.70',why:'5.70 khusus bijirin gandum.'},{t:'6.38',why:'6.38 khusus produk susu.'},{t:'16',why:'16 ialah %N dalam protein; faktornya 100 ÷ 16 = 6.25.'}]},{q:'Maka, % protein kasar sampel ialah…',opts:cp.map(o=>({t:`<span class="mono">${fx(o.v,2)}%</span>`,ok:o.ok,why:o.why}))}],sc=>done(sc));
+  const CX=makeCalc({f:['%N = (Vs − Vb) × M × 14.007 × 100 ÷ berat (mg)','% Protein kasar = %N × faktor penukaran'],vals:[['%N',N,3],['Vs',V,2],['Vb',.15,2],['M',.1,1],['N',14.007,3],['Berat',500,0]]});
+  quizSeq(b,[{html:`<div class="lims-h mono">LIMS › ${j.sid} › ${esc(j.data.feed)}</div><div class="formula">Vs = ${fx(V,2)} ml · Vb = 0.15 ml · M HCl = 0.1 · berat sampel 500 mg<br>%N = (Vs − Vb) × M × 14.007 × 100 ÷ berat (mg) = <b>${fx(N,3)}%</b></div>`,calc:CX,q:'%Protein kasar = %N × ?',opts:[{t:'6.25',ok:true},{t:'5.70',why:'5.70 khusus bijirin gandum.'},{t:'6.38',why:'6.38 khusus produk susu.'},{t:'16',why:'16 ialah %N dalam protein; faktornya 100 ÷ 16 = 6.25.'}]},{calc:CX,calcF:['%N = (Vs − Vb) × M × 14.007 × 100 ÷ berat (mg)','% Protein kasar = %N × 6.25'],q:'Maka, % protein kasar sampel ialah…',opts:cp.map(o=>({t:`<span class="mono">${fx(o.v,2)}%</span>`,ok:o.ok,why:o.why}))}],sc=>done(sc));
 }});
 MINI.kaedah=(j,st,done)=>openMG({job:j,title:`Analisis ${j.data.nm.toLowerCase()}`,kicker:'Biokimia · proksimat',cap:j.cap,render(b){
   const an=j.data.an;const M={BK:'Ketuhar 105°C',Abu:'Relau 550°C',LK:'Soxhlet (eter petroleum)',PK:'Kjeldahl'};
@@ -1790,7 +1819,8 @@ MINI.kaedah=(j,st,done)=>openMG({job:j,title:`Analisis ${j.data.nm.toLowerCase()
 MINI.kira_prox=(j,st,done)=>openMG({job:j,title:`Kira ${j.data.nm.toLowerCase()}`,kicker:'Komputer LIMS',cap:j.cap,render(b){
   const {W0,W1,an,nm}=j.data,pc=W1/W0*100;const w1n={BK:'selepas pengeringan',Abu:'abu',LK:'lemak diekstrak'}[an];
   const o=uniq([{v:pc,ok:true},{v:(W0-W1)/W0*100,why:an==='BK'?'Itu peratus kelembapan.':'Itu baki selain analit.'},{v:W1*100,why:'Bahagi dengan berat sampel asal (W₀).'},{v:pc/10,why:'Darab 100, bukan 10.'}],2,k=>pc+k*.53);
-  quizSeq(b,[{html:`<div class="lims-h mono">LIMS › ${j.sid} › ${esc(j.data.feed)}</div><div class="formula">W₀ (berat sampel asal) = ${fx(W0,4)} g<br>W₁ (berat ${w1n}) = ${fx(W1,4)} g</div>`,q:`% ${nm.toLowerCase()} = ?`,opts:o.map(x=>({t:`<span class="mono">${fx(x.v,2)}%</span>`,ok:x.ok,why:x.why}))}],sc=>done(sc));
+  const CX=makeCalc({f:[`% ${nm.toLowerCase()} = W₁ ÷ W₀ × 100`,`W₀ = berat sampel asal · W₁ = berat ${w1n}`],vals:[['W₀',W0,4],['W₁',W1,4],['100',100,0]]});
+  quizSeq(b,[{html:`<div class="lims-h mono">LIMS › ${j.sid} › ${esc(j.data.feed)}</div><div class="formula">W₀ (berat sampel asal) = ${fx(W0,4)} g<br>W₁ (berat ${w1n}) = ${fx(W1,4)} g</div>`,calc:CX,q:`% ${nm.toLowerCase()} = ?`,opts:o.map(x=>({t:`<span class="mono">${fx(x.v,2)}%</span>`,ok:x.ok,why:x.why}))}],sc=>done(sc));
 }});
 MINI.basuh=(j,st,done)=>openMG({job:j,title:'Basuh peralatan kaca',kicker:'Sinki basuh',cap:j.cap,render(b){
   const live=liveFn();const spots=[];const areas=[[50,40,30,70],[155,70,50,45]];for(let i=0;i<6;i++){const A=areas[i%2];spots.push({x:A[0]+rnd(-A[2]/2,A[2]/2),y:A[1]+rnd(0,A[3]),hp:3});}
@@ -2091,6 +2121,37 @@ function wsOnMsg(m){
   else if(m.t==='lb'&&Array.isArray(m.rows))wsLb(m.rows);
 }
 
+
+/* ============ mini calculator for calculation questions ============ */
+const CALCOPS={'+':'+','-':'−','*':'×','/':'÷'};
+function calcEval(s){let i=0;const pk=()=>s[i];
+  const num=()=>{const m=/^(\d+\.?\d*|\.\d+)/.exec(s.slice(i));if(!m)throw 0;i+=m[0].length;return parseFloat(m[0]);};
+  const fac=()=>{if(pk()==='-'){i++;return -fac();}if(pk()==='('){i++;const v=ex();if(pk()===')')i++;return v;}return num();};
+  const term=()=>{let v=fac();while(pk()==='*'||pk()==='/'){const o=s[i++];const r=fac();v=o==='*'?v*r:v/r;}return v;};
+  const ex=()=>{let v=term();while(pk()==='+'||pk()==='-'){const o=s[i++];const r=term();v=o==='+'?v+r:v-r;}return v;};
+  try{if(!s)return null;const v=ex();return i===s.length&&isFinite(v)?v:null;}catch(e){return null;}}
+const fmtNum=v=>Math.abs(v)>=1e9||(v!==0&&Math.abs(v)<1e-6)?v.toExponential(4):String(parseFloat(v.toFixed(6)));
+function makeCalc(o){const el=document.createElement('div');el.className='calc';const open=SAVE.settings.calc!==false;
+  const KEYS=['C','(',')','/','7','8','9','*','4','5','6','-','1','2','3','+','0','.','⌫','='];
+  const AR={'/':'bahagi','*':'darab','-':'tolak','+':'tambah','⌫':'padam satu','C':'kosongkan','=':'sama dengan','(':'kurungan buka',')':'kurungan tutup','.':'titik perpuluhan'};
+  el.innerHTML=`<div class="calc-f"><b>📐 Formula</b><div class="cf"></div></div><details${open?' open':''}><summary>🧮 Kalkulator</summary><div class="calc-in"><div class="calc-d" aria-live="polite"><div class="calc-e">0</div><div class="calc-r"></div></div>${o.vals&&o.vals.length?`<div class="calc-chips">${o.vals.map((v,k)=>`<button type="button" data-v="${k}" aria-label="Masukkan ${esc(v[0])} ${fx(v[1],v[2])}">${esc(v[0])} <b>${fx(v[1],v[2])}</b></button>`).join('')}</div>`:''}<div class="calc-pad">${KEYS.map(k=>`<button type="button" data-k="${k}" class="${'+-*/()'.includes(k)?'op':k==='='?'ceq':(k==='C'||k==='⌫')?'cl':''}" aria-label="${AR[k]||k}">${CALCOPS[k]||k}</button>`).join('')}</div></div></details>`;
+  let ex='',fin=false;const E=$('.calc-e',el),Rr=$('.calc-r',el);
+  const upd=()=>{E.textContent=ex?ex.replace(/[*\/-]/g,c=>CALCOPS[c]):'0';const v=calcEval(ex);Rr.textContent=v!==null&&/[+\-*\/(]/.test(ex.slice(1))?'= '+fmtNum(v):'';};
+  const press=k=>{
+    if(k==='C'){ex='';fin=false;}
+    else if(k==='⌫'){ex=ex.slice(0,-1);fin=false;}
+    else if(k==='='){const v=calcEval(ex);if(v===null){if(ex)Rr.textContent='Ralat: semak ungkapan';return;}ex=fmtNum(v);fin=true;}
+    else if('+-*/'.includes(k)){if(!ex&&k!=='-')ex='0';if(/[+\-*\/]$/.test(ex))ex=ex.slice(0,-1);ex+=k;fin=false;}
+    else{if(fin)ex='';fin=false;if(k==='.'){const m=/(\d*\.?\d*)$/.exec(ex)[0];if(m.includes('.'))return;if(!m)ex+='0';}if(k==='('&&/[\d.)]$/.test(ex))ex+='*';if(/\d/.test(k)&&/\)$/.test(ex))ex+='*';ex+=k;}
+    if(ex.length>60)ex=ex.slice(0,60);upd();SFX.tap();};
+  const ins=t=>{if(fin){ex='';fin=false;}if(/[\d.)]$/.test(ex))ex+='*';ex+=t;upd();SFX.tap();};
+  $$('.calc-pad button',el).forEach(b=>b.onclick=()=>press(b.dataset.k));
+  $$('.calc-chips button',el).forEach(b=>b.onclick=()=>{const v=o.vals[+b.dataset.v];ins(fx(v[1],v[2]));});
+  $('details',el).addEventListener('toggle',e=>{SAVE.settings.calc=e.target.open;persist();});
+  el.setF=lines=>{$('.cf',el).innerHTML=lines.map(esc).join('<br>');};el.press=press;el.setF(o.f||[]);upd();return el;}
+addEventListener('keydown',e=>{if(!MG.open||e.target.tagName==='INPUT'||e.ctrlKey||e.metaKey||e.altKey)return;const c=$('#mgB .calc');if(!c||!$('details',c).open)return;
+  let k={Enter:'=','=':'=',Backspace:'⌫',Delete:'C',x:'*',X:'*',c:'C',C:'C'}[e.key]||e.key;
+  if((k.length===1&&'0123456789.+-*/()'.includes(k))||k==='='||k==='⌫'||k==='C'){c.press(k);e.preventDefault();}});
 
 /* ============ chat (both versions): WebSocket on Cloudflare, presence on Claude ============ */
 const CHAT={log:[],unread:0,seen:{},last:0};
