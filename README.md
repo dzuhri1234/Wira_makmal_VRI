@@ -8,6 +8,7 @@ Sesiapa yang ada link boleh main, tak perlu akaun Claude.
 | Fail | Fungsi |
 |---|---|
 | `public/index.html` | Game penuh (sama dengan versi Claude) |
+| `public/radio/` | Lagu MP3 untuk stesen Wira FM |
 | `src/worker.js` | Server main bersama: bilik WebSocket + papan markah (SQLite) |
 | `wrangler.jsonc` | Tetapan Cloudflare (nama link, Durable Object) |
 | `package.json` | Senarai alat (wrangler) |
@@ -55,6 +56,15 @@ Kalau nak lihat kedua-dua avatar, beri nama berbeza di *Kedai & avatar → Avata
 
 Ganti `public/index.html` dengan versi baharu, kemudian jalankan `npx wrangler deploy` semula.
 Pemain yang sedang main akan terputus sekejap dan game sambung semula sendiri.
+
+## Tambah lagu Wira FM
+
+1. Letak fail MP3 dalam folder `public/radio/` (nama fail huruf kecil, guna sengkang, contoh `lagu-baru.mp3`).
+2. Dalam `public/index.html`, cari `const TRACKS=[` dan tambah satu baris seperti
+   `{t:'Tajuk Lagu',f:'radio/lagu-baru.mp3',d:'3:15'}` (t = tajuk, f = lokasi fail, d = tempoh).
+3. Simpan ke GitHub. Cloudflare akan deploy sendiri.
+
+Guna hanya lagu yang anda ada hak untuk kongsi.
 
 ## Urus papan markah (pilihan)
 

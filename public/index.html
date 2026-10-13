@@ -420,6 +420,10 @@ table.res{border-collapse:collapse;width:100%;font-size:14px}
 .stn[aria-pressed="true"] .eq{opacity:1}
 .live .stn[aria-pressed="true"] .eq i{animation:eq .9s ease-in-out infinite}
 .eq i:nth-child(2){animation-delay:-.3s!important}.eq i:nth-child(3){animation-delay:-.6s!important}
+.trk{display:grid;gap:4px;padding:0 0 4px 14px}
+.trk button{display:flex;align-items:center;justify-content:space-between;gap:8px;text-align:left;border:0;background:var(--wash);border-radius:10px;padding:9px 11px;font-size:13px;font-weight:700;color:var(--ink)}
+.trk button small{font:600 11px var(--mono);color:inherit;opacity:.7}
+.trk button[aria-pressed="true"]{background:var(--ink);color:#fff}
 @keyframes eq{0%,100%{height:25%}50%{height:100%}}
 .rd-ctl{display:flex;align-items:center;gap:10px}
 .vol{display:flex;align-items:center;gap:6px;flex:1;font-size:18px}
@@ -522,7 +526,7 @@ table.res{border-collapse:collapse;width:100%;font-size:14px}
   <div class="pop-h"><b>📻 Radio Makmal</b><button class="pop-x" id="rdX" aria-label="Tutup radio">✕</button></div>
   <div class="stns" id="rdList"></div>
   <div class="rd-ctl"><button class="btn sm" id="rdPow">▶ Hidupkan</button><label class="vol" for="rdVol"><span aria-hidden="true">🔈</span><input type="range" id="rdVol" min="0" max="100" aria-label="Kelantangan radio"></label></div>
-  <p class="note">Lagu dicipta terus oleh peranti anda, jadi tiada data internet digunakan. Radio terus berbunyi semasa anda bekerja.</p>
+  <p class="note">📀 Wira FM memainkan lagu asli VRI (guna data internet, 2–5 MB setiap lagu). Stesen lain dicipta terus oleh peranti anda tanpa data. Radio terus berbunyi semasa anda bekerja.</p>
 </div>
 <div id="socialPop" class="pop" role="dialog" aria-label="Rakan dalam talian" hidden>
   <div class="pop-h"><b>👥 Dalam talian</b><button class="pop-x" id="soX" aria-label="Tutup">✕</button></div>
@@ -688,7 +692,7 @@ const fmtAge=gm=>{const h=gm/60;if(h>=24){const d=Math.floor(h/24),r=Math.floor(
 
 /* ============ save ============ */
 const SKEY='wiraMakmalVRI.v1';
-function defSave(){return {v:1,profile:{name:'',gender:'p',skin:1,glasses:false,role:'pm',dur:10,diff:'biasa'},stats:{weeks:0,stars:0,samples:0,best:{pm:0,pps:0},apcProg:0,apc:0,integ:0,incr:0,clean:0},tt:{level:-1,weeks:0},settings:{sound:true,shadows:true},tutDone:false,wallet:0,earned:0,owned:['kot_putih','hc_asal'],equip:{coat:'kot_putih',hc:'hc_asal',acc:[]},radio:{st:0,vol:60}};}
+function defSave(){return {v:1,profile:{name:'',gender:'p',skin:1,glasses:false,role:'pm',dur:10,diff:'biasa'},stats:{weeks:0,stars:0,samples:0,best:{pm:0,pps:0},apcProg:0,apc:0,integ:0,incr:0,clean:0},tt:{level:-1,weeks:0},settings:{sound:true,shadows:true},tutDone:false,wallet:0,earned:0,owned:['kot_putih','hc_asal'],equip:{coat:'kot_putih',hc:'hc_asal',acc:[]},radio:{st:0,st2:0,tr:0,vol:60}};}
 function loadSave(){try{const s=JSON.parse(localStorage.getItem(SKEY)||'null');if(s&&s.v===1){const d=defSave();const r=Object.assign(d,s,{profile:Object.assign(d.profile,s.profile),stats:Object.assign(d.stats,s.stats),tt:Object.assign(d.tt,s.tt),settings:Object.assign(d.settings,s.settings),equip:Object.assign(d.equip,s.equip),radio:Object.assign(d.radio,s.radio)});
   if(!Array.isArray(r.owned))r.owned=defSave().owned;['kot_putih','hc_asal'].forEach(k=>{if(!r.owned.includes(k))r.owned.push(k);});if(!Array.isArray(r.equip.acc))r.equip.acc=[];r.wallet=Math.max(0,Math.round(+r.wallet||0));return r;}}catch(e){}return defSave();}
 function persist(){try{localStorage.setItem(SKEY,JSON.stringify(SAVE));}catch(e){}}
@@ -1862,7 +1866,10 @@ function payWeek(pIdx,fired,apcNow,frozen){
 }
 
 /* ============ radio: procedurally generated stations (no streaming) ============ */
+/* Wira FM: lagu asli (fail MP3 dalam folder radio/). Stesen lain dicipta terus oleh kod. */
+const TRACKS=[{t:'Wira Makmal VRI',f:'radio/wira-makmal-vri.mp3',d:'1:38'},{t:'Di Bawah Kanta',f:'radio/di-bawah-kanta.mp3',d:'3:00'},{t:'LAPPS 2026',f:'radio/lapps-2026.mp3',d:'3:27'}];
 const STNS=[
+  {n:'Wira FM',f:'99.9',e:'📀',d:'lagu asli VRI',pl:true},
   {n:'Lofi Pipet',f:'88.1',e:'🎧',d:'santai, fokus',bpm:74,root:57,sc:[0,2,3,5,7,8,10],prog:[[0,2,4,6],[5,7,9,11],[3,5,7,9],[4,6,8,10]],sw:.2,dens:.3,
     k:'x......x..x.....',s:'....x.......x...',h:'x.x.x.x.x.x.x.xx',lead:{type:'sine',g:.07,len:3,oct:12,lp:2400,at:.02},
     voice(t,s,ch,sd,st){if(s===0)ch.forEach((d,i)=>rOsc('triangle',hz(dm(st,d)),t+i*.012,sd*15.5,.017,{at:.15,lp:1100}));if(s===0||s===10)rOsc('sine',hz(dm(st,ch[0])-12),t,sd*(s?5:9),.15,{at:.02});if(Math.random()<.2)rNoise(t+Math.random()*sd,.012,.014,2500);}},
@@ -1875,7 +1882,7 @@ const STNS=[
     k:'x.....x.x.......',s:'....x.......x...',h:'..x...x...x...x.',lead:{type:'square',g:.03,len:1.8,oct:12,at:.005},
     voice(t,s,ch,sd,st){if(s%2===0)rOsc('triangle',hz(dm(st,ch[0])-(s%4?0:12)),t,sd*.9,.14);else rOsc('square',hz(dm(st,ch[(s>>1)%ch.length])+12),t,sd*.6,.016);}},
 ];
-const R={on:false,st:clamp(Math.round(+SAVE.radio.st)||0,0,STNS.length-1),vol:clamp(Math.round(+SAVE.radio.vol),0,100)||0,bus:null,timer:null,next:0,step:0,mel:null,nb:null};
+const R={on:false,st:clamp(Math.round(+SAVE.radio.st2)||0,0,STNS.length-1),vol:clamp(Math.round(+SAVE.radio.vol),0,100)||0,bus:null,timer:null,next:0,step:0,mel:null,nb:null};
 const hz=m=>440*Math.pow(2,(m-69)/12);
 function dm(st,d){const L=st.sc.length;return st.root+st.sc[((d%L)+L)%L]+12*Math.floor(d/L);}
 function rOsc(type,f,t,dur,g,o={}){try{const a=AC,os=a.createOscillator(),ga=a.createGain();os.type=type;os.frequency.setValueAtTime(f,t);if(o.slide)os.frequency.exponentialRampToValueAtTime(o.slide,t+dur);
@@ -1900,17 +1907,32 @@ function rStep(st,i,t,sd){
   st.voice(t,s,ch,sd,st);
   const md=R.mel[i%32];if(md!==null&&md!==undefined){const L=st.lead;const d=s%4===0?snapTo(md,ch,st):md;rOsc(L.type,hz(dm(st,d)+L.oct),t,sd*L.len,L.g,L);}
 }
-function rTick(){if(!R.on||!AC||AC.state!=='running')return;const st=STNS[R.st],sd=60/st.bpm/4;if(R.next<AC.currentTime-.2)R.next=AC.currentTime+.05;
+function rTick(){if(!R.on||!AC||AC.state!=='running'||STNS[R.st].pl)return;const st=STNS[R.st],sd=60/st.bpm/4;if(R.next<AC.currentTime-.2)R.next=AC.currentTime+.05;
   while(R.next<AC.currentTime+.15){rStep(st,R.step,R.next+(R.step%2?sd*(st.sw||0):0),sd);R.next+=sd;R.step++;}}
 function rEnsure(){if(!audio())return false;if(!R.bus){const comp=AC.createDynamicsCompressor();comp.threshold.value=-14;comp.ratio.value=4;R.bus=AC.createGain();R.bus.gain.value=0;R.bus.connect(comp);comp.connect(AC.destination);}return true;}
 const rLevel=()=>Math.pow(R.vol/100,1.6)*.9;
 function rStatic(){if(AC&&R.bus)rNoise(AC.currentTime+.01,.3,.05,1800);}
-function radioOn(){if(!rEnsure())return;R.on=true;R.step=0;R.mel=genMel(STNS[R.st]);R.next=AC.currentTime+.3;R.bus.gain.cancelScheduledValues(AC.currentTime);R.bus.gain.setTargetAtTime(rLevel(),AC.currentTime,.08);if(!R.timer)R.timer=setInterval(rTick,25);rStatic();rUi();}
-function radioOff(){R.on=false;if(R.timer){clearInterval(R.timer);R.timer=null;}if(R.bus&&AC){R.bus.gain.cancelScheduledValues(AC.currentTime);R.bus.gain.setTargetAtTime(0,AC.currentTime,.05);}rUi();}
-function radioTune(i){R.st=i;SAVE.radio.st=i;persist();if(R.on){R.step=0;R.mel=genMel(STNS[i]);R.next=AC.currentTime+.3;rStatic();rUi();}else radioOn();const s=STNS[i];if(G.mode==='play')toast(`📻 ${s.e} ${esc(s.n)} · ${s.f} FM`);}
-function rUi(){const L=$('#rdList');L.innerHTML=STNS.map((s,i)=>`<button class="stn" data-i="${i}" aria-pressed="${i===R.st}"><span class="e">${s.e}</span><span><b>${esc(s.n)}</b><small>${s.f} FM · ${esc(s.d)}</small></span><span class="eq" aria-hidden="true"><i></i><i></i><i></i></span></button>`).join('');
+function synthStart(){if(!rEnsure())return false;R.step=0;R.mel=genMel(STNS[R.st]);R.next=AC.currentTime+.3;R.bus.gain.cancelScheduledValues(AC.currentTime);R.bus.gain.setTargetAtTime(rLevel(),AC.currentTime,.08);if(!R.timer)R.timer=setInterval(rTick,25);rStatic();return true;}
+function synthStop(){if(R.timer){clearInterval(R.timer);R.timer=null;}if(R.bus&&AC){R.bus.gain.cancelScheduledValues(AC.currentTime);R.bus.gain.setTargetAtTime(0,AC.currentTime,.05);}}
+/* playlist player: one reused <audio> element, so later tracks keep playing on phones after the first tap */
+const PL={el:null,i:clamp(Math.round(+SAVE.radio.tr)||0,0,TRACKS.length-1),fails:0,err:''};
+const plVol=()=>{if(PL.el)PL.el.volume=clamp(Math.pow(R.vol/100,1.3),0,1);};
+function plEl(){if(PL.el)return PL.el;const a=new Audio();a.preload='none';
+  a.addEventListener('ended',()=>plNext(1,true));
+  a.addEventListener('playing',()=>{PL.fails=0;PL.err='';rUi();});
+  a.addEventListener('error',()=>{if(!R.on||!STNS[R.st].pl)return;PL.fails++;if(PL.fails>=TRACKS.length){PL.fails=0;PL.err='Lagu Wira FM tak dapat dimuatkan sekarang. Cuba stesen lain.';plStop();R.on=false;rUi();return;}plNext(1,true);});
+  return PL.el=a;}
+function plPlay(){const a=plEl(),tr=TRACKS[PL.i];if(a.dataset.f!==tr.f){a.dataset.f=tr.f;a.src=tr.f;}plVol();try{const p=a.play();if(p&&p.catch)p.catch(()=>{});}catch(e){}}
+function plStop(){if(PL.el)PL.el.pause();}
+function plNext(d,auto){PL.i=(PL.i+d+TRACKS.length)%TRACKS.length;SAVE.radio.tr=PL.i;persist();if(R.on&&STNS[R.st].pl){plPlay();if(G.mode==='play')toast(`📀 Wira FM · ${esc(TRACKS[PL.i].t)}`);}rUi();}
+function plPick(k){PL.i=k;SAVE.radio.tr=k;persist();if(STNS[R.st].pl&&R.on){plPlay();rUi();}else radioTune(STNS.findIndex(s=>s.pl));}
+function radioOn(){R.on=true;PL.err='';if(STNS[R.st].pl){synthStop();plPlay();}else{plStop();if(!synthStart())R.on=false;}rUi();}
+function radioOff(){R.on=false;synthStop();plStop();rUi();}
+function radioTune(i){R.st=i;SAVE.radio.st2=i;persist();const s=STNS[i];PL.err='';if(R.on){if(s.pl){synthStop();plPlay();}else{plStop();synthStart();}rUi();}else radioOn();if(G.mode==='play')toast(s.pl?`📀 Wira FM · ${esc(TRACKS[PL.i].t)}`:`📻 ${s.e} ${esc(s.n)} · ${s.f} FM`);}
+function rUi(){const L=$('#rdList');L.innerHTML=STNS.map((s,i)=>`<button class="stn" data-i="${i}" aria-pressed="${i===R.st}"><span class="e">${s.e}</span><span><b>${esc(s.n)}</b><small>${s.f} FM · ${s.pl&&i===R.st?`${esc(TRACKS[PL.i].t)} (${PL.i+1}/${TRACKS.length})`:esc(s.d)}</small></span><span class="eq" aria-hidden="true"><i></i><i></i><i></i></span></button>${s.pl&&i===R.st?`<div class="trk">${TRACKS.map((t,k)=>`<button data-k="${k}" aria-pressed="${k===PL.i}"><span>${k===PL.i&&R.on?'▶ ':''}${esc(t.t)}</span><small>${t.d}</small></button>`).join('')}</div>`:''}`).join('')+(PL.err?`<p class="note" style="color:var(--bad)">${esc(PL.err)}</p>`:'');
   $$('.stn',L).forEach(b=>b.onclick=()=>{SFX.tap();radioTune(+b.dataset.i);});
-  $('#radioPop').classList.toggle('live',R.on);const pw=$('#rdPow');pw.textContent=R.on?'⏸ Matikan':'▶ Hidupkan';pw.className='btn sm'+(R.on?' ghost':'');$('#rdVol').value=R.vol;$('#bRadio').classList.toggle('on',R.on);$('#bRadio1').textContent=R.on?`📻 ${STNS[R.st].n}`:'📻 Radio';}
+  $$('.trk button',L).forEach(b=>b.onclick=()=>{SFX.tap();plPick(+b.dataset.k);});
+  $('#radioPop').classList.toggle('live',R.on);const pw=$('#rdPow');pw.textContent=R.on?'⏸ Matikan':'▶ Hidupkan';pw.className='btn sm'+(R.on?' ghost':'');$('#rdVol').value=R.vol;$('#bRadio').classList.toggle('on',R.on);$('#bRadio1').textContent=R.on?(STNS[R.st].pl?`📀 ${TRACKS[PL.i].t}`:`📻 ${STNS[R.st].n}`):'📻 Radio';}
 function openPop(id,center){closePops();const el=$('#'+id);el.classList.toggle('mid',!!center);el.hidden=false;if(id==='radioPop')rUi();else renderSocial();}
 function closePops(){$('#radioPop').hidden=true;$('#socialPop').hidden=true;}
 $('#bRadio').onclick=()=>{audio();if($('#radioPop').hidden)openPop('radioPop');else closePops();};
@@ -1918,10 +1940,10 @@ $('#bRadio1').onclick=()=>{audio();openPop('radioPop',true);};$('#bRadio2').oncl
 $('#bSocial').onclick=()=>{audio();if($('#socialPop').hidden)openPop('socialPop');else closePops();};
 $('#rdX').onclick=closePops;$('#soX').onclick=closePops;
 $('#rdPow').onclick=()=>{SFX.tap();if(R.on)radioOff();else radioOn();};
-$('#rdVol').addEventListener('input',e=>{R.vol=+e.target.value;SAVE.radio.vol=R.vol;if(R.bus&&R.on&&AC)R.bus.gain.setTargetAtTime(rLevel(),AC.currentTime,.05);});
+$('#rdVol').addEventListener('input',e=>{R.vol=+e.target.value;SAVE.radio.vol=R.vol;plVol();if(R.bus&&R.on&&AC&&!STNS[R.st].pl)R.bus.gain.setTargetAtTime(rLevel(),AC.currentTime,.05);});
 $('#rdVol').addEventListener('change',persist);
 document.addEventListener('pointerdown',e=>{const t=e.target;if(!t||!t.closest)return;if(t.closest('.pop')||t.closest('#bRadio,#bSocial,#bRadio1,#bRadio2'))return;if(!$('#radioPop').hidden||!$('#socialPop').hidden)closePops();},true);
-document.addEventListener('visibilitychange',()=>{if(!AC||!R.on)return;if(document.hidden)AC.suspend().catch(()=>{});else AC.resume().then(()=>{R.next=AC.currentTime+.05;}).catch(()=>{});});
+document.addEventListener('visibilitychange',()=>{if(!R.on)return;const pl=STNS[R.st].pl;if(document.hidden){if(pl)plStop();else if(AC)AC.suspend().catch(()=>{});}else{if(pl)plPlay();else if(AC)AC.resume().then(()=>{R.next=AC.currentTime+.05;}).catch(()=>{});}});
 
 /* ============ online: room presence (avatars, reactions) + db leaderboard + user names ============ */
 const NET={room:null,db:null,user:null,me:null,peers:[],rigs:new Map(),names:{},avs:{},pending:new Set(),sendT:0,last:'',em:null,emT:0,lb:null,lbErr:'',lbTab:'pm',writing:Promise.resolve()};
