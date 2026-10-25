@@ -3640,7 +3640,7 @@ function lotMap(){const S=12,x0=-18,z0=-11;const R=(L)=>[(L.x0-x0)*S,(L.z0-z0)*S
   return s+'</svg>';}
 function eqPrice(id){return Math.round(EQ[id].price*(hasPost('W5')?1:1.1));}
 function renderBuild(){const b=$('#mgB');if(!b||!MG.open)return;
-  const lock=!K.unlocked?'<div class="fb warn"><div>🔒 Minggu pertama: anda bekerja seorang diri. Pembinaan dan pembelian dibuka selepas taklimat Pengarah pada awal minggu ke-2.</div></div>':'';
+  const lock=!K.unlocked?`<div class="fb warn"><div>🔒 Minggu pertama anda bekerja seorang diri. Bina bilik dan beli alat dibuka selepas taklimat Pengarah pada Isnin minggu ke-2 (${lockLeft()}).</div></div>`:'';
   let h=`<div class="wallet"><span>🏦 Bajet seksyen</span><b>${RM(K.money)}</b></div><div class="tabs"><button data-t="bilik" aria-pressed="${buildTab==='bilik'}">🏢 Bilik</button><button data-t="alat" aria-pressed="${buildTab==='alat'}">🔧 Peralatan</button></div>${lock}`;
   if(buildTab==='bilik'){h+=lotMap();const L=selLot&&LOTS[selLot],st=selLot&&K.lots[selLot];
     if(!selLot)h+='<p class="note">Ketik lot kosong (＋) pada pelan untuk memilih tapak bilik baharu.</p>';
@@ -3666,16 +3666,17 @@ function renderBuild(){const b=$('#mgB');if(!b||!MG.open)return;
   $$('[data-room]',b).forEach(x=>x.onclick=()=>{const t=x.dataset.room,R_=ROOMT[t];if(K.money<R_.cost)return;kSpend(R_.cost,'beli');K.lots[selLot]={t,left:R_.days};buildLot(selLot);buildWalls();SFX.cash();toast(`🚧 Pembinaan ${R_.n} bermula · siap dalam ${R_.days} hari bekerja`,'gold');ksSave();renderBuild();});
   $$('[data-eq]',b).forEach(x=>x.onclick=()=>{const id=x.dataset.eq,pr=eqPrice(id);if(K.money<pr)return;kSpend(pr,'beli');const days=hasPost('W5')?1:3;K.eq[id]={st:'hantar',eta:(kDay(G.gameMin)+days)*KDAY,wear:0};rebuildEqLot(id);SFX.cash();toast(`📦 ${EQ[id].n} dipesan · sampai dalam ${days} hari bekerja`,'good');ksSave();renderBuild();});
   $$('[data-fix]',b).forEach(x=>x.onclick=()=>{const id=x.dataset.fix,c=Math.round(EQ[id].price*.06);kSpend(c,'lain');K.eq[id].st='aktif';K.eq[id].wear=0;const sj=G.tray.find(j=>j.key==='servis'&&j.data.eq===id);if(sj)removeJob(sj);rebuildEqLot(id);SFX.ok();toast(`🔧 Vendor membaiki ${EQ[id].n}`,'good');renderBuild();});}
+function lockLeft(){const d=Math.max(1,5-kDay(G.gameMin));return `lagi ${d} hari bekerja · tekan ▶ di atas untuk percepat masa`;}
 function openBuild(){openPanel('Bina & peralatan','🏗️ Pembangunan seksyen','#c97a12',()=>renderBuild());}
 const ST_TXT={idle:'Sedia',walk:'Ke tugasan',work:'Sedang bekerja',rehat:'Rehat di pantri',walkrest:'Ke pantri',mc:'Cuti sakit',lapangan:'Kerja lapangan',walklap:'Ke van',baru:'Lapor diri hari bekerja berikutnya'};
 function renderStaff(){const b=$('#mgB');if(!b||!MG.open)return;
   const tot=K.staff.reduce((a,s)=>a+s.sal,0);
   let h=`<div class="wallet"><span>👥 ${K.staff.length}/${staffCap()} staf · gaji bulanan</span><b>${RM(tot)}</b></div><div class="tabs"><button data-t="jawatan" aria-pressed="${staffTab==='jawatan'}">📢 Jawatan</button><button data-t="staf" aria-pressed="${staffTab==='staf'}">🧑‍🔬 Staf anda</button></div>`;
-  if(!K.unlocked)h+='<div class="fb warn"><div>🔒 Iklan jawatan dibuka selepas minggu pertama.</div></div>';
+  if(!K.unlocked)h+=`<div class="fb warn"><div>🔒 Minggu pertama anda bekerja seorang diri. Butang 📢 Iklan jawatan dibuka selepas taklimat Pengarah pada Isnin minggu ke-2 (${lockLeft()}).</div></div>`;
   if(staffTab==='jawatan'){h+='<p class="note">Gaji permulaan terendah ikut Jadual Gaji SSPA: Gred 1 RM1,500, Gred 5 RM1,650, Gred 9 RM2,250, Pegawai Veterinar GV9 RM2,910. Kelayakan lebih tinggi dapat gaji lebih (anggaran permainan). Staf bekerja sendiri ikut job scope. Kapasiti staf bertambah bila lebih banyak bilik dibina.</p><div class="pcards">';
     for(const p in POSTS){const P_=POSTS[p];const n=staffCount(p);const lo=Math.min(...P_.quals.map(q=>q[1])),hi=Math.max(...P_.quals.map(q=>q[1]));const needOff=P_.office&&!roomBuilt('pejabat');
       const why=!K.unlocked?'':needOff?'Perlu Pejabat Pentadbiran':n>=P_.max?'Penuh':K.staff.length>=staffCap()?'Kapasiti staf penuh: bina bilik lagi':'';
-      h+=`<div class="pcard"><div class="ih"><i>${P_.icon}</i><b>${esc(P_.n)} <span class="gr">${P_.g}</span></b></div><p class="mono">${lo===hi?RM(lo):`${RM(lo)} – ${RM(hi)}`} · ${P_.grp} · ${n}/${P_.max}</p><p>${esc(P_.scope)}</p>${why?`<span class="note">${esc(why)}</span>`:K.unlocked?`<button class="btn sm" data-ad="${p}">📢 Iklan jawatan</button>`:''}<div class="cands" id="cd_${p}"></div></div>`;}
+      h+=`<div class="pcard"><div class="ih"><i>${P_.icon}</i><b>${esc(P_.n)} <span class="gr">${P_.g}</span></b></div><p class="mono">${lo===hi?RM(lo):`${RM(lo)} – ${RM(hi)}`} · ${P_.grp} · ${n}/${P_.max}</p><p>${esc(P_.scope)}</p>${!K.unlocked?'<button class="btn sm" disabled>🔒 Iklan jawatan · minggu ke-2</button>':why?`<button class="btn sm" disabled>📢 Iklan jawatan</button><span class="note">${esc(why)}</span>`:`<button class="btn sm" data-ad="${p}">📢 Iklan jawatan</button>`}<div class="cands" id="cd_${p}"></div></div>`;}
     h+='</div>';}
   else{if(!K.staff.length)h+='<p class="empty">Belum ada staf. Iklankan jawatan di tab 📢.</p>';
     for(const s of K.staff){const P_=POSTS[s.post];const jj=s.job&&G.tray.find(x=>x.uid===s.job);const cs=jj&&curStep(jj);
