@@ -690,6 +690,8 @@ table.res{border-collapse:collapse;width:100%;font-size:14px}
   .hud-top .clock-t{font-size:18px}
   #kSpd,#kMenu{min-width:42px}
 }
+.base{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:13px;color:var(--ink2)}
+.base select{font:14px var(--body);padding:6px 8px;border-radius:10px;border:1.5px solid var(--line);background:#fff;color:var(--ink);min-width:0;flex:1 1 150px}
 </style>
 
 <canvas id="c" aria-label="Makmal VRI 3D"></canvas>
@@ -3495,7 +3497,7 @@ function ksNewDay(d){
   for(const s of K.staff){s.morale=clamp(s.morale+12,0,100);const wasNew=s.st==='baru';s.job=null;s.path=null;
     if(wasNew){toast(`👋 ${esc(s.nm)} (${POSTS[s.post].g}) lapor diri hari ini`,'good');announce(`${s.nm}, ${POSTS[s.post].n}, telah lapor diri.`,{key:'lapor'+s.id});}
     const mc=s.morale<35?(hasPost('N5')?.12:.28):(hasPost('N5')?.01:.04);
-    if(!wasNew&&Math.random()<mc){s.st='mc';toast(`🤒 ${esc(s.nm)} cuti sakit (MC) hari ini`);}else{s.st='idle';s.x=-14.6+rnd(-.5,.5);s.z=10.2;}}
+    if(!wasNew&&Math.random()<mc){s.st='mc';toast(`🤒 ${esc(s.nm)} cuti sakit (MC) hari ini`);}else{s.st='idle';const h=homeSpot(s);s.x=h[0];s.z=h[1];s.homeT=0;faceLot(s);}}
   for(const j of G.tray)if(j.by&&j.by!=='ks')j.by=null;
   for(const id in K.lots){const l=K.lots[id];if(l.left>0){l.left-=1;if(l.left<=0){l.left=0;buildLot(id);buildWalls();toast(`🏢 ${ROOMT[l.t].n} siap dibina!`,'good');SFX.done();announce(`${ROOMT[l.t].n} telah siap dibina.`,{key:'bina'+id});checkGoals();}else buildLot(id);}}
   for(const eid in K.eq){const e=K.eq[eid];if(e.st==='hantar'&&G.gameMin>=e.eta-1){e.st='validasi';rebuildEqLot(eid);G.tray.push(kJob('validasi','dalaman',`Validasi ${EQ[eid].n}`,'✅','#2b8a57',[[eid,'validasi','Validasi kaedah ujian']],{data:{eq:eid},tat:KDAY*3}));toast(`📦 ${EQ[eid].n} sampai. Validasi kaedah dahulu sebelum guna`,'gold');}}
@@ -3522,7 +3524,7 @@ function checkGoals(){for(const [id,t,f,rw] of GOALS){if(K.goals[id])continue;le
 /* ---------------- staff ---------------- */
 function genCands(post){const P=POSTS[post];const out=[];for(let i=0;i<3;i++){const qi=Math.min(P.quals.length-1,Math.floor(Math.random()*P.quals.length));const Q=P.quals[qi];const g=Math.random()<.55?'p':'l';const nm=pick(NAMES[g]);const bp=pick(NAMES.bapa);
   out.push({g,nm,full:`${nm} ${g==='l'?'bin':'binti'} ${bp}`,qual:Q[0],sal:Q[1],skill:+rnd(Q[2][0],Q[2][1]).toFixed(2),s:rint(0,2)});}return out;}
-function hire(post,c){const P=POSTS[post];const s={id:++K.sid,post,nm:c.nm,full:c.full,g:c.g,s:c.s,skill:c.skill,morale:85,sal:c.sal,qual:c.qual,st:'baru',job:null,done:0,x:-14.6,z:10.2,hired:kDay(G.gameMin)};
+function hire(post,c){const P=POSTS[post];const s={id:++K.sid,post,nm:c.nm,full:c.full,g:c.g,s:c.s,skill:c.skill,morale:85,sal:c.sal,qual:c.qual,st:'baru',job:null,done:0,x:-14.6,z:10.2,hired:kDay(G.gameMin)};s.base=autoBase(s);
   K.staff.push(s);SFX.cash();toast(`📝 ${esc(c.full)} dilantik sebagai ${P.n} (${P.g}). Lapor diri hari bekerja berikutnya.`,'good');ksSave();checkGoals();}
 function staffCount(p){return K.staff.filter(s=>s.post===p).length;}
 function staffCap(){const labs=Object.values(K.lots).filter(l=>l.t&&!(l.left>0)).length;return 2+labs*2;}
@@ -3532,11 +3534,25 @@ function staffRig(s){let r=STR[s.id];if(r)return r;const P=POSTS[s.post];const o
   scene.add(rig.g);const tag=labelSprite(`${P.icon} ${s.nm} · ${P.g}`,{h:.38,bg:'rgba(22,49,58,.88)',fg:'#ffffff'});scene.add(tag);
   r=STR[s.id]={rig,tag,bub:null,bubTxt:'',ph:0};return r;}
 function dropStaffRig(id){const r=STR[id];if(!r)return;disposeRig(r.rig);dropSprite(r.tag);dropSprite(r.bub);delete STR[id];}
-function homeSpot(s){const P=POSTS[s.post];if(P.office&&STATIONS.admin){const st=s.post==='W5'&&STATIONS.kewangan?STATIONS.kewangan:STATIONS.admin;return st.use;}
-  if(s.post==='Q9'||s.post==='GV9')return STATIONS.lims?[STATIONS.lims.use[0]-.6,STATIONS.lims.use[1]+.4]:[-12,8];if(s.post==='H1')return [rnd(-6,14),rnd(-.6,1.6)];
-  return [rnd(-16,-11),rnd(3.6,4.4)];}
-function pickTask(s){let best=null,bs=1e9;for(const j of G.tray){if(j.by||(j.wait||0)>G.gameMin)continue;const st=curStep(j);if(!st||!canDo(s.post,st)||!stOk(j,st))continue;
-  if(j.kind==='sampel'&&isFinite(j.validM)&&j.stepIdx===0&&!STATIONS.reception)continue;const sc=(j.deadline-G.gameMin)+(j.kind==='sampel'?0:-200)+(j.shortValid&&j.stepIdx<=j.anaIdx?-400:0);if(sc<bs){bs=sc;best=j;}}return best;}
+/* each staff member has a base room (tempat bertugas); idle staff wait there, not at reception */
+const LABS=['serologi','parasit','molekul','bakteri','biokimia','patologi','sokongan'];
+const HOMEPREF={C5:['serologi','parasit','molekul','bakteri','biokimia','patologi'],Q9:['molekul','biokimia','serologi','bakteri','parasit','patologi'],GV9:['patologi','bakteri','serologi','molekul','parasit','biokimia'],G5:['parasit','patologi','serologi','bakteri','biokimia','molekul'],C1:['sokongan','serologi','parasit','bakteri','molekul','biokimia','patologi'],H1:['sokongan','pantri','parasit','serologi','molekul','bakteri','biokimia','patologi']};
+function baseOpts(s){return POSTS[s.post].office?['pejabat']:LABS.concat(s.post==='H1'?['pantri']:[]);}
+function baseOk(s,t){return !!t&&roomBuilt(t)&&baseOpts(s).includes(t);}
+function autoBase(s){const pref=HOMEPREF[s.post]||baseOpts(s);const built=pref.filter(t=>roomBuilt(t));if(!built.length)return null;let best=built[0],bn=1e9;
+  built.forEach((t,i)=>{const n=K.staff.filter(x=>x!==s&&x.post===s.post&&x.base===t).length*3+i;if(n<bn){bn=n;best=t;}});return best;}
+function staffBase(s){if(!baseOk(s,s.base)){const b=autoBase(s);if(b)s.base=b;}return baseOk(s,s.base)?s.base:null;}
+const IDLE_XY={n:[[1.3,3.0],[7.7,3.0],[1.6,7.4],[7.4,7.4],[3.0,3.0],[6.0,3.0]],s:[[1.3,2.9],[7.7,2.9],[2.0,8.2],[7.0,8.2],[3.2,8.2],[6.2,4.2]]};
+function homeSpot(s){const P=POSTS[s.post];
+  if(P.office&&STATIONS.admin){const st=s.post==='W5'&&STATIONS.kewangan?STATIONS.kewangan:s.post==='N5'&&STATIONS.sispaa?STATIONS.sispaa:STATIONS.admin;const k=Math.max(0,K.staff.filter(x=>x.post===s.post).indexOf(s));return [st.use[0]+k*.75,st.use[1]+(k?.35:0)];}
+  const t=staffBase(s),lot=t&&roomLot(t);if(!lot)return [rnd(-13,-11),3.8];
+  const L=LOTS[lot],C=IDLE_XY[L.row];const k=Math.max(0,K.staff.filter(x=>!POSTS[x.post].office&&staffBase(x)===t).indexOf(s));
+  for(let i=0;i<C.length;i++){const c=C[(k+i)%C.length];const x=L.x0+c[0]+(k>=C.length?.45:0),z=L.z0+c[1];if(!pointBlocked(x,z))return [x,z];}
+  return [L.x0+4.5,L.z0+(L.row==='n'?8:3)];}
+function faceLot(s){const t=staffBase(s),lot=t&&roomLot(t);const ids=lot&&KW.lots[lot]?KW.lots[lot].stations:[];let best=null,bd=1e9;
+  for(const id of ids){const S=STATIONS[id];if(!S)continue;const d=Math.hypot(S.pos[0]-s.x,S.pos[1]-s.z);if(d<bd){bd=d;best=S;}}if(best)s.h=Math.atan2(best.pos[0]-s.x,best.pos[1]-s.z);}
+function pickTask(s){let best=null,bs=1e9;const hl=roomLot(staffBase(s)||'-');for(const j of G.tray){if(j.by||(j.wait||0)>G.gameMin)continue;const st=curStep(j);if(!st||!canDo(s.post,st)||!stOk(j,st))continue;
+  if(j.kind==='sampel'&&isFinite(j.validM)&&j.stepIdx===0&&!STATIONS.reception)continue;const sc=(j.deadline-G.gameMin)+(j.kind==='sampel'?0:-200)+(j.shortValid&&j.stepIdx<=j.anaIdx?-400:0)+(STATIONS[st.st]&&STATIONS[st.st].lot===hl?-120:0);if(sc<bs){bs=sc;best=j;}}return best;}
 function staffAI(gdt,rdt){
   const sp=Math.max(1,K.speed);
   for(const s of K.staff){if(s.st==='baru'||s.st==='mc'||s.st==='lapangan'){continue;}
@@ -3547,7 +3563,7 @@ function staffAI(gdt,rdt){
       if(s.post==='G5'&&s.lapDay!==kDay(G.gameMin)&&(G.gameMin%KDAY)>60&&(G.gameMin%KDAY)<300&&Math.random()<gdt*.008){s.lapDay=kDay(G.gameMin);s.st='walklap';s.path=findPath(s.x,s.z,-14.6,10.3);if(!s.path)s.st='idle';continue;}
       if(s.post==='Q9'){K.res+=gdt*s.skill*(s.morale/100);if(K.res>=1500){K.res=0;const gr=rint(3,6)*1000;K.money+=gr;K.m.geran=(K.m.geran||0)+gr;kRep(2);toast(`📚 ${esc(s.nm)} menerbitkan kertas penyelidikan · geran +${RM(gr)} · reputasi naik`,'good');announce('Tahniah. Kertas penyelidikan seksyen telah diterbitkan.',{key:'pub'+K.c.done});}}
       s.morale=clamp(s.morale+gdt*.02,0,100);
-      if(!s.path&&Math.random()<.01*sp){const h=homeSpot(s);s.path=findPath(s.x,s.z,h[0],h[1]);}
+      if(!s.path&&(s.homeT||0)<=G.gameMin){const h=homeSpot(s);if(Math.hypot(s.x-h[0],s.z-h[1])>.5){s.path=findPath(s.x,s.z,h[0],h[1]);if(!s.path)s.homeT=G.gameMin+30;}else{s.homeT=G.gameMin+20;faceLot(s);}}
     }
     if(s.st==='rehat'){s.morale=clamp(s.morale+gdt*.25,0,100);if(s.morale>=78)s.st='idle';}
     if(s.st==='work'){const j=G.tray.find(x=>x.uid===s.job);if(!j||j.by!==s.id){s.st='idle';s.job=null;continue;}s.left-=gdt;if(s.left<=0)staffFinish(s,j);}
@@ -3560,9 +3576,10 @@ function staffArrive(s){
   if(s.st==='walk'){const j=G.tray.find(x=>x.uid===s.job);if(!j||j.by!==s.id){s.st='idle';s.job=null;return;}const st=curStep(j);const S=STATIONS[st.st];if(S)s.h=Math.atan2(S.pos[0]-s.x,S.pos[1]-s.z);
     s.st='work';s.left=taskMin(st)*(1.35-.6*s.skill)*(s.morale<40?1.3:1);}
   else if(s.st==='walkrest'){s.st='rehat';}
+  else if(s.st==='idle'){s.homeT=G.gameMin+20;faceLot(s);}
   else if(s.st==='walklap'){s.st='lapangan';s.lapEnd=G.gameMin+rnd(160,230);toast(`🚐 ${esc(s.nm)} keluar sampling di ladang`);}}
 function staffFinish(s,j){
-  const st=curStep(j);const q=clamp(s.skill*(.75+.25*s.morale/100)+rnd(-.12,.08),.2,1);s.done++;s.morale=clamp(s.morale-(stepCat(st)==='uji'?3:2),0,100);s.st='idle';s.job=null;j.by=null;
+  const st=curStep(j);const q=clamp(s.skill*(.75+.25*s.morale/100)+rnd(-.12,.08),.2,1);s.done++;s.morale=clamp(s.morale-(stepCat(st)==='uji'?3:2),0,100);s.st='idle';s.job=null;s.homeT=0;j.by=null;
   const C=CAT[j.key];
   if(st.mg==='semak'){const f=j.data.faults||[];const lab=isFinite(j.validM)&&ageNow(j)>j.validM;
     if(f.length||lab){if(Math.random()<q){rejectJob(j,true,1,lab&&!f.length?'labdelay':null);return;}j.bad=true;}
@@ -3668,12 +3685,14 @@ function renderBuild(){const b=$('#mgB');if(!b||!MG.open)return;
   $$('[data-fix]',b).forEach(x=>x.onclick=()=>{const id=x.dataset.fix,c=Math.round(EQ[id].price*.06);kSpend(c,'lain');K.eq[id].st='aktif';K.eq[id].wear=0;const sj=G.tray.find(j=>j.key==='servis'&&j.data.eq===id);if(sj)removeJob(sj);rebuildEqLot(id);SFX.ok();toast(`🔧 Vendor membaiki ${EQ[id].n}`,'good');renderBuild();});}
 function lockLeft(){const d=Math.max(1,5-kDay(G.gameMin));return `lagi ${d} hari bekerja · tekan ▶ di atas untuk percepat masa`;}
 function openBuild(){openPanel('Bina & peralatan','🏗️ Pembangunan seksyen','#c97a12',()=>renderBuild());}
-const ST_TXT={idle:'Sedia',walk:'Ke tugasan',work:'Sedang bekerja',rehat:'Rehat di pantri',walkrest:'Ke pantri',mc:'Cuti sakit',lapangan:'Kerja lapangan',walklap:'Ke van',baru:'Lapor diri hari bekerja berikutnya'};
+const ST_TXT={idle:'Sedia di tempat bertugas',walk:'Ke tugasan',work:'Sedang bekerja',rehat:'Rehat di pantri',walkrest:'Ke pantri',mc:'Cuti sakit',lapangan:'Kerja lapangan',walklap:'Ke van',baru:'Lapor diri hari bekerja berikutnya'};
+function baseSel(s){const cur=staffBase(s);if(POSTS[s.post].office)return `<p class="base">📍 Bertugas di ${ROOMT.pejabat.icon} Pejabat</p>`;const opts=baseOpts(s).filter(t=>roomBuilt(t));
+  return `<label class="base" for="base_${s.id}">📍 Bertugas di <select id="base_${s.id}" data-base="${s.id}">${opts.map(t=>`<option value="${t}" ${t===cur?'selected':''}>${ROOMT[t].icon} ${esc(LOTSN[t]||ROOMT[t].n)}</option>`).join('')}</select></label>`;}
 function renderStaff(){const b=$('#mgB');if(!b||!MG.open)return;
   const tot=K.staff.reduce((a,s)=>a+s.sal,0);
   let h=`<div class="wallet"><span>👥 ${K.staff.length}/${staffCap()} staf · gaji bulanan</span><b>${RM(tot)}</b></div><div class="tabs"><button data-t="jawatan" aria-pressed="${staffTab==='jawatan'}">📢 Jawatan</button><button data-t="staf" aria-pressed="${staffTab==='staf'}">🧑‍🔬 Staf anda</button></div>`;
   if(!K.unlocked)h+=`<div class="fb warn"><div>🔒 Minggu pertama anda bekerja seorang diri. Butang 📢 Iklan jawatan dibuka selepas taklimat Pengarah pada Isnin minggu ke-2 (${lockLeft()}).</div></div>`;
-  if(staffTab==='jawatan'){h+='<p class="note">Gaji permulaan terendah ikut Jadual Gaji SSPA: Gred 1 RM1,500, Gred 5 RM1,650, Gred 9 RM2,250, Pegawai Veterinar GV9 RM2,910. Kelayakan lebih tinggi dapat gaji lebih (anggaran permainan). Staf bekerja sendiri ikut job scope. Kapasiti staf bertambah bila lebih banyak bilik dibina.</p><div class="pcards">';
+  if(staffTab==='jawatan'){h+='<p class="note">Gaji permulaan terendah ikut Jadual Gaji SSPA: Gred 1 RM1,500, Gred 5 RM1,650, Gred 9 RM2,250, Pegawai Veterinar GV9 RM2,910. Kelayakan lebih tinggi dapat gaji lebih (anggaran permainan). Staf bekerja sendiri ikut job scope dan tunggu di makmal masing-masing bila tiada kerja. Kapasiti staf bertambah bila lebih banyak bilik dibina.</p><div class="pcards">';
     for(const p in POSTS){const P_=POSTS[p];const n=staffCount(p);const lo=Math.min(...P_.quals.map(q=>q[1])),hi=Math.max(...P_.quals.map(q=>q[1]));const needOff=P_.office&&!roomBuilt('pejabat');
       const why=!K.unlocked?'':needOff?'Perlu Pejabat Pentadbiran':n>=P_.max?'Penuh':K.staff.length>=staffCap()?'Kapasiti staf penuh: bina bilik lagi':'';
       h+=`<div class="pcard"><div class="ih"><i>${P_.icon}</i><b>${esc(P_.n)} <span class="gr">${P_.g}</span></b></div><p class="mono">${lo===hi?RM(lo):`${RM(lo)} – ${RM(hi)}`} · ${P_.grp} · ${n}/${P_.max}</p><p>${esc(P_.scope)}</p>${!K.unlocked?'<button class="btn sm" disabled>🔒 Iklan jawatan · minggu ke-2</button>':why?`<button class="btn sm" disabled>📢 Iklan jawatan</button><span class="note">${esc(why)}</span>`:`<button class="btn sm" data-ad="${p}">📢 Iklan jawatan</button>`}<div class="cands" id="cd_${p}"></div></div>`;}
@@ -3682,12 +3701,13 @@ function renderStaff(){const b=$('#mgB');if(!b||!MG.open)return;
     for(const s of K.staff){const P_=POSTS[s.post];const jj=s.job&&G.tray.find(x=>x.uid===s.job);const cs=jj&&curStep(jj);
       h+=`<div class="scard"><div class="ih"><i>${P_.icon}</i><b>${esc(s.full)}</b></div><p class="mono">${esc(P_.n)} ${P_.g} · ${RM(s.sal)}/bulan</p><p>${esc(s.qual)}</p>
       <div class="bars"><span>Kemahiran</span><div class="meter"><i style="width:${s.skill*100}%"></i></div><span>Semangat</span><div class="meter ${s.morale<35?'low':''}"><i style="width:${s.morale}%"></i></div></div>
-      <p class="note">${esc(ST_TXT[s.st]||s.st)}${cs?': '+esc(cs.label):''} · ${s.done} tugasan siap</p><button class="btn ghost sm" data-fire="${s.id}">Tamatkan perkhidmatan</button></div>`;}}
+      ${baseSel(s)}<p class="note">${esc(ST_TXT[s.st]||s.st)}${cs?': '+esc(cs.label):''} · ${s.done} tugasan siap</p><button class="btn ghost sm" data-fire="${s.id}">Tamatkan perkhidmatan</button></div>`;}}
   b.innerHTML=h;
   $$('.tabs button',b).forEach(x=>x.onclick=()=>{staffTab=x.dataset.t;SFX.tap();renderStaff();});
   $$('[data-ad]',b).forEach(x=>x.onclick=()=>{const p=x.dataset.ad;SFX.tap();if(!ksCand[p]||ksCand[p].day!==kDay(G.gameMin))ksCand[p]={day:kDay(G.gameMin),list:genCands(p)};const box_=$('#cd_'+p,b);
     box_.innerHTML=`<p class="note">Calon dari SPA (pilih seorang):</p>`+ksCand[p].list.map((c,i)=>`<div class="cand"><div><b>${c.g==='l'?'👨':'👩'} ${esc(c.full)}</b><span>${esc(c.qual)}</span><span class="mono">Gaji permulaan ${RM(c.sal)} · kemahiran ${Math.round(c.skill*100)}%</span></div><button class="btn sm ok" data-hire="${p}:${i}">Lantik</button></div>`).join('');
     $$('[data-hire]',box_).forEach(y=>y.onclick=()=>{const [pp,i]=y.dataset.hire.split(':');const c=ksCand[pp].list[+i];if(!c)return;hire(pp,c);ksCand[pp].list.splice(+i,1);staffTab='staf';renderStaff();});});
+  $$('[data-base]',b).forEach(x=>x.onchange=()=>{const s=K.staff.find(y=>y.id===+x.dataset.base);if(!s)return;s.base=x.value;s.homeT=0;if(s.st==='idle')s.path=null;SFX.tap();toast(`📍 ${esc(s.nm)} kini bertugas di ${esc(LOTSN[s.base]||ROOMT[s.base].n)}`);ksSave();});
   $$('[data-fire]',b).forEach(x=>{let arm=false;x.onclick=()=>{if(!arm){arm=true;x.textContent='Tekan lagi untuk sahkan';return;}const id=+x.dataset.fire;const s=K.staff.find(y=>y.id===id);K.staff=K.staff.filter(y=>y.id!==id);for(const j of G.tray)if(j.by===id)j.by=null;dropStaffRig(id);kRep(-1);toast(`👋 ${esc(s.full)} tamat perkhidmatan`);renderStaff();};});}
 function openStaff(){openPanel('Staf seksyen','👥 Perjawatan SSPA','#2c6d75',()=>renderStaff());}
 function renderReport(){const b=$('#mgB');if(!b||!MG.open)return;const kp=K.m.ontime+K.m.late?K.m.ontime/(K.m.ontime+K.m.late):1;
