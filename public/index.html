@@ -639,6 +639,7 @@ table.res{border-collapse:collapse;width:100%;font-size:14px}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
 }
+.ks-link{font:700 14px var(--body);color:var(--accent);text-decoration:underline;text-underline-offset:3px;justify-self:start}
 </style>
 
 <canvas id="c" aria-label="Makmal VRI 3D"></canvas>
@@ -708,6 +709,7 @@ table.res{border-collapse:collapse;width:100%;font-size:14px}
     <div class="career" id="career"></div>
     <div class="menu-btns"><button class="btn big" id="bResumeWk" hidden></button><button class="btn big" id="bPlay" disabled>▶ Mula minggu</button><button class="btn ghost" id="bBook1">📖 Buku rujukan</button></div>
     <div class="menu-btns sub"><button class="btn ghost" id="bShop1">🛍️ Kedai &amp; avatar</button><button class="btn ghost" id="bRadio1">📻 Radio</button><button class="btn ghost" id="bAlbum1">📚 Album</button><button class="btn ghost" id="bLb1" hidden>🏆 Papan markah</button></div>
+    <a class="ks-link" id="wmKs" href="ketua/">👔 Baharu: Ketua Seksyen VRI · bina makmal, beli alat, lantik staf</a>
     <div class="online" id="mOnline" hidden></div>
     <div class="barcode" aria-hidden="true"></div>
     <div class="foot"><span id="loadNote">Memuatkan VRI 3D…</span><span>Garis panduan isu 3 · 27.01.2026</span></div>
@@ -3017,6 +3019,7 @@ $('#bToBrief').onclick=()=>{audio();persist();brief();show('sBrief');};
 $('#bBack2').onclick=()=>show('sSetup');
 $('#bStart').onclick=()=>{audio();startWeek();};
 const openBook=from=>{bookReturn=from;show('sBook');$('#sBook').scrollTop=0;};
+{const a=$('#wmKs');if(a&&!/workers\.dev$|^localhost$|^127\./.test(location.hostname)){a.href='https://wira-makmal-vri.gfcmail00.workers.dev/ketua/';a.target='_blank';a.rel='noopener';}}
 $('#bBook1').onclick=()=>openBook('sMenu');$('#bBook2').onclick=()=>openBook('sPause');$('#bBookX').onclick=()=>show(bookReturn);
 $('#bookCat').innerHTML=Object.entries(CAT).map(([key,c])=>`<tr><td>${SEC[c.sec].icon} ${SEC[c.sec].name}</td><td><b>${esc(c.dis)}</b><br>${esc(c.test)}</td><td>${esc(c.sample)}<br><i>${esc(c.min)}</i></td><td>${esc(c.temp)}</td><td>${esc(key==='bio'?'Glukosa < 4 jam · AST < 3 jam · Urea < 3 hari · TP < 6 hari':c.valid)}</td><td>${c.tat}</td><td class="mono">${formTxt(c)}</td></tr>`).join('');
 $('#bookHaemo').innerHTML=haemoStrip().replace(/^<div class="haemo">|<\/div>$/g,'');

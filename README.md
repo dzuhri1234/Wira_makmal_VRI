@@ -122,3 +122,16 @@ Lepas itu buka dalam pelayar (gantikan `LINK` dan `KATALALUAN`):
 - **Pelan percuma Cloudflare** cukup untuk satu jabatan: 100,000 request sehari. Seorang pemain guna lebih kurang
   250 request bagi setiap minggu game (10 minit).
 - Game ini sama dengan versi dalam Claude. Ia guna server ini secara automatik bila dibuka di link Cloudflare.
+
+## 👔 Ketua Seksyen VRI (game kedua)
+
+Link: `https://LINK/ketua/` (fail `public/ketua/index.html`). Ada juga pautan dari menu utama Wira Makmal.
+
+- **Minggu pertama:** anda seorang diri. Terima sampel, uji, sahkan laporan dan jaga TAT.
+- **Mulai minggu ke-2:** Pengarah luluskan RM60,000. Bina bilik (🏗️), beli alat untuk buka ujian baharu, dan lantik staf (👥).
+- **Staf bekerja sendiri** ikut job scope: Q9, GV9, G5, C5, C1, H1, N5, N1, W5.
+- **Duit:** caj ujian + peruntukan bulanan (ikut KPI TAT, reputasi dan bilangan laporan) + geran sasaran.
+  Gaji Ketua Seksyen masuk dompet peribadi dan boleh disumbang ke bajet seksyen (📊 Laporan).
+- **Gaji staf:** gaji permulaan terendah ikut Jadual Gaji SSPA (Gred 1 RM1,500, Gred 5 RM1,650, Gred 9 RM2,250, GV9 RM2,910).
+  Kelayakan lebih tinggi dan harga alat/caj ujian ialah anggaran permainan.
+- Kemajuan disimpan dalam pelayar (berasingan daripada simpanan Wira Makmal). Tetapan bunyi, suara dan watak dikongsi.
